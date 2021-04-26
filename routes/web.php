@@ -26,14 +26,10 @@ Route::get('/hola', function () {
 });
 
 
-Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+route::get('/altausuario','App\Http\Controllers\controllerUsuario@altaUsuario');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+route::post('/altaUsu','App\Http\Controllers\controladorBD@altaUsu');

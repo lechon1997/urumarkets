@@ -1,0 +1,36 @@
+.contenedor-clase{
+   width: 60%;
+   display: block;
+   height: auto;
+   margin:0 auto;
+   margin-top: 100px;
+   
+}
+
+.flex{
+    width: auto;
+    height: auto;
+    margin-bottom:14px;
+
+}
+
+.width80{
+    width:100px;
+
+}
+.width20{
+    width: 20%;
+    margin:auto 0;
+}
+
+.margin4{
+    margin-right: 4px;
+}
+
+.marginb{
+    margin-bottom: 12px;
+}
+
+.widthauto{
+    width: auto;
+}
