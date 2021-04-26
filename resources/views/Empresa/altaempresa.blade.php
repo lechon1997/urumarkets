@@ -1,1 +1,2 @@
-@extends('layouts.headerVisitante')
+@extends('layouts.headerVisitante');
+
