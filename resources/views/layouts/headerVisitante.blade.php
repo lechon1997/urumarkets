@@ -31,6 +31,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Inisiar Sesion</a>
           <a class="dropdown-item" href="#">Registrarse</a>
+        </div>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">

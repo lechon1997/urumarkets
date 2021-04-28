@@ -33,3 +33,5 @@ Auth::routes();
 route::get('/altausuario','App\Http\Controllers\controllerUsuario@altaUsuario');
 
 route::post('/altaUsu','App\Http\Controllers\controladorBD@altaUsu');
+
+route::post('/altaProducto','App\Http\Controllers\controllerPublicacion@altaProd');
