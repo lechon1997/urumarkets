@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/AltaEmpresa','App\Http\Controllers\ControllerEmpresa@altaempresa');
+route::post('/altaEmp','App\Http\Controllers\controladorBD@AltaEmpresaBD');
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +25,11 @@ Route::get('/hola', function () {
 });
 
 
-Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+route::get('/altausuario','App\Http\Controllers\controllerUsuario@altaUsuario');
+route::post('/altaUsu','App\Http\Controllers\controladorBD@altaUsu');
