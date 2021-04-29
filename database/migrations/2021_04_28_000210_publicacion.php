@@ -24,7 +24,6 @@ class Publicacion extends Migration
             $table->boolean('oferta');
             $table->integer('limitePorPersona');
             $table->string('foto');
-            $table->timestamps();
         });    
     }
 
