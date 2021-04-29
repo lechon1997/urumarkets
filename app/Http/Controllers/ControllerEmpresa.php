@@ -30,6 +30,36 @@ class ControllerEmpresa extends Controller
         //
     }
 
+        public function AltaEmpresaBD(Request $request){
+        $usuario = DB::table('usuario')->insert(array(
+            'nombre' => $request->input('pnombre'),
+            'apellido' => $request->input('papellido'),
+            'correo' => $request->input('email'),
+            'contrasenia' => $request->input('pass'),
+            'tipoDoc' => 'RUT',
+            'documento' => $request->input('Rut'),
+            'idDepartamento' => $request->input('Departamento'),
+            'idLocalidad' => $request->input('Localidad')
+        ));
+
+        $vendedor = DB::table('vendedor')->insert(array(
+            'nombreTienda' => $request->input('nombretienda'),
+            'tipoOrg' => $request->input('tipoOrg'),
+            'rubro' => $request->input('rubro'),
+            'telefono1' => $request->input('Telefono'),
+            'telefono2' => $request->input('Telefono 2'),
+            'celular1' => $request->input('Celular'),
+            'celular2' => $request->input('Celular 2'),
+            'segundoNombre' => $request->input('snombre'),
+            'segundoApellido' => $request->input('sapellido'),
+            'localidad' => $request->input('Localidad'),
+            'calle1' => $request->input('Calle'),
+            'numeroLocal' => $request->input('NumeroEmpresa'),
+            'descripcion' => $request->input('Descripcion')
+        ));
+        return redirect('/altaUsu');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
