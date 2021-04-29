@@ -43,6 +43,10 @@ class controllerUsuario extends Controller
         //
     }
 
+public function registrarse()
+    {
+        return view("Usuario.registrarse");
+    }
     /**
      * Display the specified resource.
      *

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Usuario;
+use App\Models\Vendedor;
 
 class ControllerEmpresa extends Controller
 {
@@ -30,36 +32,49 @@ class ControllerEmpresa extends Controller
         //
     }
 
-        public function AltaEmpresaBD(Request $request){
-        $usuario = DB::table('usuario')->insert(array(
-            'nombre' => $request->input('pnombre'),
-            'apellido' => $request->input('papellido'),
-            'correo' => $request->input('email'),
-            'contrasenia' => $request->input('pass'),
-            'tipoDoc' => 'RUT',
-            'documento' => $request->input('Rut'),
-            'idDepartamento' => $request->input('Departamento'),
-            'idLocalidad' => $request->input('Localidad')
-        ));
+    public function altaVendedor(Request $request){
+        /*$validator = Validator::make($request->all(), [
+        'titulo' => 'required|max:255',    
+        //'oferta' => 'required',
+        'tipoMoneda' => 'required',
+        'precioProducto' => 'required',
+        'descripcionProducto' => 'required|max:500'
+        ]);
 
-        $vendedor = DB::table('vendedor')->insert(array(
-            'nombreTienda' => $request->input('nombretienda'),
-            'tipoOrg' => $request->input('tipoOrg'),
-            'rubro' => $request->input('rubro'),
-            'telefono1' => $request->input('Telefono'),
-            'telefono2' => $request->input('Telefono 2'),
-            'celular1' => $request->input('Celular'),
-            'celular2' => $request->input('Celular 2'),
-            'segundoNombre' => $request->input('snombre'),
-            'segundoApellido' => $request->input('sapellido'),
-            'localidad' => $request->input('Localidad'),
-            'calle1' => $request->input('Calle'),
-            'numeroLocal' => $request->input('NumeroEmpresa'),
-            'descripcion' => $request->input('Descripcion')
-        ));
-        return redirect('/altaUsu');
+        if ($validator->fails()) {
+        return redirect('/')
+            ->withInput()
+            ->withErrors($validator);
+        }*/
+
+        $usuario = new Usuario;
+        $usuario->primerNombre = $request->pnombre;
+        $usuario->segundoNombre = $request->snombre;
+        $usuario->primerApellido = $request->papellido;
+        $usuario->segundoApellido = $request->sapellido;
+        $usuario->contrasenia = $request->pass;
+        $usuario->cedula = $request->cedula;
+        $usuario->email = $request->email;
+        $usuario->telefono = $request->telefono;
+        $usuario->idDepartamento = $request->Departamento;
+        $usuario->idLocalidad = 1; // localidad falta
+        $usuario->save();
+
+        $vendedor = new Vendedor;
+        $vendedor->RUT = $request->Rut;
+        $vendedor->razonSocial = $request->razonsocial;
+        $vendedor->nombreFantasia = $request->nombrefantasia;
+        $vendedor->tipoOrganizacion = $request->tipoOrg;
+        $vendedor->rubro = $request->rubro;
+        $vendedor->telefonoEmpresa = $request->telefonoEmpresa;
+        $vendedor->direccion = $request->direccion;
+        $vendedor->descripcion = $request->Descripcion;
+        
+        $usuario->vendedores()->save($vendedor);
+   
+        return redirect('/index');
+
     }
-
     /**
      * Store a newly created resource in storage.
      *

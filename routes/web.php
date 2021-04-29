@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/AltaEmpresa','App\Http\Controllers\ControllerEmpresa@altaempresa');
-route::post('/altaEmp','App\Http\Controllers\controladorBD@AltaEmpresaBD');
+route::post('/altaVendedor','App\Http\Controllers\ControllerEmpresa@altaVendedor');
 
 Route::get('/altaProducto','App\Http\Controllers\controllerProducto@altaProducto');
 
@@ -36,3 +36,12 @@ route::get('/altausuario','App\Http\Controllers\controllerUsuario@altaUsuario');
 route::post('/altaUsu','App\Http\Controllers\controladorBD@altaUsu');
 
 route::post('/altaProducto','App\Http\Controllers\controllerPublicacion@altaProd');
+
+route::get('/listar_localidades','App\Http\Controllers\controladorBD@listarLocalidades');
+
+route::get('/index', function(){
+	return view('index');
+});
+
+
+route::get('/registrarse','App\Http\Controllers\controllerUsuario@registrarse');

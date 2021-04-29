@@ -15,7 +15,7 @@ class Vendedor extends Migration
     {
         Schema::create('vendedor', function (Blueprint $table) {
             $table->integer('id_vendedor')->autoIncrement();
-            $table->integer('id_usuario');
+            $table->integer('usuario_id');
             $table->string('RUT');
             $table->unique('RUT', 'unique_RUT');
             $table->string('razonSocial');
@@ -25,7 +25,7 @@ class Vendedor extends Migration
             $table->string('telefonoEmpresa');
             $table->string('direccion');
             $table->string('descripcion');
-            $table->foreign('id_usuario')->references('id')->on('usuario');
+            $table->foreign('usuario_id')->references('id')->on('usuario');
             
         });
     }

@@ -9,7 +9,7 @@ class Departamento extends Model
 {
     use HasFactory;
 
-     public function usuarios(){
-  		return $this->hasMany(Usuario::class);
+     public function localidades(){
+  		return $this->hasMany(Localidad::class);
 	}
 }
