@@ -26,7 +26,7 @@
           Ingresar
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Inisiar Sesion</a>
+          <a class="dropdown-item" href="loginUsuario">Iniciar Sesion</a>
           <a class="dropdown-item" href="registrarse">Registrarse</a>
         </div>
       </li>

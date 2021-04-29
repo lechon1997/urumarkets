@@ -43,5 +43,8 @@ route::get('/index', function(){
 	return view('index');
 });
 
+route::get('/loginUsuario', function(){
+	return view('login');
+});
 
 route::get('/registrarse','App\Http\Controllers\controllerUsuario@registrarse');
