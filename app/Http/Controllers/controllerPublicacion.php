@@ -12,7 +12,7 @@ class controllerPublicacion extends Controller
 {
 
     public function altaProd(Request $request){
-        $validator = Validator::make($request->all(), [
+        /*$validator = Validator::make($request->all(), [
         'titulo' => 'required|max:255',    
         //'oferta' => 'required',
         'tipoMoneda' => 'required',
@@ -24,7 +24,7 @@ class controllerPublicacion extends Controller
         return redirect('/')
             ->withInput()
             ->withErrors($validator);
-    	}
+    	}*/
 
     	$publicacion = new Publicacion;
     	$publicacion->titulo = $request->nombreProducto;
@@ -42,10 +42,9 @@ class controllerPublicacion extends Controller
     	$producto = new Producto;
     	$producto->stock = 10;
 
-    	$publicacion->producto()->save($producto);
-
-    
-        //return redirect('/altaProducto');
+    	$publicacion->productos()->save($producto);
+   
+        return redirect('/altaProducto');
 
     }
 

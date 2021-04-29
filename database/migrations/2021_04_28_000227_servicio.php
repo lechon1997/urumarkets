@@ -15,8 +15,8 @@ class Servicio extends Migration
     {
         Schema::create('servicio', function (Blueprint $table) {
             $table->integer('servicio_id')->autoIncrement();
-            $table->foreign('servicio_id')->references('id')->on('publicacion');
-            $table->timestamps();
+            $table->integer('publicacion_id');
+            $table->foreign('publicacion_id')->references('id')->on('publicacion');           
         });
     }
 

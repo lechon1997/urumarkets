@@ -16,8 +16,8 @@ class Producto extends Migration
         Schema::create('producto', function (Blueprint $table) {
             $table->integer('producto_id')->autoIncrement();
             $table->integer('stock');
-            $table->foreign('producto_id')->references('id')->on('publicacion');
-            $table->timestamps();
+            $table->integer('publicacion_id');
+            $table->foreign('publicacion_id')->references('id')->on('publicacion');
         });
     }
 
