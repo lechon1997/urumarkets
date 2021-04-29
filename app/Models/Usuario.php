@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Usuario extends Model
 {
-    use HasFactory;
+
+	use HasFactory;
+	protected $table = 'usuario';
+    public $timestamps = false;
 
     public function clientes(){
   		return $this->hasMany(Cliente::class);
