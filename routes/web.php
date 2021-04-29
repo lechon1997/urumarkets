@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/AltaEmpresa','App\Http\Controllers\ControllerEmpresa@altaempresa');
 route::post('/altaEmp','App\Http\Controllers\controladorBD@AltaEmpresaBD');
 
+Route::get('/altaProducto','App\Http\Controllers\controllerProducto@altaProducto');
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -27,9 +29,10 @@ Route::get('/hola', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Auth::routes();
 
 route::get('/altausuario','App\Http\Controllers\controllerUsuario@altaUsuario');
+
 route::post('/altaUsu','App\Http\Controllers\controladorBD@altaUsu');
+
+route::post('/altaProducto','App\Http\Controllers\controllerPublicacion@altaProd');
