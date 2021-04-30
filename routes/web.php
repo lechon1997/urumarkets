@@ -35,3 +35,7 @@ route::get('/altausuario','App\Http\Controllers\controllerUsuario@altaUsuario');
 route::post('/altaUsu','App\Http\Controllers\controladorBD@altaUsu');
 
 route::post('/altaProducto','App\Http\Controllers\controllerPublicacion@altaProd');
+
+route::get('/pija','App\Http\Controllers\controllerPublicacion@listarProductos');
+
+route::get('/listarProductos','App\Http\Controllers\controllerPublicacion@listarProductos');
