@@ -2,7 +2,8 @@
 <html>
 <head>
   @include('layouts.headerVisitante')
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="{{ asset('js/app.js') }}"></script>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <title>Alta Empresa</title>
 </head>
 <body>
@@ -195,6 +196,11 @@
     });
 
   }
+  function limpiar_select_localidades() {
+            $('#shrekisstrong')
+                .empty()
+                .append('<option selected="selected">Seleccion su Localidad</option>');
+        }
   $("#shrekislife").on("click", listarLocalidades);
 </script>
 </body>

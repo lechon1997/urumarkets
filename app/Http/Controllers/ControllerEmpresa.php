@@ -57,7 +57,7 @@ class ControllerEmpresa extends Controller
         $usuario->email = $request->email;
         $usuario->telefono = $request->telefono;
         $usuario->idDepartamento = $request->Departamento;
-        $usuario->idLocalidad = 1; // localidad falta
+        $usuario->idLocalidad = $request->localidad; // localidad falta
         $usuario->save();
 
         $vendedor = new Vendedor;
