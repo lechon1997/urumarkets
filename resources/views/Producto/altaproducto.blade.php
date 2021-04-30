@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">	
+<html lang="es">	
 	<head>
-		<link rel="stylesheet" href="../css/controllerProducto/altaProducto.css">
-		
+		<link rel="stylesheet" href="../css/controllerProducto/altaProducto.css">		
 		<script src="../js/controllerProducto/altaProducto.js"></script>
 	</head>	
 	<body>
 		@include('layouts.headerVisitante')
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<form action="altaProducto" method="POST">
 			{{ csrf_field()}}
 			<div class="form-group">
@@ -24,7 +24,16 @@
 						<textarea class="form-control" aria-label="Descripción" id="descripcionProducto" name="descripcionProducto" placeholder="1kg de milanesa"></textarea>
 					</div>
 				</div>
-			</div>	
+			</div>
+			<div class="form-group">
+				<div class="col-2">
+					<label for ="checkboxTienePrecio" >¿El producto tendrá precio?</label>
+						<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="custom-control-input" id="checkboxTienePrecio" name="checkboxTienePrecio" >
+						<label class="custom-control-label" for="checkboxTienePrecio">Si - No</label>
+					</div>
+				</div>
+			</div>
 			<div class="form-group row">
 				<div class="col-2 tipoMP">
 					<label for ="tipoMoneda" >Tipo de moneda:</label>		
@@ -35,41 +44,104 @@
 				</div>
 				<div class="col-2">
 					<label for="precioProducto">Precio del producto</label>
-					<input class="form-control" id="precioProducto" name="precioProducto" type="text">
+					<input class="form-control" id="precioProducto" name="precioProducto" type="number">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-2">
 					<label for="customCheck1">Se encuentra en oferta</label>
 					<div class="custom-control custom-checkbox">
-						<input type="checkbox" class="custom-control-input" id="checkboxOferta" name="checkboxOferta" >
-						<label class="custom-control-label" for="checkboxOferta">Si / No</label>
+						<input type="checkbox" class="custom-control-input" checked="" id="checkboxOferta" name="checkboxOferta" >
+						<label class="custom-control-label" for="checkboxOferta">Si - No</label>
 					</div>
+				</div>			
+			</div>
+			<div class="form-group">
+				<div class="col-2">
+					<label for="estadoProducto">Estado del producto</label>
+					<select class="custom-select" id="estadoProducto" name="estadoProducto">
+						<option selected value="Activo">Activo</option>
+						<option value="Pendiente">Pendiente</option>
+						<option value="Inactivo">Inactivo</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-2">
+					<label for="stockProducto">Stock</label>
+					<input class="form-control" id="stockProducto" name="stockProducto" type="number">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-2">
+					<label for="productosPorPersona">Límite de productos por persona</label>
+					<input class="form-control" id="productosPorPersona" name="productosPorPersona" type="number">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-2">	
+				<label>Foto del producto</label>				
 					<div class="custom-file">
 		  				<input type="file" class="custom-file-input" id="customFileLang" lang="es" onchange="preview_image(event)">
 		  				<label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
+		  			</div>
 		  				<br>
 		  				<br>
 		  				<img id="output_image" height=200px width=200px\>
-					</div>
 				</div>
-			</div>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-
-			<div class="form-group">
-				<div class="col-2">
-					<button type="submit" class="btn btn-primary" >Crear producto</button>
+				<div class="form-group boton">						
+					<button id= "validar" type="submit" class="btn btn-primary">Crear producto</button>
 				</div>
-			</div>
-			
+			</div>		
 		</form>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#checkboxTienePrecio").prop("checked", true);
+			});
+
+			function estaChequeado(){
+				if (document.getElementById('checkboxTienePrecio').checked){
+					$("#tipoMoneda").removeAttr('disabled');
+					$("#precioProducto").removeAttr('disabled');			
+				}else{
+					$("#tipoMoneda").prop('disabled', true);
+					$("#precioProducto").prop('disabled', true);	
+				}
+			}
+			$("#checkboxTienePrecio").on("click", estaChequeado);
+
+			function validarInputs(){
+				var nombreProducto = $('#nombreProducto').val();
+				var descripcionProducto = $('#descripcionProducto').val();
+				var tienePrecio = $('#checkboxTienePrecio').is(':checked');
+    			//var tipoMoneda = $("#tipoMoneda").val();
+    			var precioProducto = $("#precioProducto").val();
+			    //var enOferta = $('#checkboxOferta').is(':checked');
+			    //var estadoProducto = $('#estadoProducto').val();
+			    var limitePorPersona = $('#limitePorPersona').val();
+			    var stock = $("#stockProducto").val();
+
+			    if(nombreProducto == ""){
+			    	alert("Debe ingresar el nombre del producto");
+			    	return false;
+			    }else if(descripcionProducto == ""){
+			    	alert("Debe ingresar la descripción del producto");
+			    	return false;
+			    }else if(tienePrecio){
+			    	if(precioProducto == ""){
+			    		alert("Debe ingresar el precio del producto");
+			    		return false;
+			    	}			
+			    }else if(limitePorPersona == ""){
+			    	alert("Debe ingresar el limite por persona del producto");
+			    	return false;
+			    }else if(stock == ""){
+			    	alert("Debe ingresar el stock del producto");
+			    	return false;
+			    }  		
+			}
+				$("#validar").on("click", validarInputs);
+		</script>
     </body>
 </html>

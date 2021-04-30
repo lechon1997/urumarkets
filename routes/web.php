@@ -26,6 +26,14 @@ Route::get('/hola', function () {
     return "hola";
 });
 
+route::get('/index', function(){
+	return view('index');
+});
+
+route::get('/loginUsuario', function(){
+	return view('login');
+});
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -37,14 +45,8 @@ route::post('/altaUsu','App\Http\Controllers\controladorBD@altaUsu');
 
 route::post('/altaProducto','App\Http\Controllers\controllerPublicacion@altaProd');
 
-route::get('/listar_localidades','App\Http\Controllers\controladorBD@listarLocalidades');
-
-route::get('/index', function(){
-	return view('index');
-});
-
-route::get('/loginUsuario', function(){
-	return view('login');
-});
-
 route::get('/registrarse','App\Http\Controllers\controllerUsuario@registrarse');
+
+route::get('/listarProductos','App\Http\Controllers\controllerPublicacion@listarProductos');
+
+route::get('/listar_localidades','App\Http\Controllers\controladorBD@listarLocalidades');
