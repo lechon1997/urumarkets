@@ -15,8 +15,6 @@
         <form action="altaUsu" method="POST">
             {{ csrf_field()}}
 
-
-
             <div class="row mb-3">
                 <div class="col">
                     <label class="width20 margin4 marginb widthauto">Primer Nombre</label>
@@ -104,6 +102,7 @@
             <h2 id='result' class="h5 Danger link"></h2>
             </br>
             </br>
+            
             <button class="btn btn-primary" id="validate" type="submit">Registrarme</button>
         </form>
 

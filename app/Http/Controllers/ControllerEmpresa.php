@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Usuario;
+use App\Models\Vendedor;
 
 class ControllerEmpresa extends Controller
 {
@@ -30,6 +32,49 @@ class ControllerEmpresa extends Controller
         //
     }
 
+    public function altaVendedor(Request $request){
+        /*$validator = Validator::make($request->all(), [
+        'titulo' => 'required|max:255',    
+        //'oferta' => 'required',
+        'tipoMoneda' => 'required',
+        'precioProducto' => 'required',
+        'descripcionProducto' => 'required|max:500'
+        ]);
+
+        if ($validator->fails()) {
+        return redirect('/')
+            ->withInput()
+            ->withErrors($validator);
+        }*/
+
+        $usuario = new Usuario;
+        $usuario->primerNombre = $request->pnombre;
+        $usuario->segundoNombre = $request->snombre;
+        $usuario->primerApellido = $request->papellido;
+        $usuario->segundoApellido = $request->sapellido;
+        $usuario->contrasenia = $request->pass;
+        $usuario->cedula = $request->cedula;
+        $usuario->email = $request->email;
+        $usuario->telefono = $request->telefono;
+        $usuario->idDepartamento = $request->Departamento;
+        $usuario->idLocalidad = 1; // localidad falta
+        $usuario->save();
+
+        $vendedor = new Vendedor;
+        $vendedor->RUT = $request->Rut;
+        $vendedor->razonSocial = $request->razonsocial;
+        $vendedor->nombreFantasia = $request->nombrefantasia;
+        $vendedor->tipoOrganizacion = $request->tipoOrg;
+        $vendedor->rubro = $request->rubro;
+        $vendedor->telefonoEmpresa = $request->telefonoEmpresa;
+        $vendedor->direccion = $request->direccion;
+        $vendedor->descripcion = $request->Descripcion;
+        
+        $usuario->vendedores()->save($vendedor);
+   
+        return redirect('/index');
+
+    }
     /**
      * Store a newly created resource in storage.
      *

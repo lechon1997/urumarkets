@@ -16,21 +16,18 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="index">Inicio <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="#">Ofertas <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Carrito <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Ingresar
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Inisiar Sesion</a>
-          <a class="dropdown-item" href="#">Registrarse</a>
+          <a class="dropdown-item" href="loginUsuario">Iniciar Sesion</a>
+          <a class="dropdown-item" href="registrarse">Registrarse</a>
         </div>
       </li>
     </ul>

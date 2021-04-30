@@ -3,7 +3,7 @@
 <head>
   @include('layouts.headerVisitante')
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <title>Alta Empresa</title>
+  <title>Edit Empresa</title>
 </head>
 <body>
   <form action="altaVendedor" method="POST" style="width: 500px;margin-left: auto;
