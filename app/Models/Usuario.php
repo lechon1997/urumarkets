@@ -23,4 +23,8 @@ class Usuario extends Model
   		return $this->hasOne(Localidad::class);
 	}
 
+  public function publicaciones(){
+    return $this->hasMany(Publicacion::class);
+  }
+
 }

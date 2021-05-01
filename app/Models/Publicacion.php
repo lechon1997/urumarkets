@@ -19,4 +19,8 @@ class Publicacion extends Model
   		return $this->hasMany(Servicio::class);
 	}
 
+	public function Usuario(){
+		return $tihs->hasOne(Usuario::class);
+	}
+
 }

@@ -52,6 +52,7 @@ class controllerPublicacion extends Controller
         $publicacion->estado = $request->estadoProducto;
     	$publicacion->limitePorPersona = $request->productosPorPersona;
     	$publicacion->foto = "prueba";
+        $publicacion->usuario_id = 1;
 
         //Inserto la publicación a la base de datos.
     	$publicacion->save();
@@ -64,14 +65,5 @@ class controllerPublicacion extends Controller
         return redirect('/altaProducto');
 
     }
-
-    public function listarProductos(){
-        $producto = Publicacion::select('publicacion.*', 'producto.stock')
-                                ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
-                                //->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
-                                ->get();
-        return $producto;
-    }
-
 
 }

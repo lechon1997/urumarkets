@@ -21,6 +21,18 @@ class controllerProducto extends Controller
         return view("Producto.altaProducto");
     }
 
+    public function listarProductos(){
+        return view("Producto.listarproductos");
+    }
+
+    public function listaP(){
+        $producto = Publicacion::select('publicacion.*', 'producto.stock')
+                                ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                                ->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
+                                ->get();
+        return $producto;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
