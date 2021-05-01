@@ -41,7 +41,6 @@ route::get('/altausuario','App\Http\Controllers\controllerUsuario@altaUsuario');
 
 route::post('/altaProducto','App\Http\Controllers\controllerPublicacion@altaProd');
 
-
 route::get('modificarUsuario','App\Http\Controllers\controllerUsuario@actualizarDatosUsuario');
 route::post('/altaUsu','App\Http\Controllers\controladorBD@altaUsu');
 route::post('/modificarUsu','App\Http\Controllers\controladorBD@actualizarDatosUsuario');
