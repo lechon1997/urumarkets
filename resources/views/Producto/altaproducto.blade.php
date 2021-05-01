@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">	
 	<head>
+		<script src="{{ asset('js/app.js') }}"></script>
+    	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="../css/controllerProducto/altaProducto.css">		
 		<script src="../js/controllerProducto/altaProducto.js"></script>
 	</head>	

@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/AltaEmpresa','App\Http\Controllers\ControllerEmpresa@altaempresa');
-route::post('/altaVendedor','App\Http\Controllers\ControllerEmpresa@altaVendedor');
-
-Route::get('/altaProducto','App\Http\Controllers\controllerProducto@altaProducto');
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -34,19 +29,17 @@ route::get('/loginUsuario', function(){
 	return view('login');
 });
 
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
+Route::get('/modificarProducto/{idProducto}', 'App\Http\Controllers\controllerProducto@modificarProducto');
+Route::get('/AltaEmpresa','App\Http\Controllers\ControllerEmpresa@altaempresa');
+route::post('/altaVendedor','App\Http\Controllers\ControllerEmpresa@altaVendedor');
+Route::get('/altaProducto','App\Http\Controllers\controllerProducto@altaProducto');
 route::get('/altausuario','App\Http\Controllers\controllerUsuario@altaUsuario');
-
-route::post('/altaUsu','App\Http\Controllers\controladorBD@altaUsu');
-
 route::post('/altaProducto','App\Http\Controllers\controllerPublicacion@altaProd');
-
-route::get('/registrarse','App\Http\Controllers\controllerUsuario@registrarse');
-
 route::get('/listarProductos','App\Http\Controllers\controllerProducto@listarProductos');
-
 route::get('/listar_localidades','App\Http\Controllers\controladorBD@listarLocalidades');
+route::get('modificarUsuario','App\Http\Controllers\controllerUsuario@actualizarDatosUsuario');
+route::post('/altaUsu','App\Http\Controllers\controladorBD@altaUsu');
+route::post('/modificarUsu','App\Http\Controllers\controladorBD@actualizarDatosUsuario');
+route::get('/registrarse','App\Http\Controllers\controllerUsuario@registrarse');
+route::get('/listarProductos','App\Http\Controllers\controllerProducto@listarProductos');
+route::get('/listar_productos','App\Http\Controllers\controllerProducto@listaP');

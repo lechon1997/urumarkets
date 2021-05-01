@@ -44,3 +44,28 @@
   margin-top: 50px; 
   margin-bottom: 50px;
 }
+
+.conbr{
+  width: 100%;
+}
+
+.leogarca{
+  width: 15%;
+  justify-content: space-between;
+  flex-direction: column-reverse;
+  display: flex;
+}
+
+.ancho100{
+  display: flex;
+  width: 100%;
+}
+
+.leoputo{
+  width: 85%;
+}
+
+.leogarca .somosHerederos{
+  justify-content: flex-end;
+  
+}

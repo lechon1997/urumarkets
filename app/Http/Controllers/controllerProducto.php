@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\Publicacion;
 
 class controllerProducto extends Controller
 {
@@ -25,10 +26,14 @@ class controllerProducto extends Controller
         return view("Producto.listarproductos");
     }
 
+    public function modificarProducto(){
+        return view("Producto.modificarProducto");
+    }
+
     public function listaP(){
         $producto = Publicacion::select('publicacion.*', 'producto.stock')
                                 ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
-                                ->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
+                                //->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
                                 ->get();
         return $producto;
     }

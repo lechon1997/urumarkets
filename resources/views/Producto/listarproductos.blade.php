@@ -1,30 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">	
 	<head>
+		<script src="{{ asset('js/app.js') }}"></script>
+    	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="../css/controllerProducto/listarProductos.css">		
 		<script src="../js/controllerProducto/altaProducto.js"></script>
 	</head>
 	
 	<body>
 	@include('layouts.headerVisitante')	
-	<div class = "centro">	
-		<button class="accordion">Section 1</button>
-			<div class="panel">
-  				<p>Lorem ipsum...</p>
-			</div>
-		<button class="accordion">Section 2</button>
-			<div class="panel">
-			  	<p>Lorem ipsum...</p>
-			</div>
-		<button class="accordion">Section 3</button>
-			<div class="panel">
-			  	<p>Lorem ipsum...</p>
-			</div>
+	<div class = "centro" id="pija">	
+
 	</div>
 
 
 	<script type="text/javascript">
-		var acc = document.getElementsByClassName("accordion");
+		
+	$(document).ready(function(){
+			$.ajax({
+				url: "http://localhost/urumarkets/public/listar_productos",
+		    	dataType: "json",
+		    	method: "GET",
+		    	async:false,
+		     	success: function(res) {
+		     		console.log(res);
+		     		var elemento;
+		     		var cant = Object.keys(res).length;
+		     		for (var i = 0; i < cant; i++){
+		     			var br = $('<br/>');
+
+		     			//Botón desplegable
+		     			var button = $('<button>').attr("class", "accordion")
+		     									  .attr("type", "button")
+		     									  .attr("value", res[i].id).text(res[i].titulo);
+		     			$("#pija").append(button);
+
+		     			//Div contenedor de otro div
+		     			var divContenedorDeOtroDiv = $('<div>').attr("class", "panel ancho100");
+		     			$("#pija").append(divContenedorDeOtroDiv);
+
+		     			//Div donde va a estar todo el contenido del producto.
+		     			var div = $('<div>').attr("class", "leoputo");
+		     			divContenedorDeOtroDiv.append(div);
+
+		     			//Labels con los datos del producto.
+		     			//Descripción del producto.
+		     			var label1 = $('<label>').attr("id", "descripcionProducto"+res[i].id)
+		     									 .attr("class", "conbr");
+		     			label1.text("Descripción del producto: " + res[i].descripcion);     				     			
+		     			div.append(label1);		     			
+	
+		     			//Precio del producto.
+		     			var label2 = $('<label>').attr("id", "precioProducto"+res[i].id)
+		     									 .attr("class", "conbr");
+		     			label2.text("Precio del producto: " + res[i].precio);
+		     			div.append(label2);
+
+		     			//Tipo de moneda.
+		     			var label3 = $('<label>').attr("id", "tipoMoneda"+res[i].id)
+		     									 .attr("class", "conbr");
+		     			label3.text("Tipo de moneda: " + res[i].tipoMoneda);
+		     			div.append(label3);
+
+		     			//Botoncito para modificar
+		     			var modificarProducto = $('<input>').attr("type", "button")
+		     												.attr("id", res[i].id)
+		     												.attr("value", "Modificar")
+		     												.attr("class", "btn btn-success mb-2 somosHerederos")
+		     												.attr("onclick","modificarProducto(this)");
+		     			var divBoton = $('<div>').attr("class","leogarca");
+		     			divBoton.append(modificarProducto);
+
+		     			divContenedorDeOtroDiv.append(divBoton);
+
+					}
+	        	}	    	
+	    	});		
+
+	    var acc = document.getElementsByClassName("accordion");
 		var i;
 
 		for (i = 0; i < acc.length; i++) {
@@ -39,23 +92,13 @@
 		  });
 		}
 
-	function listarProductitos(){
-		$.ajax(
-	    	{url: "/tip/framework/pelicula/agregar_lista/",
-	    	data: { id_pelicula: id_pelicula},
-	    	method: "GET",
-	     	dataType: "json", 
-	     	success: function(json) {
-	    		if(json.res==1){
-	    			//todo ok
-	    			alert(json.msj);
-	                //$('#idboton').val("Agregado");
-	    		}else{
-					alert(json.msj);
-	    		}
-	    	}
-    });
+	});
 
+		function modificarProducto(boton){
+			var idProducto = boton.id;
+			
+
+		}
 
 	</script>		 
     </body>
