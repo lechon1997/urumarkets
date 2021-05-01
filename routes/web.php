@@ -29,8 +29,11 @@ Route::get('/hola', function () {
 
 route::get('/altausuario','App\Http\Controllers\controllerUsuario@altaUsuario');
 
-route::post('/altaUsu','App\Http\Controllers\controladorBD@altaUsu');
 
 route::post('/altaProducto','App\Http\Controllers\controllerPublicacion@altaProd');
 
+//USUARIO
+route::get('modificarUsuario','App\Http\Controllers\controllerUsuario@actualizarDatosUsuario');
+route::post('/altaUsu','App\Http\Controllers\controladorBD@altaUsu');
+route::post('/modificarUsu','App\Http\Controllers\controladorBD@actualizarDatosUsuario');
 route::get('/listar_localidades','App\Http\Controllers\controladorBD@listarLocalidades');

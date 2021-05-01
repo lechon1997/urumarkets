@@ -7,7 +7,6 @@ use App\Models\Departamento;
 use App\Models\Localidad;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ControladorBD extends Controller
 {
@@ -52,6 +51,10 @@ class ControladorBD extends Controller
         return redirect('/AltaEmpresa');
     }
 
+    public static function altaUsuarioWs(Request $request){
+       // $this->altaUsu($request);
+    }
+
     private function departamentoValido($id)
     {
         $depa = Departamento::where('id',$id)->get();
@@ -67,5 +70,36 @@ class ControladorBD extends Controller
         
         $localidades = Localidad::where('idDepartamento',$idDepartamento)->get(['id','nombre']);
         return json_encode($localidades);
+    }
+
+    public function actualizarDatosUsuario(Request $request){
+        
+        //reemplazar con la variable globar session
+     
+        $nom = $request->input('nombre');
+        $nom2 = $request->input('nombre2');
+        $ape = $request->input('pApellido');
+        $ape2 = $request->input('apellido2');
+        $doc = $request->input('documento');
+        $telefono = $request->input('telefono');
+        $correo = $request->input('correoE');
+        $idD = $request->input('departamento');
+        $idL = $request->input('localidad');
+
+        $idUsu = 1;
+        $usua = Usuario::find($idUsu);
+
+        $usua->primerNombre = $nom;
+        $usua->segundoNombre = $nom2;
+        $usua->primerApellido = $ape;
+        $usua->segundoApellido = $ape2;
+        $usua->cedula = $doc;
+        $usua->email = $correo;
+        $usua->telefono = $telefono;
+        $usua->idDepartamento = $idD;
+        $usua->idLocalidad = $idL;
+        $usua->save();
+
+        return redirect('/AltaEmpresa');
     }
 }

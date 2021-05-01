@@ -22,6 +22,11 @@ class controllerUsuario extends Controller
         return view("Usuario.altaUsuario");
     }
 
+    public function actualizarDatosUsuario()
+    {
+        return view("Usuario.modificarUsuario");
+    }
+
     /**
      * Show the form for creating a new resource.
      *

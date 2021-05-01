@@ -15,8 +15,8 @@ class Cliente extends Migration
     {
         Schema::create('cliente', function (Blueprint $table) {
             $table->integer('id_cliente')->autoIncrement(); 
-            $table->integer('id_usuario'); 
-            $table->foreign('id_usuario')->references('id')->on('usuario');         
+            $table->integer('usuario_id'); 
+            $table->foreign('usuario_id')->references('id')->on('usuario');         
         });
     }
 
