@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="{{ asset('js/app.js') }}"></script>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-  <title>Alta Empresa</title>
+  @include('layouts.headerVisitante')
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <title>Edit Empresa</title>
 </head>
-@include('layouts.headerVisitante')
 <body>
   <form action="altaVendedor" method="POST" style="width: 500px;margin-left: auto;
   margin-right: auto;margin-top: 50px; margin-bottom: 50px;">
@@ -196,11 +195,6 @@
     });
 
   }
-  function limpiar_select_localidades() {
-            $('#shrekisstrong')
-                .empty()
-                .append('<option selected="selected">Seleccion su Localidad</option>');
-        }
   $("#shrekislife").on("click", listarLocalidades);
 </script>
 </body>

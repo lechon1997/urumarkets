@@ -7,7 +7,6 @@ use App\Models\Departamento;
 use App\Models\Localidad;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
-
 class ControladorBD extends Controller
 {
 
@@ -72,6 +71,7 @@ class ControladorBD extends Controller
         return json_encode($localidades);
     }
 
+
     public function actualizarDatosUsuario(Request $request){
         
         //reemplazar con la variable globar session
@@ -102,4 +102,6 @@ class ControladorBD extends Controller
 
         return redirect('/AltaEmpresa');
     }
+
+    
 }

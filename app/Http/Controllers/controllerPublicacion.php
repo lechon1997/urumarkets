@@ -28,24 +28,50 @@ class controllerPublicacion extends Controller
 
     	$publicacion = new Publicacion;
     	$publicacion->titulo = $request->nombreProducto;
-    	$publicacion->oferta = $request->oferta;
-    	$publicacion->tipoMoneda = $request->tipoMoneda;
-    	$publicacion->estado = 0;
-    	$publicacion->conPrecio = 0;
-    	$publicacion->oferta = 0;
-    	$publicacion->limitePorPersona = 10;
-    	$publicacion->foto = "pingo";
-    	$publicacion->precio = $request->precioProducto;
     	$publicacion->descripcion = $request->descripcionProducto;
+
+        //Si el checkbox está chequeado viene como "on"//
+        if($request->checkboxOferta == "on"){
+            $publicacion->oferta = 1;
+        }else{
+            $publicacion->oferta = 0;
+        }
+        
+        if($request->checkboxTienePrecio == "on"){
+            //Si el producto tiene precio entonces tomo los valores que vienen por parámetro.
+            $publicacion->conPrecio = 1;
+            $publicacion->tipoMoneda = $request->tipoMoneda;
+            $publicacion->precio = $request->precioProducto;
+        }else{
+            //Si el producto no tiene precio seteo los parametros a "".
+            $publicacion->conPrecio = 0;
+            $publicacion->tipoMoneda = "";
+            $publicacion->precio = 0;
+        }
+
+        $publicacion->estado = $request->estadoProducto;
+    	$publicacion->limitePorPersona = $request->productosPorPersona;
+    	$publicacion->foto = "prueba";
+
+        //Inserto la publicación a la base de datos.
     	$publicacion->save();
 
     	$producto = new Producto;
-    	$producto->stock = 10;
+    	$producto->stock = $request->stockProducto;
 
     	$publicacion->productos()->save($producto);
    
         return redirect('/altaProducto');
 
     }
+
+    public function listarProductos(){
+        $producto = Publicacion::select('publicacion.*', 'producto.stock')
+                                ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                                //->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
+                                ->get();
+        return $producto;
+    }
+
 
 }
