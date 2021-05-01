@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Departamento extends Model
 {
     use HasFactory;
+    protected $table = 'departamento';
+    public $timestamps = false;
 
      public function localidades(){
   		return $this->hasMany(Localidad::class);

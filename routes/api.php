@@ -22,3 +22,4 @@ Route::get('/test-api',function(){
 });
 
 Route::post('/saludar','App\Http\Controllers\ControladorWebServices@saludar');
+Route::post('/altaUsuws','App\Http\Controllers\ControladorWebServices@altaUsuws');

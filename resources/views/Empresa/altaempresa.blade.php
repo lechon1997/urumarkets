@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  @include('layouts.headerVisitante')
   <script src="{{ asset('js/app.js') }}"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <title>Alta Empresa</title>
 </head>
+@include('layouts.headerVisitante')
 <body>
   <form action="altaVendedor" method="POST" style="width: 500px;margin-left: auto;
   margin-right: auto;margin-top: 50px; margin-bottom: 50px;">
