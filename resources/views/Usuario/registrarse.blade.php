@@ -2,9 +2,11 @@
 <html>
 <head>
 	<title>Registrarse</title>
+	<script src="{{ asset('js/app.js') }}"></script>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	
 	@include('layouts.headerVisitante')
 	<div style="margin-top: 5%;
 	margin-left: 40%;">

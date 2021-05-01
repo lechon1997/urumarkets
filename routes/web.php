@@ -43,3 +43,4 @@ route::post('/modificarUsu','App\Http\Controllers\controladorBD@actualizarDatosU
 route::get('/registrarse','App\Http\Controllers\controllerUsuario@registrarse');
 route::get('/listarProductos','App\Http\Controllers\controllerProducto@listarProductos');
 route::get('/listar_productos','App\Http\Controllers\controllerProducto@listaP');
+route::post('/logear','App\Http\Controllers\ControladorLogin@authenticate');

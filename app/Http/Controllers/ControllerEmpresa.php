@@ -56,7 +56,7 @@ class ControllerEmpresa extends Controller
         $usuario->cedula = $request->cedula;
         $usuario->email = $request->email;
         $usuario->telefono = $request->telefono;
-        $usuario->idDepartamento = $request->Departamento;
+        $usuario->idDepartamento = $request ->Departamento;
         $usuario->idLocalidad = $request->localidad; // localidad falta
         $usuario->save();
 
