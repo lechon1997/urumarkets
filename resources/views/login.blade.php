@@ -2,6 +2,9 @@
 <html>
 <head>
     <title></title>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 <body>
 @include('layouts.headerVisitante')

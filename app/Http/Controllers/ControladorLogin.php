@@ -13,7 +13,6 @@ public function authenticate(Request $request)
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            echo 'console.log('caca1')';
             return redirect()->intended('index');
         }
 
