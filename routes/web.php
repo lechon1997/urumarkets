@@ -50,3 +50,6 @@ route::get('/registrarse','App\Http\Controllers\controllerUsuario@registrarse');
 route::get('/listarProductos','App\Http\Controllers\controllerPublicacion@listarProductos');
 
 route::get('/listar_localidades','App\Http\Controllers\controladorBD@listarLocalidades');
+
+route::post('/logear','App\Http\Controllers\ControladorLogin@authenticate');
+
