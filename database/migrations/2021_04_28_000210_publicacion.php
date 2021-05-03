@@ -15,6 +15,7 @@ class Publicacion extends Migration
     {
         Schema::create('publicacion', function (Blueprint $table) {
             $table->integer('id')->autoIncrement();
+            $table->integer('usuario_id');
             $table->string('titulo');
             $table->string('estado');
             $table->string('tipoMoneda');
@@ -24,6 +25,7 @@ class Publicacion extends Migration
             $table->boolean('oferta');
             $table->integer('limitePorPersona');
             $table->string('foto');
+            $table->foreign('usuario_id')->references('id')->on('usuario');
         });    
     }
 

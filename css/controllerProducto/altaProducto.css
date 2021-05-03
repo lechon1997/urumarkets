@@ -1,8 +1,31 @@
-.col-2.tipoMP {
-    padding-left: 30px;
+.tipoMP {
+    padding-left: 15px;   
 }
 
 .form-group.boton{
 	padding: 15px;
 }
 
+.centrado{
+	width: 40%;
+	margin-left: auto;
+  	margin-right: auto;
+  	margin-top: 50px; 
+  	margin-bottom: 50px;
+}
+
+#tipoMoneda{
+	width: 50%;
+}
+
+#precio{
+	padding-right: 35px;
+}
+
+#tipo{
+	width: 25%
+}
+
+.tamanio{
+	width: 40%;
+}
