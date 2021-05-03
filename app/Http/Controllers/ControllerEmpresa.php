@@ -22,6 +22,21 @@ class ControllerEmpresa extends Controller
     public function AltaEmpresa(){
     	return view("Empresa.altaempresa");
     }
+
+    public function MostrarModEmpresa(){
+        $idUsu = 1;
+        $usuario = Usuario::find($idUsu);
+
+        $vendedor = Vendedor::select('vendedor.*')
+                            ->where('vendedor.usuario_id',$idUsu)
+                            ->first();
+        //echo $usuario;
+        //echo $vendedor;
+        return view("Empresa.modificarEmpresa")->with('vendedor',$vendedor)
+                                               ->with('usuario',$usuario);
+
+        //value="{{ $vendedor->razonSocial }}"
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -33,19 +48,6 @@ class ControllerEmpresa extends Controller
     }
 
     public function altaVendedor(Request $request){
-        /*$validator = Validator::make($request->all(), [
-        'titulo' => 'required|max:255',    
-        //'oferta' => 'required',
-        'tipoMoneda' => 'required',
-        'precioProducto' => 'required',
-        'descripcionProducto' => 'required|max:500'
-        ]);
-
-        if ($validator->fails()) {
-        return redirect('/')
-            ->withInput()
-            ->withErrors($validator);
-        }*/
 
         $usuario = new Usuario;
         $usuario->primerNombre = $request->pnombre;
@@ -57,7 +59,7 @@ class ControllerEmpresa extends Controller
         $usuario->email = $request->email;
         $usuario->telefono = $request->telefono;
         $usuario->idDepartamento = $request->Departamento;
-        $usuario->idLocalidad = $request->localidad; // localidad falta
+        $usuario->idLocalidad = $request->localidad; 
         $usuario->save();
 
         $vendedor = new Vendedor;
@@ -75,6 +77,39 @@ class ControllerEmpresa extends Controller
         return redirect('/index');
 
     }
+
+    public function ModificarEmpresa(Request $request)
+    {
+        $idUsu = 1;
+
+        $usuario = Usuario::find($idUsu);
+        $usuario->primerNombre = $request->pnombre;
+        $usuario->segundoNombre = $request->snombre;
+        $usuario->primerApellido = $request->papellido;
+        $usuario->segundoApellido = $request->sapellido;
+        $usuario->contrasenia = $request->pass;
+        $usuario->cedula = $request->cedula;
+        $usuario->email = $request->email;
+        $usuario->telefono = $request->telefono;
+        $usuario->idDepartamento = $request->Departamento;
+        $usuario->idLocalidad = $request->localidad;
+        $usuario->save();
+
+        $vendedor = Vendedor::find($idUsu);
+        $vendedor->RUT = $request->Rut;
+        $vendedor->razonSocial = $request->razonsocial;
+        $vendedor->nombreFantasia = $request->nombrefantasia;
+        $vendedor->tipoOrganizacion = $request->tipoOrg;
+        $vendedor->rubro = $request->rubro;
+        $vendedor->telefonoEmpresa = $request->telefonoEmpresa;
+        $vendedor->direccion = $request->direccion;
+        $vendedor->descripcion = $request->Descripcion;
+        $vendedor->save();
+
+        return redirect('/index');
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *

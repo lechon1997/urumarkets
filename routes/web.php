@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/AltaEmpresa','App\Http\Controllers\ControllerEmpresa@altaempresa');
 route::post('/altaVendedor','App\Http\Controllers\ControllerEmpresa@altaVendedor');
+route::get('/MostrarModEmpresa','App\Http\Controllers\ControllerEmpresa@MostrarModEmpresa');
+route::post('/ModificarEmpresa','App\Http\Controllers\ControllerEmpresa@ModificarEmpresa');
 
 Route::get('/altaProducto','App\Http\Controllers\controllerProducto@altaProducto');
 

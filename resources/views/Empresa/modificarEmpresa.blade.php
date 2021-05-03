@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  @include('layouts.headerVisitante')
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <title>Edit Empresa</title>
+  <script src="{{ asset('js/app.js') }}"></script>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <title>Alta Empresa</title>
 </head>
+@include('layouts.headerVisitante')
 <body>
-  <form action="altaVendedor" method="POST" style="width: 500px;margin-left: auto;
+  <form action="ModificarEmpresa" method="POST" style="width: 500px;margin-left: auto;
   margin-right: auto;margin-top: 50px; margin-bottom: 50px;">
 
   {{ csrf_field()}}
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Nombre</label>
-    <input type="text" class="form-control" id="Nombre" name="pnombre" placeholder="Nombre">
+    <input type="text" class="form-control" id="Nombre" name="pnombre"  value="{{ $usuario->primerNombre }}"  placeholder="Nombre">
   </div>
 
   <div class="form-group">
@@ -58,7 +59,7 @@
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Razon social</label>
-    <input type="text" class="form-control" id="razonsocial" name="razonsocial" placeholder="razon social">
+    <input type="text" class="form-control" id="razonsocial" name="razonsocial" value="{{ $vendedor->razonSocial }}" placeholder="razon social">
   </div>
 
   <div class="form-group">
@@ -68,7 +69,7 @@
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Rut</label>
-    <input type="text" class="form-control" id="Rut" name="Rut" placeholder="Rut">
+    <input type="text" class="form-control" id="Rut" name="Rut" value="{{ $vendedor->RUT }}" placeholder="Rut">
   </div>
 
   <div class="form-group">
@@ -195,6 +196,11 @@
     });
 
   }
+  function limpiar_select_localidades() {
+            $('#shrekisstrong')
+                .empty()
+                .append('<option selected="selected">Seleccion su Localidad</option>');
+        }
   $("#shrekislife").on("click", listarLocalidades);
 </script>
 </body>
