@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Vendedor;
+use Illuminate\Support\Facades\DB;
 
 class ControllerEmpresa extends Controller
 {
@@ -95,17 +96,17 @@ class ControllerEmpresa extends Controller
         $usuario->idLocalidad = $request->localidad;
         $usuario->save();
 
-        $vendedor = Vendedor::find($idUsu);
-        $vendedor->RUT = $request->Rut;
-        $vendedor->razonSocial = $request->razonsocial;
-        $vendedor->nombreFantasia = $request->nombrefantasia;
-        $vendedor->tipoOrganizacion = $request->tipoOrg;
-        $vendedor->rubro = $request->rubro;
-        $vendedor->telefonoEmpresa = $request->telefonoEmpresa;
-        $vendedor->direccion = $request->direccion;
-        $vendedor->descripcion = $request->Descripcion;
-        $vendedor->save();
-
+        $affected = DB::table('vendedor')
+              ->where('id_vendedor', 1)
+              ->update(['RUT' => $request->rut],
+                ['razonSocial' => $request->razonSocial],
+                ['nombreFantasia' => $request->nombreFantasia],
+                ['tipoOrganizacion' => $request->tipoOrganizacion],
+                ['rubro' => $request->rubro],
+                ['telefonoEmpresa' => $request->telefonoEmpresa],
+                ['direccion' => $request->direccion],
+                ['descripcion' => $request->descripcion]
+          );
         return redirect('/index');
     }
 
