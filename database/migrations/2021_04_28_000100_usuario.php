@@ -20,6 +20,7 @@ class Usuario extends Migration
             $table->string('primerApellido');
             $table->string('segundoApellido');
             $table->string('contrasenia');
+            $table->rememberToken();
             $table->string('cedula');
             $table->string('email');
             $table->unique('cedula', 'unique_cedula');

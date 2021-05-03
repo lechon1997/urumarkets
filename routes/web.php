@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,15 +22,6 @@ Route::get('/', function () {
 Route::get('/hola', function () {
     return "hola";
 });
-
-route::get('/index', function(){
-	return view('index');
-});
-
-route::get('/loginUsuario', function(){
-	return view('login');
-});
-
 Route::get('/modificarProducto/{idProducto}', 'App\Http\Controllers\controllerProducto@modificarProducto');
 Route::get('/AltaEmpresa','App\Http\Controllers\ControllerEmpresa@altaempresa');
 route::post('/altaVendedor','App\Http\Controllers\ControllerEmpresa@altaVendedor');
@@ -43,4 +36,27 @@ route::post('/modificarUsu','App\Http\Controllers\controladorBD@actualizarDatosU
 route::get('/registrarse','App\Http\Controllers\controllerUsuario@registrarse');
 route::get('/listarProductos','App\Http\Controllers\controllerProducto@listarProductos');
 route::get('/listar_productos','App\Http\Controllers\controllerProducto@listaP');
-route::post('/logear','App\Http\Controllers\ControladorLogin@authenticate');
+
+route::get('/index', function(){
+	return view('index');
+})->middleware('auth');
+
+route::get('/loginUsuario', function(){
+	return view('login');
+})->name('loginUsuario');
+
+
+
+route::post('/logear',function(){
+
+    $credenciales = request()->only('email','password');
+    if(Auth::attempt($credenciales,true)){
+        
+        request()->session()->regenerate();
+        return redirect('/index');
+
+    }
+
+        return redirect('/loginUsuario');
+    
+});

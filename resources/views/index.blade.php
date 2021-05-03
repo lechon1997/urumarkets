@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
 </head>
 <body>
     @include('layouts.headerVisitante')
-    INDEX
+   
 
     <div class="album py-5 bg-light">
     <div class="container">
