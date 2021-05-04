@@ -22,8 +22,7 @@
 		    	dataType: "json",
 		    	method: "GET",
 		    	async:false,
-		     	success: function(res) {
-		     		console.log(res);
+		     	success: function(res) {		     		
 		     		var elemento;
 		     		var cant = Object.keys(res).length;
 		     		for (var i = 0; i < cant; i++){
@@ -96,7 +95,7 @@
 
 		function modificarProducto(boton){
 			var idProducto = boton.id;
-			
+			window.location.href = "modificarProducto/id="+idProducto;
 
 		}
 

@@ -66,4 +66,13 @@ class controllerPublicacion extends Controller
 
     }
 
+    public function modificarProd(Request $request){
+        $publicacionID = $request->idPublicacion;
+        $productoID = $request->idProducto;
+
+        
+
+    }
+
+
 }
