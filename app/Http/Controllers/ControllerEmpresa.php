@@ -28,11 +28,9 @@ class ControllerEmpresa extends Controller
 
     public function MostrarModEmpresa(){
         $idUsu = Auth::id();
-        $usuario = Usuario::find($idUsu);
 
-        $vendedor = Vendedor::select('vendedor.*')
-                            ->where('vendedor.id',$idUsu)
-                            ->first();
+        $usuario = Usuario::find($idUsu);
+        $vendedor = Vendedor::find($idUsu);
         //echo $usuario;
         //echo $vendedor;
         return view("Empresa.modificarEmpresa")->with('vendedor',$vendedor)

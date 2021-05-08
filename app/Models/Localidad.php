@@ -10,11 +10,13 @@ class Localidad extends Model
     use HasFactory;
 	protected $table = 'localidad';
     public $timestamps = false;
+	protected $primaryKey = 'id';
+	
     public function usuarios(){
-  		return $this->hasMany(Usuario::class);
+  		return $this->hasMany(Usuario::class,'id');
 	}
 
 	public function Departamento(){
-  		return $this->hasOne(Departamento::class);
+  		return $this->hasOne(Departamento::class,'id');
 	}
 }

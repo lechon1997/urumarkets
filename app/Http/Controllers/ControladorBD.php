@@ -107,7 +107,7 @@ class ControladorBD extends Controller
         $idD = $request->input('departamento');
         $idL = $request->input('localidad');
 
-        $idUsu = 1;
+        $idUsu = Auth::id();
         $usua = Usuario::find($idUsu);
 
         $usua->primerNombre = $nom;
@@ -121,8 +121,6 @@ class ControladorBD extends Controller
         $usua->idLocalidad = $idL;
         $usua->save();
 
-
-
         return redirect('/AltaEmpresa');
     }
 
@@ -131,10 +129,10 @@ class ControladorBD extends Controller
         $credenciales = request()->only('email', 'password');
         if (Auth::attempt($credenciales)) {
 
-
-            return redirect()->route('/index');
+            request()->session()->regenerate();
+            return redirect('/index');
         }
 
-        return redirect('/AltaEmpresa');
+        return redirect('/loginUsuario');
     }
 }

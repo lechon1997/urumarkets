@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Usuario;
+use App\Models\Departamento;
+use App\Models\Localidad;
 
 class controllerUsuario extends Controller
 {
@@ -14,10 +17,15 @@ class controllerUsuario extends Controller
      */
     public function index()
     {
-        //
+        return view("index");
     }
 
-    
+    public function loginUser()
+    {
+        return view("login2");
+    }
+
+
     public function altaUsuario()
     {
         return view("Usuario.altaUsuario");
@@ -25,15 +33,34 @@ class controllerUsuario extends Controller
 
     public function actualizarDatosUsuario()
     {
-        return view("Usuario.modificarUsuario");
+        $idusu = Auth::id();
+        $usuario = Usuario::find($idusu);
+        $depaUsu = Auth::user()->idDepartamento;
+        $idLocalidad = Auth::user()->idLocalidad;
+        
+        $departamentos = Departamento::select('id','nombre')
+                            ->where('departamento.id','!=',$depaUsu)
+                            ->get();
+
+        $localidades = Localidad::select('id','nombre')
+                            ->where('idDepartamento','=',$depaUsu)
+                            ->where('id','!=',$idLocalidad)
+                            ->get();
+
+        return view("Usuario.modificarUsuario")->with('usuario',$usuario)
+                                               ->with('localidades',$localidades)
+                                               ->with('departamentos',$departamentos);
+                                               
+        
     }
 
-    public function cerrarSession(Request $request){
+    public function cerrarSession(Request $request)
+    {
 
         Auth::logout();
-        
+
         $request->session()->regenerateToken();
-        
+
         return redirect('/loginUsuario');
     }
 
@@ -55,13 +82,13 @@ class controllerUsuario extends Controller
      */
     public function store(Request $request)
     {
-        
     }
 
-public function registrarse()
+    public function registrarse()
     {
         return view("Usuario.registrarse");
     }
+
     /**
      * Display the specified resource.
      *
