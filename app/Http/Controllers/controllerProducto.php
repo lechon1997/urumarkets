@@ -33,7 +33,7 @@ class controllerProducto extends Controller
                                 //->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
                                 ->where('producto.producto_id', $idProducto)
                                 ->first();
-                                echo $producto;                                                                                   
+                                                                                                                 
         return view("Producto.modificarProducto")->with('producto', $producto);
 
     }

@@ -1,74 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-  @include('layouts.headerVisitante')
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <title>Edit Empresa</title>
+  <script src="{{ asset('js/app.js') }}"></script>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <title>Alta Empresa</title>
 </head>
+@include('layouts.headerVisitante')
 <body>
-  <form action="altaVendedor" method="POST" style="width: 500px;margin-left: auto;
+  <form action="ModificarEmpresa" method="POST" style="width: 500px;margin-left: auto;
   margin-right: auto;margin-top: 50px; margin-bottom: 50px;">
 
   {{ csrf_field()}}
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Nombre</label>
-    <input type="text" class="form-control" id="Nombre" name="pnombre" placeholder="Nombre">
+    <input type="text" class="form-control" id="Nombre" name="pnombre"  value="{{ $usuario->primerNombre }}"  placeholder="Nombre">
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Apellido</label>
-    <input type="text" class="form-control" id="Apellido" name="papellido" placeholder="Apellido">
+    <input type="text" class="form-control" id="Apellido" name="papellido" value="{{ $usuario->primerApellido }}" placeholder="Apellido">
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Segundo Nombre</label>
-    <input type="text" class="form-control" id="Segundo Nombre" name="snombre" placeholder="Segundo Nombre">
+    <input type="text" class="form-control" id="Segundo Nombre" name="snombre" value="{{ $usuario->segundoNombre }}" placeholder="Segundo Nombre">
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Segundo Apellido</label>
-    <input type="text" class="form-control" id="Segundo Apellido" name="sapellido" placeholder="Segundo Apellido">
+    <input type="text" class="form-control" id="Segundo Apellido" name="sapellido" value="{{ $usuario->segundoApellido }}" placeholder="Segundo Apellido">
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Cedula</label>
-    <input type="text" class="form-control" id="Cedula" name="cedula" placeholder="Cedula">
+    <input type="text" class="form-control" id="Cedula" name="cedula" value="{{ $usuario->cedula }}" placeholder="Cedula">
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Email</label>
-    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+    <input type="email" class="form-control" id="email" name="email" value="{{ $usuario->email }}" placeholder="name@example.com">
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Telefono</label>
-    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="telefono">
+    <input type="text" class="form-control" id="telefono" name="telefono" value="{{ $usuario->telefono }}" placeholder="telefono">
   </div>
 
   <div class="form-group">
     <label for="exampleInputPassword1">Contraseña</label>
-    <input type="password" class="form-control" id="pass" name="pass" placeholder="Contraseña">
+    <input type="password" class="form-control" id="pass" name="pass" value="{{ $usuario->contrasenia }}" placeholder="Contraseña">
   </div>
 
   <div class="form-group">
     <label for="exampleInputPassword1">Confirmar contraseña</label>
-    <input type="password" class="form-control" id="confirmpass" name="confirmpass" placeholder="Contraseña">
+    <input type="password" class="form-control" id="confirmpass" name="confirmpass" value="{{ $usuario->primerNombre }}" placeholder="Contraseña">
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Razon social</label>
-    <input type="text" class="form-control" id="razonsocial" name="razonsocial" placeholder="razon social">
+    <input type="text" class="form-control" id="razonsocial" name="razonsocial" value="{{ $vendedor->razonSocial }}" placeholder="razon social">
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Nombre de fantasia</label>
-    <input type="text" class="form-control" id="nombrefantasia" name="nombrefantasia" placeholder="Nombre de fantasia">
+    <input type="text" class="form-control" id="nombrefantasia" name="nombrefantasia" value="{{ $vendedor->nombreFantasia }}" placeholder="Nombre de fantasia">
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Rut</label>
-    <input type="text" class="form-control" id="Rut" name="Rut" placeholder="Rut">
+    <input type="text" class="form-control" id="Rut" name="Rut" value="{{ $vendedor->RUT }}" placeholder="Rut">
   </div>
 
   <div class="form-group">
@@ -84,12 +85,12 @@
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Rubro</label>
-    <input type="text" class="form-control" id="rubro" name="rubro" placeholder="rubro">
+    <input type="text" class="form-control" id="rubro" name="rubro" value="{{ $vendedor->rubro }}" placeholder="rubro">
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Telefono de la Empresa</label>
-    <input type="text" class="form-control" id="telefonoEmpresa" name="telefonoEmpresa" placeholder="Telefono Empresa">
+    <input type="text" class="form-control" id="telefonoEmpresa" name="telefonoEmpresa" value="{{ $vendedor->telefonoEmpresa }}" placeholder="Telefono Empresa">
   </div>
 
   <div class="form-group">
@@ -120,19 +121,19 @@
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Localidad</label>
-    <select class="custom-select form-select-sm" name="localidad" id="shrekisstrong">
+    <select class="custom-select form-select-sm" name="localidad" value="" id="shrekisstrong">
       <option selected>Localidad</option>
     </select>
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Direccion</label>
-    <input type="text" class="form-control" id="direccion" name="direccion" placeholder="direccion">
+    <input type="text" class="form-control" id="direccion" name="direccion" value="{{ $vendedor->direccion }}" placeholder="direccion">
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlTextarea1">Descripcion</label>
-    <textarea class="form-control" id="Descripcion" name="Descripcion" rows="3"></textarea>
+    <textarea class="form-control" id="Descripcion" name="Descripcion" value="{{ $vendedor->descripcion }}" rows="3"></textarea>
   </div>
 
   <div class="form-check">
@@ -195,6 +196,11 @@
     });
 
   }
+  function limpiar_select_localidades() {
+            $('#shrekisstrong')
+                .empty()
+                .append('<option selected="selected">Seleccion su Localidad</option>');
+        }
   $("#shrekislife").on("click", listarLocalidades);
 </script>
 </body>
