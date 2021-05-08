@@ -27,11 +27,11 @@ class ControllerEmpresa extends Controller
     }
 
     public function MostrarModEmpresa(){
-        $idUsu = 1;
+        $idUsu = Auth::id();
         $usuario = Usuario::find($idUsu);
 
         $vendedor = Vendedor::select('vendedor.*')
-                            ->where('vendedor.usuario_id',$idUsu)
+                            ->where('vendedor.id',$idUsu)
                             ->first();
         //echo $usuario;
         //echo $vendedor;
@@ -98,17 +98,17 @@ class ControllerEmpresa extends Controller
         $usuario->idLocalidad = $request->localidad;
         $usuario->save();
 
-        $affected = DB::table('vendedor')
-              ->where('id', $idUsu)
-              ->update(['RUT' => $request->rut],
-                ['razonSocial' => $request->razonSocial],
-                ['nombreFantasia' => $request->nombreFantasia],
-                ['tipoOrganizacion' => $request->tipoOrganizacion],
-                ['rubro' => $request->rubro],
-                ['telefonoEmpresa' => $request->telefonoEmpresa],
-                ['direccion' => $request->direccion],
-                ['descripcion' => $request->descripcion]
-          );
+        $vendedor = Vendedor::find($idUsu);
+        $vendedor->RUT = $request->Rut;
+        $vendedor->razonSocial = $request->razonsocial;
+        $vendedor->nombreFantasia = $request->nombrefantasia;
+        $vendedor->tipoOrganizacion = $request->tipoOrg;
+        $vendedor->rubro = $request->rubro;
+        $vendedor->telefonoEmpresa = $request->telefonoEmpresa;
+        $vendedor->direccion = $request->direccion;
+        $vendedor->descripcion = $request->Descripcion;
+        $vendedor->save();
+        
         return redirect('/index');
     }
 
