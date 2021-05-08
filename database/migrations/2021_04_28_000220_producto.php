@@ -14,9 +14,9 @@ class Producto extends Migration
     public function up()
     {
         Schema::create('producto', function (Blueprint $table) {
-            $table->integer('producto_id')->autoIncrement();
+            $table->id()->autoIncrement();
             $table->integer('stock');
-            $table->integer('publicacion_id');
+            $table->bigInteger('publicacion_id')->unsigned();
             $table->foreign('publicacion_id')->references('id')->on('publicacion');
         });
     }

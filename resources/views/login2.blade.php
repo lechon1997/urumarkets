@@ -16,7 +16,7 @@
 
                 <div class="card-body">
             
-                    <form method="POST" action="logear">
+                    <form method="POST" action="auntenticar">
                         @csrf
 
                         <div class="form-group row">

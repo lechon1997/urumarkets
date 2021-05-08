@@ -1,9 +1,7 @@
 <?php
 
-use Illuminate\Http\Client\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,9 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/hola', function () {
-    return "hola";
-});
+
+
+Auth::routes();
+
 Route::get('/modificarProducto/{idProducto}', 'App\Http\Controllers\controllerProducto@modificarProducto');
 Route::get('/AltaEmpresa','App\Http\Controllers\ControllerEmpresa@altaempresa');
 route::post('/altaVendedor','App\Http\Controllers\ControllerEmpresa@altaVendedor');
@@ -33,30 +32,29 @@ route::get('/listar_localidades','App\Http\Controllers\controladorBD@listarLocal
 route::get('modificarUsuario','App\Http\Controllers\controllerUsuario@actualizarDatosUsuario');
 route::post('/altaUsu','App\Http\Controllers\controladorBD@altaUsu');
 route::post('/modificarUsu','App\Http\Controllers\controladorBD@actualizarDatosUsuario');
-route::get('/registrarse','App\Http\Controllers\controllerUsuario@registrarse');
+route::get('/registrarse','App\Http\Controllers\controllerUsuario@registrarse')->middleware('guest');
 route::get('/listarProductos','App\Http\Controllers\controllerProducto@listarProductos');
 route::get('/listar_productos','App\Http\Controllers\controllerProducto@listaP');
+route::post('/cerrarSession','App\Http\Controllers\controllerUsuario@cerrarSession');
 
-route::get('/index', function(){
-	return view('index');
+route::get('index',function(){
+    return view('index');
 })->middleware('auth');
 
 route::get('/loginUsuario', function(){
-	return view('login');
-})->name('loginUsuario');
+	return view('login2');
+})->name('loginUsuario')
+  ->middleware('guest');
 
+route::post('auntenticar',function(){
 
+    $credenciales = request()->only('email', 'password');
+        if (Auth::attempt($credenciales)) {
 
-route::post('/logear',function(){
-
-    $credenciales = request()->only('email','password');
-    if(Auth::attempt($credenciales,true)){
-        
-        request()->session()->regenerate();
-        return redirect('/index');
-
-    }
+            request()->session()->regenerate();
+            return redirect('/index');
+        }
 
         return redirect('/loginUsuario');
-    
+
 });

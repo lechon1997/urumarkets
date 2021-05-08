@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class controllerUsuario extends Controller
 {
@@ -25,6 +26,15 @@ class controllerUsuario extends Controller
     public function actualizarDatosUsuario()
     {
         return view("Usuario.modificarUsuario");
+    }
+
+    public function cerrarSession(Request $request){
+
+        Auth::logout();
+        
+        $request->session()->regenerateToken();
+        
+        return redirect('/loginUsuario');
     }
 
     /**

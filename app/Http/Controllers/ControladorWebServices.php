@@ -26,16 +26,9 @@ class ControladorWebServices extends Controller
     }
 
     public function altaUsuws(Request $request){
-        $nombre = $request->input('nombre');
-        $apellido = $request->input('apellido');
-        
-        //ControladorBD CBD = new ControladorBD();
-        
-        $idUsu = 1;
-        $usua = Usuario::find($idUsu);
 
-        $usua->primerNombre = $nombre;
-        $usua->segundoNombre = $apellido;
-        $usua->save();
+         $bd = new ControladorBD();
+         $bd->altaUsu($request);
+         return true;
     }
 }

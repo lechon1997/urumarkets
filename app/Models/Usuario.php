@@ -12,20 +12,38 @@ use Illuminate\Notifications\Notifiable;
 
 class Usuario extends Authenticatable
 {
-  use HasFactory;
+  use HasFactory,Notifiable;
   protected $table = 'usuario';
   public $timestamps = false;
-
   protected $primaryKey = 'id';
+
+    
+    protected $fillable = [
+        'primerNombre',
+        'segundoNombre',
+        'primerApellido',
+        'segundoApellido',
+        'cedula',
+        'email',
+        'password',
+        'telefono',
+        'idDepartamento',
+        'idLocalidad',
+    ];
+
+    protected $hidden = [
+      'password',
+      'remember_token',
+  ];
 
   public function clientes()
   {
-    return $this->hasMany(Cliente::class);
+    return $this->hasMany(Cliente::class,'id');
   }
 
   public function vendedores()
   {
-    return $this->hasMany(Vendedor::class);
+    return $this->hasMany(Vendedor::class,'id');
   }
 
   public function localidad()
@@ -36,22 +54,6 @@ class Usuario extends Authenticatable
   public function publicaciones()
   {
     return $this->hasMany(Publicacion::class);
-  }
-
-
-
-  public function getAuthIdentifier()
-  {
-    return $this->email;
-  }
-
-  public function getAuthPassword()
-  {
-    return $this->contrasenia;
-  }
-  public function getRememberToken()
-  {
-    return $this->remember_token;
   }
 
 }

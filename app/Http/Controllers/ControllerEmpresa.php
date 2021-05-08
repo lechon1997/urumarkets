@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Vendedor;
+use Illuminate\Support\Facades\Hash;
 
 class ControllerEmpresa extends Controller
 {
@@ -52,7 +53,7 @@ class ControllerEmpresa extends Controller
         $usuario->segundoNombre = $request->snombre;
         $usuario->primerApellido = $request->papellido;
         $usuario->segundoApellido = $request->sapellido;
-        $usuario->contrasenia = $request->pass;
+        $usuario->password = Hash::make($request->pass);
         $usuario->cedula = $request->cedula;
         $usuario->email = $request->email;
         $usuario->telefono = $request->telefono;
@@ -72,7 +73,7 @@ class ControllerEmpresa extends Controller
         
         $usuario->vendedores()->save($vendedor);
    
-        return redirect('/index');
+        return redirect('/loginUsuario');
 
     }
     /**

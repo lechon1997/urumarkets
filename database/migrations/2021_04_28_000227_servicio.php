@@ -14,8 +14,8 @@ class Servicio extends Migration
     public function up()
     {
         Schema::create('servicio', function (Blueprint $table) {
-            $table->integer('servicio_id')->autoIncrement();
-            $table->integer('publicacion_id');
+            $table->id()->autoIncrement();
+            $table->bigInteger('publicacion_id')->unsigned();
             $table->foreign('publicacion_id')->references('id')->on('publicacion');           
         });
     }

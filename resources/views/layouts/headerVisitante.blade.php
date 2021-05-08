@@ -12,15 +12,26 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">Ofertas <span class="sr-only">(current)</span></a>
       </li>
+      @guest
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Ingresar
         </a>
+
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="loginUsuario">Iniciar Sesion</a>
           <a class="dropdown-item" href="registrarse">Registrarse</a>
         </div>
+      </li class="nav-item active">
+      @else
+      <li class="nav-item active">
+        <form action="cerrarSession" method="POST">
+          @csrf
+          <a class="nav-link" href="#" onclick="this.closest('form').submit()">Cerrar Sesión <span class="sr-only">(current)</span></a>
+        </form>
+
       </li>
+      @endguest
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
