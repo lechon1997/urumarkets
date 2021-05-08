@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+
+route::get('/MostrarModEmpresa','App\Http\Controllers\ControllerEmpresa@MostrarModEmpresa');
+route::post('/ModificarEmpresa','App\Http\Controllers\ControllerEmpresa@ModificarEmpresa');
+
+Route::get('/altaProducto','App\Http\Controllers\controllerProducto@altaProducto');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
