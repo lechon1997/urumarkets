@@ -67,26 +67,11 @@
                     <label for="validationDefaultUsername" class="width20 margin4 marginb widthauto">Departamento</label>
                     </br>
                     <select class="custom-select form-select-sm" id="shrekislife" name="departamento" onchange="listarLocalidades()">
-                        <option selected>Departamento</option>
-                        <option value="1">Paysandú</option>
-                        <option value="2">Montevideo</option>
-                        <option value="3">Artigas</option>
-                        <option value="4">Canelones</option>
-                        <option value="5">Tacuarembó</option>
-                        <option value="6">Cerro Largo</option>
-                        <option value="7">Colonia</option>
-                        <option value="8">Durazno</option>
-                        <option value="9">Flores</option>
-                        <option value="10">Florida</option>
-                        <option value="11">Lavalleja</option>
-                        <option value="12">Maldonado</option>
-                        <option value="13">Rio Negro</option>
-                        <option value="14">Rivera</option>
-                        <option value="15">Rocha</option>
-                        <option value="16">Salto</option>
-                        <option value="17">San José</option>
-                        <option value="18">Soriano</option>
-                        <option value="19">Treinta y Tres</option>
+                        <option selected value="{{ $departamentoUsu->id }}">{{ $departamentoUsu->nombre }}</option>
+                        
+                        @foreach ( $departamentos as $depa)
+                        <option value=" {{ $depa->id }} ">{{ $depa->nombre }}</option>
+                        @endforeach
                     </select>
 
                 </div>
@@ -95,7 +80,11 @@
                     <label for="validationDefaultUsername" class="width20 margin4 marginb widthauto">Localidad</label>
                     </br>
                     <select class="custom-select form-select-sm" name="localidad" id="shrekisstrong">
-                        <option selected>Localidad</option>
+                        <option selected value=" {{ $localidadUsu->id }} ">{{ $localidadUsu->nombre }}</option>
+
+                        @foreach ( $localidades as $localidad)
+                        <option value=" {{ $localidad->id }} ">{{ $localidad->nombre }}</option>
+                        @endforeach
 
                     </select>
                 </div>

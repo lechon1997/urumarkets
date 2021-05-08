@@ -33,25 +33,32 @@ class controllerUsuario extends Controller
 
     public function actualizarDatosUsuario()
     {
-        $idusu = Auth::id();
-        $usuario = Usuario::find($idusu);
+        $usuario = Auth::user();
         $depaUsu = Auth::user()->idDepartamento;
         $idLocalidad = Auth::user()->idLocalidad;
-        
-        $departamentos = Departamento::select('id','nombre')
-                            ->where('departamento.id','!=',$depaUsu)
-                            ->get();
 
-        $localidades = Localidad::select('id','nombre')
-                            ->where('idDepartamento','=',$depaUsu)
-                            ->where('id','!=',$idLocalidad)
-                            ->get();
+        $localidadusu = Localidad::select('id', 'nombre')
+            ->where('id', '=', $idLocalidad)
+            ->first();
 
-        return view("Usuario.modificarUsuario")->with('usuario',$usuario)
-                                               ->with('localidades',$localidades)
-                                               ->with('departamentos',$departamentos);
-                                               
-        
+        $departamentoUsu = Departamento::select('id', 'nombre')
+            ->where('departamento.id', '=', $depaUsu)
+            ->first();
+
+        $localidades = Localidad::select('id', 'nombre')
+            ->where('idDepartamento', '=', $depaUsu)
+            ->where('id', '!=', $idLocalidad)
+            ->get();
+
+        $departamentos = Departamento::select('id', 'nombre')
+            ->where('departamento.id', '!=', $depaUsu)
+            ->get();
+
+        return view("Usuario.modificarUsuario")->with('usuario', $usuario)
+            ->with('localidades', $localidades)
+            ->with('departamentos', $departamentos)
+            ->with('departamentoUsu', $departamentoUsu)
+            ->with('localidadUsu', $localidadusu);
     }
 
     public function cerrarSession(Request $request)
