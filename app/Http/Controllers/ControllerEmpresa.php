@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Vendedor;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
 class ControllerEmpresa extends Controller
@@ -25,12 +27,10 @@ class ControllerEmpresa extends Controller
     }
 
     public function MostrarModEmpresa(){
-        $idUsu = 1;
-        $usuario = Usuario::find($idUsu);
+        $idUsu = Auth::id();
 
-        $vendedor = Vendedor::select('vendedor.*')
-                            ->where('vendedor.usuario_id',$idUsu)
-                            ->first();
+        $usuario = Usuario::find($idUsu);
+        $vendedor = Vendedor::find($idUsu);
         //echo $usuario;
         //echo $vendedor;
         return view("Empresa.modificarEmpresa")->with('vendedor',$vendedor)
@@ -55,7 +55,7 @@ class ControllerEmpresa extends Controller
         $usuario->segundoNombre = $request->snombre;
         $usuario->primerApellido = $request->papellido;
         $usuario->segundoApellido = $request->sapellido;
-        $usuario->contrasenia = $request->pass;
+        $usuario->password = Hash::make($request->pass);
         $usuario->cedula = $request->cedula;
         $usuario->email = $request->email;
         $usuario->telefono = $request->telefono;
@@ -75,20 +75,20 @@ class ControllerEmpresa extends Controller
         
         $usuario->vendedores()->save($vendedor);
    
-        return redirect('/index');
+        return redirect('/loginUsuario');
 
     }
 
     public function ModificarEmpresa(Request $request)
     {
-        $idUsu = 1;
+        $idUsu = Auth::id();
 
         $usuario = Usuario::find($idUsu);
         $usuario->primerNombre = $request->pnombre;
         $usuario->segundoNombre = $request->snombre;
         $usuario->primerApellido = $request->papellido;
         $usuario->segundoApellido = $request->sapellido;
-        $usuario->contrasenia = $request->pass;
+        $usuario->password = Hash::make($request->pass);
         $usuario->cedula = $request->cedula;
         $usuario->email = $request->email;
         $usuario->telefono = $request->telefono;
@@ -96,17 +96,17 @@ class ControllerEmpresa extends Controller
         $usuario->idLocalidad = $request->localidad;
         $usuario->save();
 
-        $affected = DB::table('vendedor')
-              ->where('id_vendedor', 1)
-              ->update(['RUT' => $request->rut],
-                ['razonSocial' => $request->razonSocial],
-                ['nombreFantasia' => $request->nombreFantasia],
-                ['tipoOrganizacion' => $request->tipoOrganizacion],
-                ['rubro' => $request->rubro],
-                ['telefonoEmpresa' => $request->telefonoEmpresa],
-                ['direccion' => $request->direccion],
-                ['descripcion' => $request->descripcion]
-          );
+        $vendedor = Vendedor::find($idUsu);
+        $vendedor->RUT = $request->Rut;
+        $vendedor->razonSocial = $request->razonsocial;
+        $vendedor->nombreFantasia = $request->nombrefantasia;
+        $vendedor->tipoOrganizacion = $request->tipoOrg;
+        $vendedor->rubro = $request->rubro;
+        $vendedor->telefonoEmpresa = $request->telefonoEmpresa;
+        $vendedor->direccion = $request->direccion;
+        $vendedor->descripcion = $request->Descripcion;
+        $vendedor->save();
+        
         return redirect('/index');
     }
 

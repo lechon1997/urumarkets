@@ -14,8 +14,7 @@ class Vendedor extends Migration
     public function up()
     {
         Schema::create('vendedor', function (Blueprint $table) {
-            $table->integer('id_vendedor')->autoIncrement();
-            $table->integer('usuario_id');
+            $table->id();
             $table->string('RUT');
             $table->unique('RUT', 'unique_RUT');
             $table->string('razonSocial');
@@ -25,7 +24,7 @@ class Vendedor extends Migration
             $table->string('telefonoEmpresa');
             $table->string('direccion');
             $table->string('descripcion');
-            $table->foreign('usuario_id')->references('id')->on('usuario');
+            $table->foreign('id')->references('id')->on('usuario');
             
         });
     }

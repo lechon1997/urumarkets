@@ -24,14 +24,15 @@
 		    	async:false,
 		     	success: function(res) {		     		
 		     		var elemento;
+		     		console.log(res);
 		     		var cant = Object.keys(res).length;
 		     		for (var i = 0; i < cant; i++){
 		     			var br = $('<br/>');
 
 		     			//Botón desplegable
-		     			var button = $('<button>').attr("class", "accordion")
+		     			var button = $('<button>').attr("class", "accordion claserandom")
 		     									  .attr("type", "button")
-		     									  .attr("value", res[i].id).text(res[i].titulo);
+		     									  .attr("value", res[i].idProducto).text(res[i].titulo);
 		     			$("#pija").append(button);
 
 		     			//Div contenedor de otro div

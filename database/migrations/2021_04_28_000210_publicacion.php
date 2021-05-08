@@ -14,8 +14,8 @@ class Publicacion extends Migration
     public function up()
     {
         Schema::create('publicacion', function (Blueprint $table) {
-            $table->integer('id')->autoIncrement();
-            $table->integer('usuario_id');
+            $table->id()->autoIncrement();
+            $table->bigInteger('usuario_id')->unsigned();
             $table->string('titulo');
             $table->string('estado');
             $table->string('tipoMoneda');

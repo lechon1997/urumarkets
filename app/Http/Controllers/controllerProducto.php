@@ -31,15 +31,14 @@ class controllerProducto extends Controller
         $producto = Publicacion::select('publicacion.*', 'producto.*')
                                 ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
                                 //->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
-                                ->where('producto.producto_id', $idProducto)
-                                ->first();
-                                                                                                                 
+                                ->where('producto.id', $idProducto)
+                                ->first();                                                                                                              
         return view("Producto.modificarProducto")->with('producto', $producto);
 
     }
 
     public function listaP(){
-        $producto = Publicacion::select('publicacion.*', 'producto.stock')
+        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock', 'producto.id')
                                 ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
                                 //->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
                                 ->get();
