@@ -24,7 +24,7 @@
 		    	async:false,
 		     	success: function(res) {		     		
 		     		var elemento;
-		     		console.log(res);
+		     		console.log(res[0]);
 		     		var cant = Object.keys(res).length;
 		     		for (var i = 0; i < cant; i++){
 		     			var br = $('<br/>');
@@ -96,7 +96,7 @@
 
 		function modificarProducto(boton){
 			var idProducto = boton.id;
-			window.location.href = "modificarProducto/id="+idProducto;
+			window.location.href = "modificarProducto/"+idProducto;
 
 		}
 

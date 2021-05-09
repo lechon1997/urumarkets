@@ -9,7 +9,7 @@
 	<body>
 		@include('layouts.headerVisitante')
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<form action="../modificarProd/idProd={{$producto->id}}/idPub={{$producto->publicacion_id}}" method="POST" class="centrado">
+		<form action="../modificarProd/idProd={{$producto->id}}/idPub={{$producto->publicacion_id}}" method="get" class="centrado">
 			{{ csrf_field()}}
 			<div class="form-group tamanio">
 					<label for="formGroupExampleInput">Nombre del producto:</label>

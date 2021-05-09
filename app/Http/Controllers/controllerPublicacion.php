@@ -59,7 +59,7 @@ class controllerPublicacion extends Controller
 
     	$producto = new Producto;
     	$producto->stock = $request->stockProducto;
-
+        $producto->publicacion_id = $publicacion->getKey();
     	$publicacion->productos()->save($producto);
    
         return redirect('/altaProducto');

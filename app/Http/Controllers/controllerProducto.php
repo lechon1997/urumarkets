@@ -27,7 +27,7 @@ class controllerProducto extends Controller
     }
 
     public function modificarProducto(Request $request){
-        $idProducto = $request->idProducto;
+        $idProducto =$request->idProducto;
         $producto = Publicacion::select('publicacion.*', 'producto.*')
                                 ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
                                 //->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
