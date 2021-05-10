@@ -52,6 +52,11 @@ class ControllerEmpresa extends Controller
 
         $usuario = new Usuario;
         $usuario->primerNombre = $request->pnombre;
+        if($request->snombre == null){
+            $usuario->segundoNombre = "";
+        }else{
+            $usuario->segundoNombre = $request->snombre;
+        }
         $usuario->segundoNombre = $request->snombre;
         $usuario->primerApellido = $request->papellido;
         $usuario->segundoApellido = $request->sapellido;
@@ -85,7 +90,11 @@ class ControllerEmpresa extends Controller
 
         $usuario = Usuario::find($idUsu);
         $usuario->primerNombre = $request->pnombre;
-        $usuario->segundoNombre = $request->snombre;
+        if($request->snombre == null){
+            $usuario->segundoNombre = "";
+        }else{
+            $usuario->segundoNombre = $request->snombre;
+        }
         $usuario->primerApellido = $request->papellido;
         $usuario->segundoApellido = $request->sapellido;
         $usuario->password = Hash::make($request->pass);

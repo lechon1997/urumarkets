@@ -24,12 +24,21 @@
         </div>
       </li class="nav-item active">
       @else
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Productos
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="altaProducto">Crear Producto</a>
+          <a class="dropdown-item" href="listarProductos">Listar Productos</a>
+        </div>
+      </li class="nav-item active">
       <li class="nav-item active">
         <form action="cerrarSession" method="POST">
           @csrf
           <a class="nav-link" href="#" onclick="this.closest('form').submit()">Cerrar Sesión <span class="sr-only">(current)</span></a>
         </form>
-
       </li>
       @endguest
     </ul>
