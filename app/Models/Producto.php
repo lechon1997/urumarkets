@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
     use HasFactory;
-    protected $table = 'producto';
+    protected $table = 'producto';    
     public $timestamps = false;
 
     public function Publicacion()
     {
-        return $this->belongsTo(Publicacion::class);
+        return $this->belongsTo(Publicacion::class, 'id');
     }   
 
 }

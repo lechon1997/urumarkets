@@ -22,17 +22,17 @@
 		    	dataType: "json",
 		    	method: "GET",
 		    	async:false,
-		     	success: function(res) {
-		     		console.log(res);
+		     	success: function(res) {		     		
 		     		var elemento;
+		     		console.log(res[0]);
 		     		var cant = Object.keys(res).length;
 		     		for (var i = 0; i < cant; i++){
 		     			var br = $('<br/>');
 
 		     			//Botón desplegable
-		     			var button = $('<button>').attr("class", "accordion")
+		     			var button = $('<button>').attr("class", "accordion claserandom")
 		     									  .attr("type", "button")
-		     									  .attr("value", res[i].id).text(res[i].titulo);
+		     									  .attr("value", res[i].idProducto).text(res[i].titulo);
 		     			$("#pija").append(button);
 
 		     			//Div contenedor de otro div
@@ -96,7 +96,7 @@
 
 		function modificarProducto(boton){
 			var idProducto = boton.id;
-			
+			window.location.href = "modificarProducto/"+idProducto;
 
 		}
 

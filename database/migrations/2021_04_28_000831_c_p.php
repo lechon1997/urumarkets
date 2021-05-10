@@ -15,13 +15,13 @@ class CP extends Migration
     {
         //
         Schema::create('c_p', function (Blueprint $table) {
-        	$table->integer('id')->autoIncrement();
+        	$table->id()->autoIncrement();
         	$table->date('fecha_compra');
 
-        	$table->integer('idCliente');
-            $table->integer('idPublicacion');
+        	$table->bigInteger('idCliente')->unsigned();
+            $table->bigInteger('idPublicacion')->unsigned();
 
-            $table->foreign('idCliente')->references('id_cliente')->on('cliente');   
+            $table->foreign('idCliente')->references('id')->on('cliente');   
             $table->foreign('idPublicacion')->references('id')->on('publicacion');   
         });
     }

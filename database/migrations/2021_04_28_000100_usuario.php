@@ -14,17 +14,15 @@ class Usuario extends Migration
     public function up()
     {
         Schema::create('usuario', function (Blueprint $table) {
-            $table->integer('id')->autoIncrement();
+            $table->id()->autoIncrement();
             $table->string('primerNombre');
             $table->string('segundoNombre');
             $table->string('primerApellido');
             $table->string('segundoApellido');
-            $table->string('contrasenia');
+            $table->string('cedula')->unique();
+            $table->string('email')->unique();  
+            $table->string('password');
             $table->rememberToken();
-            $table->string('cedula');
-            $table->string('email');
-            $table->unique('cedula', 'unique_cedula');
-            $table->unique('email', 'unique_email');            
             $table->string('telefono');
 
             //Faltan foreign keys localidad y departamento.

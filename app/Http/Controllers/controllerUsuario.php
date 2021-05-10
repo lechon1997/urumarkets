@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Usuario;
+use App\Models\Departamento;
+use App\Models\Localidad;
 
 class controllerUsuario extends Controller
 {
@@ -13,10 +17,15 @@ class controllerUsuario extends Controller
      */
     public function index()
     {
-        //
+        return view("index");
     }
 
-    
+    public function loginUser()
+    {
+        return view("login2");
+    }
+
+
     public function altaUsuario()
     {
         return view("Usuario.altaUsuario");
@@ -24,7 +33,42 @@ class controllerUsuario extends Controller
 
     public function actualizarDatosUsuario()
     {
-        return view("Usuario.modificarUsuario");
+        $usuario = Auth::user();
+        $depaUsu = Auth::user()->idDepartamento;
+        $idLocalidad = Auth::user()->idLocalidad;
+
+        $localidadusu = Localidad::select('id', 'nombre')
+            ->where('id', '=', $idLocalidad)
+            ->first();
+
+        $departamentoUsu = Departamento::select('id', 'nombre')
+            ->where('departamento.id', '=', $depaUsu)
+            ->first();
+
+        $localidades = Localidad::select('id', 'nombre')
+            ->where('idDepartamento', '=', $depaUsu)
+            ->where('id', '!=', $idLocalidad)
+            ->get();
+
+        $departamentos = Departamento::select('id', 'nombre')
+            ->where('departamento.id', '!=', $depaUsu)
+            ->get();
+
+        return view("Usuario.modificarUsuario")->with('usuario', $usuario)
+            ->with('localidades', $localidades)
+            ->with('departamentos', $departamentos)
+            ->with('departamentoUsu', $departamentoUsu)
+            ->with('localidadUsu', $localidadusu);
+    }
+
+    public function cerrarSession(Request $request)
+    {
+
+        Auth::logout();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/loginUsuario');
     }
 
     /**
@@ -45,13 +89,13 @@ class controllerUsuario extends Controller
      */
     public function store(Request $request)
     {
-        
     }
 
-public function registrarse()
+    public function registrarse()
     {
         return view("Usuario.registrarse");
     }
+
     /**
      * Display the specified resource.
      *

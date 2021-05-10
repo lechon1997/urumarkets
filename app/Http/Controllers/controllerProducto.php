@@ -26,16 +26,31 @@ class controllerProducto extends Controller
         return view("Producto.listarproductos");
     }
 
-    public function modificarProducto(){
-        return view("Producto.modificarProducto");
+    public function modificarProducto(Request $request){
+        $idProducto =$request->idProducto;
+        $producto = Publicacion::select('publicacion.*', 'producto.*')
+                                ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                                //->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
+                                ->where('producto.id', $idProducto)
+                                ->first();                                                                                                              
+        return view("Producto.modificarProducto")->with('producto', $producto);
+
     }
 
     public function listaP(){
-        $producto = Publicacion::select('publicacion.*', 'producto.stock')
+        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock', 'producto.id')
                                 ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
                                 //->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
                                 ->get();
         return $producto;
+    }
+
+    public function modProducto($id){    
+        
+        $productito = Producto::select('producto.*')
+                                ->where('producto.producto_id', '=', $id)
+                                ->get();
+        return $productito;
     }
 
     /**

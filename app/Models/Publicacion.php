@@ -12,15 +12,15 @@ class Publicacion extends Model
     public $timestamps = false;
 
     public function productos(){
-  		return $this->hasMany(Producto::class);
+  		return $this->hasMany(Producto::class, 'id');
 	}
 
 	public function servicios(){
-  		return $this->hasMany(Servicio::class);
+  		return $this->hasMany(Servicio::class, 'id');
 	}
 
 	public function Usuario(){
-		return $tihs->hasOne(Usuario::class);
+		return $this->hasOne(Usuario::class, 'id');
 	}
 
 }
