@@ -2,7 +2,7 @@
 <html>
 <head>
   <script src="{{ asset('js/app.js') }}"></script>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <title>Alta Empresa</title>
 </head>
 @include('layouts.headerVisitante')
@@ -171,6 +171,74 @@
       return false;
     }
 
+    var pnombre = $("#pnombre").val();
+    var papellido = $("#papellido").val();
+    var snombre = $("#snombre").val();
+    var sapellido = $("#sapellido").val();
+    var Cedula = $("#Cedula").val();
+    var email = $("#email").val();
+    var telefono = $("#telefono").val();
+    var pass = $("#pass").val();
+    var confirmpass = $("#confirmpass").val();
+    var razonsocial = $("#razonsocial").val();
+    var nombrefantasia = $("#nombrefantasia").val();
+    var Rut = $("#Rut").val();
+    var telefonoEmpresa = $("#telefonoEmpresa").val();
+    var rubro = $("#rubro").val();
+    var direccion = $("#direccion").val();
+    var Descripcion = $("#Descripcion").val();
+    var localidad = $("#localidad").val();
+    var Departamento = $("#Departamento").val();
+
+    if(pnombre == ""){
+      alert("Debe ingresar el nombre del producto");
+      return false;
+    }else if(papellido == ""){
+      alert("Debe ingresar la descripción del producto");
+      return false;
+    }else if(snombre){
+      if(precioProducto == ""){
+        alert("Debe ingresar el precio del producto");
+        return false;
+      }     
+    }else if(sapellido == ""){
+      alert("Debe ingresar el limite por persona del producto");
+      return false;
+    }else if(Cedula == ""){
+      alert("Debe ingresar el stock del producto");
+      return false;
+    }else if(email == ""){
+      alert("Debe ingresar el stock del producto");
+      return false;
+    }else if(pass == ""){
+      alert("Debe ingresar el stock del producto");
+      return false;
+    }else if(confirmpass == ""){
+      alert("Debe ingresar el stock del producto");
+      return false;
+    }else if(razonsocial == ""){
+      alert("Debe ingresar el stock del producto");
+      return false;
+    }else if(nombrefantasia == ""){
+      alert("Debe ingresar el stock del producto");
+      return false;
+    }else if(Rut == ""){
+      alert("Debe ingresar el stock del producto");
+      return false;
+    }else if(telefonoEmpresa == ""){
+      alert("Debe ingresar el stock del producto");
+      return false;
+    }else if(direccion == ""){
+      alert("Debe ingresar el stock del producto");
+      return false;
+    }else if(localidad == ""){
+      alert("Debe ingresar el stock del producto");
+      return false;
+    }else if(Departamento == ""){
+      alert("Debe ingresar el stock del producto");
+      return false;
+    }
+
   }
 
   $("#Confirmar").on("click", validate);
@@ -197,10 +265,10 @@
 
   }
   function limpiar_select_localidades() {
-            $('#shrekisstrong')
-                .empty()
-                .append('<option selected="selected">Seleccion su Localidad</option>');
-        }
+    $('#shrekisstrong')
+    .empty()
+    .append('<option selected="selected">Seleccion su Localidad</option>');
+  }
   $("#shrekislife").on("click", listarLocalidades);
 </script>
 </body>
