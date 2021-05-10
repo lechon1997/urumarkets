@@ -2,7 +2,7 @@
 <html>
 <head>
   <script src="{{ asset('js/app.js') }}"></script>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <title>Alta Empresa</title>
 </head>
 @include('layouts.headerVisitante')
@@ -14,22 +14,22 @@
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Nombre</label>
-    <input type="text" class="form-control" id="Nombre" name="pnombre" placeholder="Nombre">
+    <input type="text" class="form-control" id="pnombre" name="pnombre" placeholder="Nombre">
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Apellido</label>
-    <input type="text" class="form-control" id="Apellido" name="papellido" placeholder="Apellido">
+    <input type="text" class="form-control" id="papellido" name="papellido" placeholder="Apellido">
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Segundo Nombre</label>
-    <input type="text" class="form-control" id="Segundo Nombre" name="snombre" placeholder="Segundo Nombre">
+    <input type="text" class="form-control" id="snombre" name="snombre" placeholder="Segundo Nombre">
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Segundo Apellido</label>
-    <input type="text" class="form-control" id="Segundo Apellido" name="sapellido" placeholder="Segundo Apellido">
+    <input type="text" class="form-control" id="sapellido" name="sapellido" placeholder="Segundo Apellido">
   </div>
 
   <div class="form-group">
@@ -146,6 +146,7 @@
 
   <button type="submit" class="btn btn-primary" name="Cancelar">Cancelar</button>
 </form>
+
 <script type="text/javascript">
   function validateEmail(email) {
     const re = /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/;
@@ -153,27 +154,80 @@
     return re.test(email);
   }
 
+  $('#Confirmar').on('click', function() {
 
-  function validate() {
-    const $result = $("#result");
-    const email = $("#email").val();
-    const nombre = $("#pnombre").val();
-    const apellido = $("#papellido").val();
+    var pnombre = $("#pnombre").val();
+    var papellido = $("#papellido").val();
+    var snombre = $("#snombre").val();
+    var sapellido = $("#sapellido").val();
+    var Cedula = $("#Cedula").val();
+    var email = $("#email").val();
+    var telefono = $("#telefono").val();
+    var pass = $("#pass").val();
+    var confirmpass = $("#confirmpass").val();
+    var razonsocial = $("#razonsocial").val();
+    var nombrefantasia = $("#nombrefantasia").val();
+    var Rut = $("#Rut").val();
+    var telefonoEmpresa = $("#telefonoEmpresa").val();
+    var rubro = $("#rubro").val();
+    var direccion = $("#direccion").val();
+    var Descripcion = $("#Descripcion").val();
+    var localidad = $("#localidad").val();
+    var Departamento = $("#Departamento").val();
 
-    $result.text("");
-
-    if (validateEmail(email)) {
-      $result.text(email + " is valid :)");
-      $result.css("color", "green");
-    } else {
-      $result.text(email + " is not valid :(");
-      $result.css('color', '#D81B60');
+    if(!validateEmail(email)){
+      alert("Email invalido.");
       return false;
     }
 
-  }
+    if(pass!=confirmpass){
+      alert("No coincide la contraseña con la confirmacion de la misma.");
+      return false;
+    }
 
-  $("#Confirmar").on("click", validate);
+    if(pnombre == ""){
+      alert("Debe ingresar su primer nombre.");
+      return false;
+    }else if(papellido == ""){
+      alert("Debe ingresar su primer apellido.");
+      return false;
+    }else if(sapellido == ""){
+      alert("Debe ingresar su segundo apellido.");
+      return false;
+    }else if(Cedula == ""){
+      alert("Debe ingresar su cedula.");
+      return false;
+    }else if(email == ""){
+      alert("Debe ingresar su email.");
+      return false;
+    }else if(pass == ""){
+      alert("Debe ingresar una contraseña.");
+      return false;
+    }else if(confirmpass == ""){
+      alert("Debe confimar su contraseña.");
+      return false;
+    }else if(razonsocial == ""){
+      alert("Debe ingresar la razon social de su empresa.");
+      return false;
+    }else if(nombrefantasia == ""){
+      alert("Debe ingresar el nombre de fantasia de su empresa.");
+      return false;
+    }else if(Rut == ""){
+      alert("Debe ingresar el rut de su empresa.");
+      return false;
+    }else if(telefonoEmpresa == ""){
+      alert("Debe ingresar el telefono de su empresa.");
+      return false;
+    }else if(direccion == ""){
+      alert("Debe ingresar la direccion de su empresa.");
+      return false;
+    }else if(localidad == ""){
+      alert("Debe ingresar la Localidad donde esta su empresa.");
+      return false;
+    }else if(Departamento == ""){
+      alert("Debe ingresar el Departamento donde esta su empresa.");
+      return false;
+    }});
 
   function listarLocalidades() {
     id_departamento = $("#shrekislife").val();
@@ -184,8 +238,7 @@
         id: id_departamento
       },
       method: "GET",
-      success: function(res){
-        console.log(res);
+      success: function(res) {
 
         var elemento,
         cant = Object.keys(res).length;
@@ -194,14 +247,16 @@
           $("#shrekisstrong").append(new Option(res[i].nombre, res[i].id));
       }
     });
-
   }
+
   function limpiar_select_localidades() {
-            $('#shrekisstrong')
-                .empty()
-                .append('<option selected="selected">Seleccion su Localidad</option>');
-        }
+    $('#shrekisstrong')
+    .empty()
+    .append('<option value="0" selected="selected" require >Seleccion su Localidad</option>')
+  }
+
   $("#shrekislife").on("click", listarLocalidades);
+
 </script>
 </body>
 </html>
