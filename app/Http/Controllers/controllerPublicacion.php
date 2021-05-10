@@ -109,10 +109,6 @@ class controllerPublicacion extends Controller
    
         return redirect('/listarProductos');
 
-
-    
-
-
     }
 
 
