@@ -10,7 +10,7 @@
         <a class="nav-link" href="index">Inicio <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#">Ofertas <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="VistaOferta">Ofertas <span class="sr-only">(current)</span></a>
       </li>
       @guest
       <li class="nav-item dropdown">
@@ -41,6 +41,9 @@
         </form>
       </li>
       @endguest
+      <li class="nav-item active">
+        <a class="nav-link" href="mostrarEmpresas">Empresas <span class="sr-only">(current)</span></a>
+      </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
@@ -48,3 +51,8 @@
     </form>
   </div>
 </nav>
+<!--<style type="text/css">
+  body {
+    background-color: #CCFDFF
+}
+</style>-->

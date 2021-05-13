@@ -38,6 +38,10 @@ class ControllerEmpresa extends Controller
 
         //value="{{ $vendedor->razonSocial }}"
     }
+    public function VerEmpresa(){
+        return view("Empresa.VerEmpresa");
+    }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -47,6 +51,13 @@ class ControllerEmpresa extends Controller
     {
         //
     }
+
+    public function mostrarEmpresas(){
+        $empresas = Vendedor::select('vendedor.*')
+                                ->get();
+        return view("Empresa.listarempresas")->with('empresas',$empresas);
+    }
+    
 
     public function altaVendedor(Request $request){
 
