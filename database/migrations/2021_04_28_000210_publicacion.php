@@ -23,6 +23,7 @@ class Publicacion extends Migration
             $table->string('descripcion');
             $table->boolean('conPrecio');
             $table->boolean('oferta');
+            $table->float('porcentajeOferta');
             $table->integer('limitePorPersona');
             $table->string('foto');
             $table->foreign('usuario_id')->references('id')->on('usuario');
