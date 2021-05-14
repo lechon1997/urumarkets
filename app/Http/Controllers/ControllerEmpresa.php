@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Vendedor;
+use App\Models\Localidad;
+use App\Models\Departamento;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -38,8 +40,16 @@ class ControllerEmpresa extends Controller
 
         //value="{{ $vendedor->razonSocial }}"
     }
-    public function VerEmpresa(){
-        return view("Empresa.VerEmpresa");
+
+    public function VerEmpresa($id){
+        $usuario = Usuario::find($id);
+        $vendedor = Vendedor::find($id);
+        $localidad = Localidad::find($usuario->idLocalidad);
+        $departamento = Departamento::find($usuario->idDepartamento);
+        return view("Empresa.VerEmpresa")->with('vendedor',$vendedor)
+                                         ->with('usuario',$usuario)
+                                         ->with('localidad',$localidad)
+                                         ->with('departamento',$departamento);
     }
     
     /**
@@ -53,9 +63,13 @@ class ControllerEmpresa extends Controller
     }
 
     public function mostrarEmpresas(){
-        $empresas = Vendedor::select('vendedor.*')
+        $empresas = Usuario::select('usuario.*','vendedor.*','departamento.nombre AS dnombre','localidad.nombre AS lnombre')
+                                ->join('vendedor', 'usuario.id', '=', 'vendedor.id')
+                                ->join('departamento', 'usuario.idDepartamento', '=', 'departamento.id')
+                                ->join('localidad', 'usuario.idLocalidad', '=', 'localidad.id')
                                 ->get();
         return view("Empresa.listarempresas")->with('empresas',$empresas);
+
     }
     
 
@@ -77,6 +91,12 @@ class ControllerEmpresa extends Controller
         $usuario->telefono = $request->telefono;
         $usuario->idDepartamento = $request->Departamento;
         $usuario->idLocalidad = $request->localidad; 
+        if ($request->hasFile('file')) {
+            //$destino = 'storage';
+            $nombreFoto = $request->file->hashName();           
+            $request->file->store('empresa', 'public');
+            $usuario->imagen = $nombreFoto;
+        }
         $usuario->save();
 
         $vendedor = new Vendedor;

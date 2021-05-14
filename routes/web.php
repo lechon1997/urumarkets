@@ -21,7 +21,7 @@ route::post('/ModificarEmpresa','App\Http\Controllers\ControllerEmpresa@Modifica
 Route::get('/AltaEmpresa','App\Http\Controllers\ControllerEmpresa@altaempresa');
 route::post('/altaVendedor','App\Http\Controllers\ControllerEmpresa@altaVendedor');
 route::get('/mostrarEmpresas','App\Http\Controllers\ControllerEmpresa@mostrarEmpresas');
-route::get('/VerEmpresa','App\Http\Controllers\ControllerEmpresa@VerEmpresa');
+route::get('/VerEmpresa/{id}','App\Http\Controllers\ControllerEmpresa@VerEmpresa');
 
 //RUTAS PRODUCTO
 Route::get('/altaProducto','App\Http\Controllers\controllerProducto@altaProducto');

@@ -5,13 +5,15 @@ Class Usuario{
     private $corre;
     private $contrasenia;
     private $tipoDoc;
+    private $imagen;
 
-    public function __construct($nom,$ape,$corre,$contra,$tipoDoc){
+    public function __construct($nom,$ape,$corre,$contra,$tipoDoc,$imagen){
         $this->nombre = $nom;
         $this->apellido = $ape;
         $this->correo = $corre;
         $this->contrasenia = $contra;
         $this->tipoDoc = $tipoDoc;
+        $this->imagen = $imagen;
     }
 
     
@@ -102,6 +104,26 @@ Class Usuario{
     public function setNombre($nombre) : self
     {
         $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    /**
+     * @param mixed $imagen
+     *
+     * @return self
+     */
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
 
         return $this;
     }
