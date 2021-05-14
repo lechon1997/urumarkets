@@ -9,7 +9,7 @@
 	<body>
 		@include('layouts.headerVisitante')
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<form action="altaProducto" method="POST" class="centrado">
+		<form action="altaProducto" method="POST" class="centrado" enctype="multipart/form-data">
 			{{ csrf_field()}}
 			<div class="form-group tamanio">
 				<label for="tipoPublicacion">Tipo de publicación:</label>
@@ -84,14 +84,7 @@
 					<input class="form-control" id="productosPorPersona" name="productosPorPersona" type="number">
 			</div>
 			<div class="form-group">
-				<label>Foto del producto:</label>				
-					<div class="custom-file">
-		  				<input type="file" class="custom-file-input" id="customFileLang" lang="es" onchange="preview_image(event)">
-		  				<label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
-		  			</div>
-		  				<br>
-		  				<br>
-		  				<img id="output_image" height=200px width=200px\>
+				<input type="file" id = "file" name="file" required>
 				<div class="form-group boton">						
 					<button id= "validar" type="submit" class="btn btn-primary">Crear producto</button>
 				</div>

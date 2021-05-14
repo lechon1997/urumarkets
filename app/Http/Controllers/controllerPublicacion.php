@@ -58,9 +58,17 @@ class controllerPublicacion extends Controller
         }
 
         $publicacion->porcentajeOferta = $request->porcentajeOfertaProducto;   
-        $publicacion->estado = $request->estadoProducto;    	
-    	$publicacion->foto = "prueba";
+        $publicacion->estado = $request->estadoProducto;    	  	
         $publicacion->usuario_id = Auth::id();
+
+        //Para la foto
+         if ($request->hasFile('file')) {
+            //$destino = 'storage';
+            $nombreFoto = $request->file->hashName();           
+            $request->file->store('productos', 'public');
+            $publicacion->foto = $nombreFoto;
+         }
+
 
         //Inserto la publicación a la base de datos.  	
         $publicacion->save();
@@ -77,11 +85,14 @@ class controllerPublicacion extends Controller
             $servicio->publicacion_id = $publicacion->getKey();
             $publicacion->servicios()->save($servicio);
         }
+        
  
-        return redirect('/altaProducto'); 
+        //return redirect(); 
         
 
     }
+
+
 
     public function modificarProd(Request $request){
         $publicacionID = $request->idPublicacion;
@@ -127,6 +138,11 @@ class controllerPublicacion extends Controller
    
         return redirect('/listarProductos');
 
+    }
+
+    public function store(Request $request)
+    {
+        //
     }
 
 
