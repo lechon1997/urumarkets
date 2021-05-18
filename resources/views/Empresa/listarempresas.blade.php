@@ -8,7 +8,7 @@
 	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 	<title>Empresas</title>
 </head>
-@include('layouts.headerVisitante')
+
 </head>
 <body>
 	{{ csrf_field()}}

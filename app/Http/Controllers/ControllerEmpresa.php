@@ -51,6 +51,20 @@ class ControllerEmpresa extends Controller
                                          ->with('localidad',$localidad)
                                          ->with('departamento',$departamento);
     }
+
+    public function VermiPerfil(){
+        $idUsu = Auth::id();
+        $usuario = Usuario::find($idUsu);
+        $vendedor = Vendedor::find($idUsu);
+        $tipovistaperfil = "verperfil";
+        $localidad = Localidad::find($usuario->idLocalidad);
+        $departamento = Departamento::find($usuario->idDepartamento);
+        return view("Empresa.VerEmpresa")->with('vendedor',$vendedor)
+                                         ->with('usuario',$usuario)
+                                         ->with('localidad',$localidad)
+                                         ->with('departamento',$departamento)
+                                         ->with('tipovistaperfil',$tipovistaperfil);
+    }
     
     /**
      * Show the form for creating a new resource.
@@ -134,6 +148,12 @@ class ControllerEmpresa extends Controller
         $usuario->telefono = $request->telefono;
         $usuario->idDepartamento = $request->Departamento;
         $usuario->idLocalidad = $request->localidad;
+        if ($request->hasFile('file')) {
+            //$destino = 'storage';
+            $nombreFoto = $request->file->hashName();           
+            $request->file->store('empresa', 'public');
+            $usuario->imagen = $nombreFoto;
+        }
         $usuario->save();
 
         $vendedor = Vendedor::find($idUsu);

@@ -16,7 +16,12 @@
 			<div class="row">
 				<div class="col-md-4">
 					<div class="profile-img">
-						<img src="../storage/empresa/{{ $usuario->imagen }}" alt=""/>
+						@if( isset($tipovistaperfil) && $tipovistaperfil == "verperfil" )
+							<img src="storage/empresa/{{ $usuario->imagen }}" alt=""/>
+						@else
+							<img src="../storage/empresa/{{ $usuario->imagen }}" alt=""/>
+						@endif
+						
 						<!--<div class="file btn btn-lg btn-primary">
 							Cambiar foto
 							<input type="file" name="file"/>

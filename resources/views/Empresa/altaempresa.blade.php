@@ -10,7 +10,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <title>Alta Empresa</title>
 </head>
-@include('layouts.headerVisitante')
+
 <body>
   <form action="altaVendedor" method="POST" enctype="multipart/form-data" style="margin-bottom: 50px;">
     {{ csrf_field()}}
@@ -133,7 +133,7 @@
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlSelect1">Departamento</label>
             <select class="form-control" id="shrekislife" name="Departamento">
-              <option selected>Seleccion su Departamento</option>
+              <option selected>Seleccione su Departamento</option>
               <option value="1">Paysandú</option>
               <option value="2">Montevideo</option>
               <option value="3">Artigas</option>
@@ -197,7 +197,7 @@
       reader.readAsDataURL(event.target.files[0]);
     }
     
-    $('#Confirmar').on('click', function() {
+    $('#Finalizar').on('click', function() {
 
       var pnombre = $("#pnombre").val();
       var papellido = $("#papellido").val();
@@ -215,8 +215,12 @@
       var rubro = $("#rubro").val();
       var direccion = $("#direccion").val();
       var Descripcion = $("#Descripcion").val();
-      var localidad = $("#localidad").val();
-      var Departamento = $("#Departamento").val();
+
+      var e = document.getElementById("shrekislife");
+      var localidad = e.options[e.selectedIndex].text;
+
+      var d = document.getElementById("shrekisstrong");
+      var Departamento = d.options[d.selectedIndex].text;
 
       if(!validateEmail(email)){
         alert("Email invalido.");
@@ -264,11 +268,11 @@
       }else if(direccion == ""){
         alert("Debe ingresar la direccion de su empresa.");
         return false;
-      }else if(localidad == ""){
-        alert("Debe ingresar la Localidad donde esta su empresa.");
+      }else if(localidad == "Seleccione su Departamento"){
+        alert("No selecciono su departamento.");
         return false;
-      }else if(Departamento == ""){
-        alert("Debe ingresar el Departamento donde esta su empresa.");
+      }else if(Departamento == "localidad" || Departamento == "Seleccione su Localidad"){
+        alert("No selecciono su localidad.");
         return false;
       }});
 
@@ -313,7 +317,7 @@ function listarLocalidades() {
 function limpiar_select_localidades() {
   $('#shrekisstrong')
   .empty()
-  .append('<option value="0" selected="selected" require >Seleccion su Localidad</option>')
+  .append('<option value="0" selected="selected" require >Seleccione su Localidad</option>')
 }
 
 $("#shrekislife").on("click", listarLocalidades);
