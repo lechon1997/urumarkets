@@ -26,7 +26,7 @@ Route::get('/altaProducto','App\Http\Controllers\controllerProducto@altaProducto
 route::post('/altaProducto','App\Http\Controllers\controllerPublicacion@altaProd');
 route::get('/listarProductos','App\Http\Controllers\controllerProducto@listarProductos');
 route::get('/listar_productos','App\Http\Controllers\controllerProducto@listaP');
-Route::get('/modificarProducto/{idProducto}', 'App\Http\Controllers\controllerProducto@modificarProducto');
+Route::get('/modificarProducto/{idProducto}','App\Http\Controllers\controllerProducto@modificarProducto');
 Route::get('/modificarProd/idProd={idProducto}/idPub={idPublicacion}', 'App\Http\Controllers\controllerPublicacion@modificarProd');
 
 //RUTAS GENERALES
