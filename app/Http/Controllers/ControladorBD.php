@@ -79,7 +79,7 @@ class ControladorBD extends Controller
     public function listarLocalidades(Request $request)
     {
 
-        $idDepartamento = $request->input('id');
+        $idDepartamento = intval($request->input('id'));
 
         $localidades = Localidad::where('idDepartamento', $idDepartamento)->get(['id', 'nombre']);
         return json_encode($localidades);

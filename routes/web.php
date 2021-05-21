@@ -21,13 +21,16 @@ route::post('/ModificarEmpresa','App\Http\Controllers\ControllerEmpresa@Modifica
 Route::get('/AltaEmpresa','App\Http\Controllers\ControllerEmpresa@altaempresa');
 route::post('/altaVendedor','App\Http\Controllers\ControllerEmpresa@altaVendedor');
 route::get('/mostrarEmpresas','App\Http\Controllers\ControllerEmpresa@mostrarEmpresas');
-route::get('/VerEmpresa','App\Http\Controllers\ControllerEmpresa@VerEmpresa');
+route::get('/VerEmpresa/{id}','App\Http\Controllers\ControllerEmpresa@VerEmpresa');
+route::get('/VermiPerfil','App\Http\Controllers\ControllerEmpresa@VermiPerfil');
+
 
 //RUTAS PRODUCTO
 Route::get('/altaProducto','App\Http\Controllers\controllerProducto@altaProducto');
 route::post('/altaProducto','App\Http\Controllers\controllerPublicacion@altaProd');
 route::get('/listarProductos','App\Http\Controllers\controllerProducto@listarProductos');
 route::get('/listar_productos','App\Http\Controllers\controllerProducto@listaP');
+
 Route::get('/modificarProducto/{idProducto}', 'App\Http\Controllers\controllerProducto@modificarProducto');
 Route::post('/modificarProd/{datosPub}', 'App\Http\Controllers\controllerPublicacion@modificarProd');
 route::get('/VistaOferta','App\Http\Controllers\controllerProducto@Oferta');

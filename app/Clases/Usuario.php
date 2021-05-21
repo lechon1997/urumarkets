@@ -4,35 +4,34 @@ Class Usuario{
     private $apellido;
     private $corre;
     private $contrasenia;
-    private $tipoDoc;
+    //private $tipoDoc;
 
-    public function __construct($nom,$ape,$corre,$contra,$tipoDoc){
+    public function __construct($nom,$ape,$corre,$contra){
         $this->nombre = $nom;
         $this->apellido = $ape;
         $this->correo = $corre;
         $this->contrasenia = $contra;
-        $this->tipoDoc = $tipoDoc;
+   //     $this->tipoDoc = $tipoDoc;
     }
 
     
 
-    /**
-     * Get the value of tipoDoc
-     */
+    /*
+     Get the value of tipoDoc
+     
     public function getTipoDoc()
     {
         return $this->tipoDoc;
     }
 
-    /**
-     * Set the value of tipoDoc
-     */
+    
     public function setTipoDoc($tipoDoc) : self
     {
         $this->tipoDoc = $tipoDoc;
 
         return $this;
     }
+    */
 
     /**
      * Get the value of contrasenia
@@ -102,6 +101,26 @@ Class Usuario{
     public function setNombre($nombre) : self
     {
         $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    /**
+     * @param mixed $imagen
+     *
+     * @return self
+     */
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
 
         return $this;
     }

@@ -2,194 +2,297 @@
 <html>
 <head><script src="{{ asset('js/app.js') }}"></script>
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<title>UruMarkets</title>
 </head>
 @include('layouts.headerVisitante')
 </head>
 <body>
 	{{ csrf_field()}}
-	<div class="page-content page-container" id="page-content">
-    <div class="padding">
-        <div class="row container d-flex justify-content-center">
-            <div class="col-xl-6 col-md-12">
-                <div class="card user-card-full">
-                    <div class="row m-l-0 m-r-0">
-                        <div class="col-sm-4 bg-c-lite-green user-profile">
-                            <div class="card-block text-center text-white">
-                                <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image"> </div>
-                                <h6 class="f-w-600">Hembo Tingor</h6>
-                                <p>Web Designer</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
-                            </div>
-                        </div>
-                        <div class="col-sm-8">
-                            <div class="card-block">
-                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <p class="m-b-10 f-w-600">Email</p>
-                                        <h6 class="text-muted f-w-400">rntng@gmail.com</h6>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <p class="m-b-10 f-w-600">Phone</p>
-                                        <h6 class="text-muted f-w-400">98979989898</h6>
-                                    </div>
-                                </div>
-                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Projects</h6>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <p class="m-b-10 f-w-600">Recent</p>
-                                        <h6 class="text-muted f-w-400">Sam Disuja</h6>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <p class="m-b-10 f-w-600">Most Viewed</p>
-                                        <h6 class="text-muted f-w-400">Dinoter husainm</h6>
-                                    </div>
-                                </div>
-                                <ul class="social-link list-unstyled m-t-40 m-b-10">
-                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i class="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>
-                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i class="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
-                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i class="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<style type="text/css">
-
-
-.padding {
-    padding: 3rem !important
-}
-
-.user-card-full {
-    overflow: hidden
-}
-
-.card {
-    border-radius: 5px;
-    -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
-    box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
-    border: none;
-    margin-bottom: 30px
-}
-
-.m-r-0 {
-    margin-right: 0px
-}
-
-.m-l-0 {
-    margin-left: 0px
-}
-
-.user-card-full .user-profile {
-    border-radius: 5px 0 0 5px
-}
-
-.bg-c-lite-green {
-    background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));
-    background: linear-gradient(to right, #ee5a6f, #f29263)
-}
-
-.user-profile {
-    padding: 20px 0
-}
-
-.card-block {
-    padding: 1.25rem
-}
-
-.m-b-25 {
-    margin-bottom: 25px
-}
-
-.img-radius {
-    border-radius: 5px
-}
-
-h6 {
-    font-size: 14px
-}
-
-.card .card-block p {
-    line-height: 25px
-}
-
-@media only screen and (min-width: 1400px) {
-    p {
-        font-size: 14px
-    }
-}
-
-.card-block {
-    padding: 1.25rem
-}
-
-.b-b-default {
-    border-bottom: 1px solid #e0e0e0
-}
-
-.m-b-20 {
-    margin-bottom: 20px
-}
-
-.p-b-5 {
-    padding-bottom: 5px !important
-}
-
-.card .card-block p {
-    line-height: 25px
-}
-
-.m-b-10 {
-    margin-bottom: 10px
-}
-
-.text-muted {
-    color: #919aa3 !important
-}
-
-.b-b-default {
-    border-bottom: 1px solid #e0e0e0
-}
-
-.f-w-600 {
-    font-weight: 600
-}
-
-.m-b-20 {
-    margin-bottom: 20px
-}
-
-.m-t-40 {
-    margin-top: 20px
-}
-
-.p-b-5 {
-    padding-bottom: 5px !important
-}
-
-.m-b-10 {
-    margin-bottom: 10px
-}
-
-.m-t-40 {
-    margin-top: 20px
-}
-
-.user-card-full .social-link li {
-    display: inline-block
-}
-
-.user-card-full .social-link li a {
-    font-size: 20px;
-    margin: 0 10px 0 0;
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out
-}
-</style>
+	<div class="container emp-profile">
+		<form method="post">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="profile-img">
+						@if( isset($tipovistaperfil) && $tipovistaperfil == "verperfil" )
+							<img src="storage/empresa/{{ $usuario->imagen }}" alt=""/>
+						@else
+							<img src="../storage/empresa/{{ $usuario->imagen }}" alt=""/>
+						@endif
+						
+						<!--<div class="file btn btn-lg btn-primary">
+							Cambiar foto
+							<input type="file" name="file"/>
+						</div>-->
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="profile-head">
+						<h5>
+							{{ $vendedor->nombreFantasia }}
+						</h5>
+						<h6>
+							{{ $vendedor->rubro }}
+						</h6>
+						<br>
+						<ul class="nav nav-tabs" id="myTab" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Usuario</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Empresa</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<!--<input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>-->
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="profile-work">
+						<p>WORK LINK</p>
+						<a href="">Website Link</a><br/>
+						<a href="">Bootsnipp Profile</a><br/>
+						<a href="">Bootply Profile</a>
+						<p>SKILLS</p>
+						<a href="">Web Designer</a><br/>
+						<a href="">Web Developer</a><br/>
+						<a href="">WordPress</a><br/>
+						<a href="">WooCommerce</a><br/>
+						<a href="">PHP, .Net</a><br/>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div class="tab-content profile-tab" id="myTabContent">
+						<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+							<div class="row">
+								<div class="col-md-6">
+									<label>Nombre</label>
+								</div>
+								<div class="col-md-6">
+									<p>{{ $usuario->primerNombre }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Apellido</label>
+								</div>
+								<div class="col-md-6">
+									<p>{{ $usuario->primerApellido }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Email</label>
+								</div>
+								<div class="col-md-6">
+									<p>{{ $usuario->email }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Cedula</label>
+								</div>
+								<div class="col-md-6">
+									<p>{{ $usuario->cedula }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Telefono</label>
+								</div>
+								<div class="col-md-6">
+									<p>{{ $usuario->telefono }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Departamento</label>
+								</div>
+								<div class="col-md-6">
+									<p>{{ $departamento->nombre }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Localidad</label>
+								</div>
+								<div class="col-md-6">
+									<p>{{ $localidad->nombre }}</p>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+							<div class="row">
+								<div class="col-md-6">
+									<label>RUT</label>
+								</div>
+								<div class="col-md-6">
+									<p>{{ $vendedor->RUT }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Razon Social</label>
+								</div>
+								<div class="col-md-6">
+									<p>{{ $vendedor->razonSocial }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Nombre Fantasia</label>
+								</div>
+								<div class="col-md-6">
+									<p>{{ $vendedor->nombreFantasia }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Tipo de Organizacion</label>
+								</div>
+								<div class="col-md-6">
+									<p>{{ $vendedor->tipoOrganizacion }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Rubro</label>
+								</div>
+								<div class="col-md-6">
+									<p>{{ $vendedor->rubro }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Telefono de la Empresa</label>
+								</div>
+								<div class="col-md-6">
+									<p>{{ $vendedor->telefonoEmpresa }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Direccion</label>
+								</div>
+								<div class="col-md-6">
+									<p>{{ $vendedor->direccion }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Descripcion:</label>
+								</div>
+								<div class="col-md-6">
+									<p>{{ $vendedor->descripcion }}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>           
+	</div>
+	<style type="text/css">
+		body{
+		 background: -webkit-linear-gradient(left, #3931af, #00c6ff);/* */	
+		}
+		.emp-profile{
+			padding: 3%;
+			margin-top: 3%;
+			margin-bottom: 3%;
+			border-radius: 0.5rem;
+			background: #fff;
+		}
+		.profile-img{
+			text-align: center;
+		}
+		.profile-img img{
+			width: 70%;
+			height: 100%;
+		}
+		.profile-img .file {
+			position: relative;
+			overflow: hidden;
+			margin-top: -20%;
+			width: 70%;
+			border: none;
+			border-radius: 0;
+			font-size: 15px;
+			background: #212529b8;
+		}
+		.profile-img .file input {
+			position: absolute;
+			opacity: 0;
+			right: 0;
+			top: 0;
+		}
+		.profile-head h5{
+			color: #333;
+		}
+		.profile-head h6{
+			color: #0062cc;
+		}
+		.profile-edit-btn{
+			border: none;
+			border-radius: 1.5rem;
+			width: 70%;
+			padding: 2%;
+			font-weight: 600;
+			color: #6c757d;
+			cursor: pointer;
+		}
+		.proile-rating{
+			font-size: 12px;
+			color: #818182;
+			margin-top: 5%;
+		}
+		.proile-rating span{
+			color: #495057;
+			font-size: 15px;
+			font-weight: 600;
+		}
+		.profile-head .nav-tabs{
+			margin-bottom:5%;
+		}
+		.profile-head .nav-tabs .nav-link{
+			font-weight:600;
+			border: none;
+		}
+		.profile-head .nav-tabs .nav-link.active{
+			border: none;
+			border-bottom:2px solid #0062cc;
+		}
+		.profile-work{
+			padding: 14%;
+			margin-top: -15%;
+		}
+		.profile-work p{
+			font-size: 12px;
+			color: #818182;
+			font-weight: 600;
+			margin-top: 10%;
+		}
+		.profile-work a{
+			text-decoration: none;
+			color: #495057;
+			font-weight: 600;
+			font-size: 14px;
+		}
+		.profile-work ul{
+			list-style: none;
+		}
+		.profile-tab label{
+			font-weight: 600;
+		}
+		.profile-tab p{
+			font-weight: 600;
+			color: #0062cc;
+		}
+	</style>
 </body>
 </html>

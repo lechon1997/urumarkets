@@ -28,6 +28,7 @@ class controllerProducto extends Controller
     }
 
     public function modificarProducto(Request $request){
+
         //datosPublicacion tiene el id de el producto/servicio
         //y si es servicio o producto.
         $datosPublicacion = $request->idProducto;
@@ -62,8 +63,7 @@ class controllerProducto extends Controller
             $publicacion->tipoPub = "servicio";
         }
       
-        return view("Producto.modificarProducto")->with('publicacion', $publicacion);       
-
+        return view("Producto.modificarProducto")->with('publicacion', $publicacion);              
     }
 
     public function listaP(){
