@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Publicacion;
+use Illuminate\Support\Facades\Auth;
 
 class controllerProducto extends Controller
 {
@@ -27,26 +28,75 @@ class controllerProducto extends Controller
     }
 
     public function modificarProducto(Request $request){
-        $idProducto =$request->idProducto;
-        $producto = Publicacion::select('publicacion.*', 'producto.*')
-                                ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
-                                //->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
-                                ->where('producto.id', $idProducto)
-                                ->first();                                                                                                              
-        return view("Producto.modificarProducto")->with('producto', $producto);
+        //datosPublicacion tiene el id de el producto/servicio
+        //y si es servicio o producto.
+        $datosPublicacion = $request->idProducto;
+
+        //Con explode armo un array separando los datos porque vienen
+        //así: 1&producto - 2&servicio.
+        $arrayPublicacion = explode("&",$datosPublicacion);
+
+        //Creo dos variables nuevas que van a tomar los valores del array.
+        $idPub = $arrayPublicacion[0];
+        $tipoPub = $arrayPublicacion[1];
+
+        $idUsuario = Auth::id();
+
+        $publicacion;
+
+        if($tipoPub == "producto"){                    
+            $publicacion = Publicacion::select('publicacion.*', 'producto.*')
+                                    ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                                    ->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
+                                    ->where('producto.id', $idPub)
+                                    ->where('usuario.id', $idUsuario)
+                                    ->first();
+            $publicacion->tipoPub = "producto";      
+        }else{
+            $publicacion = Publicacion::select('publicacion.*', 'servicio.*')
+                                    ->join('servicio', 'publicacion.id', '=', 'servicio.publicacion_id')
+                                    ->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
+                                    ->where('servicio.id', $idPub)
+                                    ->where('usuario.id', $idUsuario)
+                                    ->first();   
+            $publicacion->tipoPub = "servicio";
+        }
+      
+        return view("Producto.modificarProducto")->with('publicacion', $publicacion);       
 
     }
 
     public function listaP(){
-        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock', 'producto.id')
+        $idUsuario = Auth::id();
+        $productos = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock', 'producto.id')
                                 ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
-                                //->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
+                                ->join('usuario', 'publicacion.usuario_id', '=',  'usuario.id')
+                                ->where('usuario.id', $idUsuario)
                                 ->get();
-        return $producto;
+
+        $servicios = Publicacion::select('publicacion.*','publicacion.id', 'servicio.id')
+                                ->join('servicio', 'publicacion.id', '=', 'servicio.publicacion_id')
+                                ->join('usuario', 'publicacion.usuario_id', '=',  'usuario.id')
+                                ->where('usuario.id', $idUsuario)
+                                ->get();
+
+        $publicaciones = [];
+
+        for($x=0; $x < count($productos); $x++){
+            $productos[$x]->esProducto = "producto";
+            array_push($publicaciones, $productos[$x]);
+        }
+
+        for($i=0; $i < count($productos); $i++){
+            $servicios[$i]->esProducto = "servicio";
+            array_push($publicaciones, $servicios[$i]);
+        }
+
+
+        return $publicaciones;
     }
 
-    public function modProducto($id){    
-        
+    public function modProducto($id){            
         $productito = Producto::select('producto.*')
                                 ->where('producto.producto_id', '=', $id)
                                 ->get();

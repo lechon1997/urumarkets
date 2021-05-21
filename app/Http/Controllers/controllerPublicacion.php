@@ -51,7 +51,7 @@ class controllerPublicacion extends Controller
             $publicacion->precio = 0;
         }
 
-        if($publicacion->limitePorPersona == ""){
+        if($request->productosPorPersona == ""){
             $publicacion->limitePorPersona = 0;
         }else{
             $publicacion->limitePorPersona = $request->productosPorPersona;
@@ -62,8 +62,7 @@ class controllerPublicacion extends Controller
         $publicacion->usuario_id = Auth::id();
 
         //Para la foto
-         if ($request->hasFile('file')) {
-            //$destino = 'storage';
+         if ($request->hasFile('file')) {            
             $nombreFoto = $request->file->hashName();           
             $request->file->store('productos', 'public');
             $publicacion->foto = $nombreFoto;
@@ -87,20 +86,26 @@ class controllerPublicacion extends Controller
         }
         
  
-        //return redirect(); 
+        return redirect("/altaProducto"); 
         
 
     }
 
+    public function modificarProd(Request $request){   
+        //datosPublicacion tiene el id de el producto/servicio
+        //y si es servicio o producto.
+        $datosPublicacion = $request->datosPub;
 
+        //Con explode armo un array separando los datos porque vienen
+        //así: 1&producto - 2&servicio.
+        $arrayPublicacion = explode("&",$datosPublicacion);
 
-    public function modificarProd(Request $request){
-        $publicacionID = $request->idPublicacion;
-        $productoID = $request->idProducto; 
+        //Creo dos variables nuevas que van a tomar los valores del array.
+        $idPub = $arrayPublicacion[0];
+        $tipoPub = $arrayPublicacion[1];
 
-        $publicacion = Publicacion::find($publicacionID);
-        $producto = Producto::find($productoID);
-
+        $publicacion = Publicacion::find($idPub);
+                          
         $publicacion->titulo = $request->nombreProducto;
         $publicacion->descripcion = $request->descripcionProducto;
 
@@ -125,18 +130,35 @@ class controllerPublicacion extends Controller
 
         $publicacion->porcentajeOferta = $request->porcentajeOfertaProducto;
         $publicacion->estado = $request->estadoProducto;
-        $publicacion->limitePorPersona = $request->productosPorPersona;      
-        $publicacion->foto = "prueba";
-        $publicacion->usuario_id = 1;
+        $publicacion->limitePorPersona = $request->productosPorPersona;            
+        $publicacion->usuario_id = Auth::id();
+
+        //$publicacion->foto = "prueba";
+
+        //Para la foto
+        if ($request->hasFile('file')) {            
+            $nombreFoto = $request->file->hashName();           
+            $request->file->store('productos', 'public');
+            $publicacion->foto = $nombreFoto;
+        }
 
         //Inserto la publicación a la base de datos.
         $publicacion->save();
 
-        $producto->stock = $request->stockProducto;
-
-        $publicacion->productos()->save($producto);
+        //Pregunto qué tipo de publicación tengo que modificar
+        if($tipoPub == "producto"){
+            $producto = Producto::find($idPub); 
+            $producto->stock = $request->stockProducto;
+            $publicacion->productos()->save($producto);    
+        }else{
+            $servicio = Servicio::find($idPub);
+            $publicacion->servicios()->save($servicio);
+        }
    
         return redirect('/listarProductos');
+        
+        //return $request->datosProd;
+
 
     }
 

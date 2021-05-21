@@ -23,12 +23,11 @@
 		    	method: "GET",
 		    	async:false,
 		     	success: function(res) {		     		
-		     		var elemento;
-		     		console.log(res[0]);
+		     		var elemento;		     		
 		     		var cant = Object.keys(res).length;
 		     		for (var i = 0; i < cant; i++){
 		     			var br = $('<br/>');
-
+		     			console.log(res[i]);
 		     			//Botón desplegable
 		     			var button = $('<button>').attr("class", "accordion claserandom")
 		     									  .attr("type", "button")
@@ -64,7 +63,7 @@
 
 		     			//Botoncito para modificar
 		     			var modificarProducto = $('<input>').attr("type", "button")
-		     												.attr("id", res[i].id)
+		     												.attr("id", res[i].id + "&" + res[i].esProducto)
 		     												.attr("value", "Modificar")
 		     												.attr("class", "btn btn-success mb-2 somosHerederos")
 		     												.attr("onclick","modificarProducto(this)");

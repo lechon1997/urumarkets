@@ -14,7 +14,7 @@
 			<div class="form-group tamanio">
 				<label for="tipoPublicacion">Tipo de publicación:</label>
 				<div class="btn-group btn-group-toggle" id = "tipoPublicacion" data-toggle="buttons">
-				  <label id = "labelProducto" class="btn btn-secondary active">
+				  <label id = "labelProducto" class="btn btn-primary active">
 				    <input type="radio" name="publicacion" id="producto" value = "productito" autocomplete="off" checked> Producto
 				  </label>
 				  <label id = "labelServicio" class="btn btn-secondary">
@@ -23,19 +23,19 @@
 				</div>
 			</div>
 			<div class="form-group tamanio">
-					<label for="nombreProducto">Nombre del producto:</label>
+					<label id ="labelNombrePublicacion" for="nombreProducto"></label>
 					<input type="text" class="form-control" id="nombreProducto" name="nombreProducto" placeholder="Milanesa">
 			</div>
 			<div class="form-group">
 				<div class="input-group">			
 						<div class="input-group-prepend">
-							<span class="input-group-text">Descripción del producto:</span>
+							<span id ="labelDescripcionPublicacion" class="input-group-text">Descripción</span>
 						</div>
 						<textarea class="form-control" aria-label="Descripción" id="descripcionProducto" name="descripcionProducto" placeholder="1kg de milanesa"></textarea>
 				</div>
 			</div>
 			<div class="form-group tamanio">
-				<label for ="checkboxTienePrecio" >¿El producto tendrá precio?</label>
+				<label id ="labelchkbxPrecioPub" for ="checkboxTienePrecio" ></label>
 					<div class="custom-control custom-checkbox">
 					<input type="checkbox" class="custom-control-input" id="checkboxTienePrecio" name="checkboxTienePrecio" >
 					<label class="custom-control-label" for="checkboxTienePrecio">Si - No</label>
@@ -50,25 +50,25 @@
 					</select>
 				</div>
 				<div class="tipoMP tamanio" id="precio">
-					<label for="precioProducto">Precio del producto:</label>
+					<label id ="labelPrecioPublicacion" for="precioProducto"></label>
 					<input class="form-control" id="precioProducto" name="precioProducto" type="number">
 				</div>
 			</div>
 			<div class="form-group row">
 				<div class="tipoMP col-md-5" id="tipo">
-					<label for="checkboxOferta">¿El producto se encuentra en oferta?</label>
+					<label id ="labelchkbxPublicacionOferta" for="checkboxOferta"></label>
 						<div class="custom-control custom-checkbox">
 							<input type="checkbox" class="custom-control-input" checked="" id="checkboxOferta" name="checkboxOferta" >
 							<label class="custom-control-label" for="checkboxOferta">Si - No</label>
 						</div>
 				</div>
 				<div class="tipoMP tamanio" id="precio">
-					<label >Porcentaje de la oferta:</label>
+					<label for = "porcentajeOfertaProducto">Porcentaje de la oferta:</label>
 					<input class="form-control" id="porcentajeOfertaProducto" name="porcentajeOfertaProducto" type="number">
 				</div>
 			</div>
 			<div class="form-group tamanio">
-					<label for="estadoProducto">Estado del producto:</label>
+					<label id ="labelEstadoPublicacion" for="estadoProducto"></label>
 					<select class="custom-select" id="estadoProducto" name="estadoProducto">
 						<option selected value="Activo">Activo</option>
 						<option value="Pendiente">Pendiente</option>
@@ -84,9 +84,16 @@
 					<input class="form-control" id="productosPorPersona" name="productosPorPersona" type="number">
 			</div>
 			<div class="form-group">
-				<input type="file" id = "file" name="file" required>
+				<label id = "fotoPublicacion" for= "file"></label>
+				<div class="custom-file">
+		  				<input type="file" class="custom-file-input" id="file" name= "file" lang="es" onchange="preview_image(event)">
+		  				<label class="custom-file-label" data-browse="Examinar" for="customFileLang">Seleccionar Archivo</label>
+		  			</div>
+		  				<br>
+		  				<br>
+		  				<img id="output_image" height=200px width=200px\>
 				<div class="form-group boton">						
-					<button id= "validar" type="submit" class="btn btn-primary">Crear producto</button>
+					<button id= "validar" type="submit" class="btn btn-primary"></button>
 				</div>
 			</div>		
 		</form>
@@ -96,29 +103,65 @@
 				//Chequeo esto siempre cuando arranca.
 				$("#checkboxTienePrecio").prop("checked", true);
 
+				//Siempre está chequeado el botón producto, por eso arranco así.
+				document.getElementById('labelNombrePublicacion').innerHTML = 'Nombre del producto:';				
+				document.getElementById('labelchkbxPrecioPub').innerHTML = '¿El producto tendrá precio?';
+				document.getElementById('labelPrecioPublicacion').innerHTML = 'Precio del producto:';
+				document.getElementById('labelchkbxPublicacionOferta').innerHTML = '¿El producto se encuentra en oferta?';
+				document.getElementById('labelEstadoPublicacion').innerHTML = 'Estado del producto:';
+				document.getElementById('fotoPublicacion').innerHTML = 'Seleccione una foto para el producto:';
+				document.getElementById('validar').innerHTML = 'Crear producto';
+
+
+				
 				$("input:radio[name=publicacion]").click(function () {    
 					var seleccion = $('input:radio[name=publicacion]:checked').val();
 					var boton = document.getElementById("labelServicio");
 					var boton2 = document.getElementById("labelProducto");
-					if(seleccion == "servicito"){					
+					if(seleccion == "servicito"){
+						//Deshabilito el stok y los productos límite por persona
+						//ya que un servicio no tiene límite.					
 						$("#stockProducto").prop('disabled', true);
 						$("#productosPorPersona").prop('disabled', true);
 						$("#stockProducto").prop('value', "");	
 						$("#productosPorPersona").prop('value', "");
 
+						//Acá cambio las clases del botón así cambia de color al 
+						//clickearlo.
 						$("#labelServicio").removeClass("btn-secondary");
 						$("#labelServicio").addClass("btn-primary");
 						$("#labelProducto").removeClass("btn-primary");	
-						$("#labelProducto").addClass("btn-secondary");						
+						$("#labelProducto").addClass("btn-secondary");
+
+						//Si hace click en servicio tengo que cambiar los labels.
+						document.getElementById('labelNombrePublicacion').innerHTML = 'Nombre del servicio:';
+						document.getElementById('labelchkbxPrecioPub').innerHTML = '¿El servicio tendrá precio?';
+						document.getElementById('labelPrecioPublicacion').innerHTML = 'Precio del servicio:';
+						document.getElementById('labelchkbxPublicacionOferta').innerHTML = '¿El servicio se encuentra en oferta?';
+						document.getElementById('labelEstadoPublicacion').innerHTML = 'Estado del servicio:';
+						document.getElementById('fotoPublicacion').innerHTML = 'Seleccione una foto para el servicio:';
+						document.getElementById('validar').innerHTML = 'Crear servicio';					
 																		
 					}else{
+						//Si cambia a producto de nuevo, vuelvo a habilitar
+						//los atributos que había deshabilitado antes.
 						$("#stockProducto").removeAttr('disabled');
 						$("#productosPorPersona").removeAttr('disabled');
 
+						//Cambio las clases correspondientes como arriba.
 						$("#labelProducto").addClass("btn-primary");
 						$("#labelProducto").removeClass("btn-secondary");
-						$("#labelServicio").addClass("btn-secondary");					
+						$("#labelServicio").addClass("btn-secondary");
 
+						//Si hace click en producto tengo que cambiar los labels.
+						document.getElementById('labelNombrePublicacion').innerHTML = 'Nombre del producto:';
+						document.getElementById('labelNombrePublicacion').innerHTML = 'Descripción del producto:';
+						document.getElementById('labelchkbxPrecioPub').innerHTML = '¿El producto tendrá precio?';
+						document.getElementById('labelPrecioPublicacion').innerHTML = 'Precio del producto:';
+						document.getElementById('labelchkbxPublicacionOferta').innerHTML = '¿El producto se encuentra en oferta?';
+						document.getElementById('labelEstadoPublicacion').innerHTML = 'Estado del producto:';
+						document.getElementById('fotoPublicacion').innerHTML = 'Seleccione una foto para el producto:';
+						document.getElementById('validar').innerHTML = 'Crear producto';
 					}
     			});
 			});

@@ -9,26 +9,35 @@
 	<body>
 		@include('layouts.headerVisitante')
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<form action="../modificarProd/idProd={{$producto->id}}/idPub={{$producto->publicacion_id}}" method="get" class="centrado">
+		<form action="../modificarProd/{{$publicacion->publicacion_id}}&{{$publicacion->tipoPub}}"
+		method="POST" class="centrado">
 			{{ csrf_field()}}
 			<div class="form-group tamanio">
+					@if($publicacion->tipoPub == "producto")
 					<label for="formGroupExampleInput">Nombre del producto:</label>
-					<input type="text" class="form-control" id="nombreProducto" name="nombreProducto" value="{{$producto->titulo}}" 
+					@else
+					<label for="formGroupExampleInput">Nombre del servicio:</label>
+					@endif
+					<input type="text" class="form-control" id="nombreProducto" name="nombreProducto" value="{{$publicacion->titulo}}" 
 					placeholder="Milanesa">
 			</div>
 			<div class="form-group">
 				<div class="input-group">			
 						<div class="input-group-prepend">
-							<span class="input-group-text">Descripción del producto:</span>
+							<span class="input-group-text">Descripción:</span>
 						</div>
 						<textarea class="form-control" aria-label="Descripción" id="descripcionProducto" name="descripcionProducto"
-						placeholder="1kg de milanesa">{{$producto->descripcion}}</textarea>
+						placeholder="1kg de milanesa">{{$publicacion->descripcion}}</textarea>
 				</div>
 			</div>
 			<div class="form-group tamanio">
-				<label for ="checkboxTienePrecio" >¿El producto tendrá precio?</label>
+				@if($publicacion->tipoPub == "producto")
+					<label for ="checkboxTienePrecio" >¿El producto tendrá precio?</label>
+				@else
+					<label for ="checkboxTienePrecio" >¿El servicio tendrá precio?</label>
+				@endif
 					<div class="custom-control custom-checkbox">
-					@if($producto->conPrecio == 1)
+					@if($publicacion->conPrecio == 1)
 						<input type="checkbox" class="custom-control-input" id="checkboxTienePrecio" name="checkboxTienePrecio" checked>
 					@else
 						<input type="checkbox" class="custom-control-input" id="checkboxTienePrecio" name="checkboxTienePrecio">
@@ -40,7 +49,7 @@
 				<div class="tipoMP" id="tipo">
 					<label for ="tipoMoneda" >Tipo de moneda:</label>		
 					<select class="custom-select" id="tipoMoneda" name="tipoMoneda">
-						@if($producto->tipoMoneda == 'U$S')
+						@if($publicacion->tipoMoneda == 'U$S')
 							<option value="$">$</option>
 							<option selected value="U$S">U$S</option>
 						@else
@@ -50,63 +59,122 @@
 					</select>
 				</div>
 				<div class="tipoMP tamanio" id="precio">
-					<label for="precioProducto">Precio del producto:</label>
-					@if($producto->precio == "")
+					@if($publicacion->tipoPub == "producto")
+						<label for="precioProducto">Precio del producto:</label>
+					@else
+						<label for="precioProducto">Precio del servicio:</label>
+					@endif
+
+					@if($publicacion->precio == "")
 						<input class="form-control" id="precioProducto" name="precioProducto" type="number">
 					@else
-						<input class="form-control" id="precioProducto" name="precioProducto" value="{{$producto->precio}}" type="number">
+						<input class="form-control" id="precioProducto" name="precioProducto" 
+						value="{{$publicacion->precio}}" type="number">
 					@endif
 				</div>
 			</div>
-			<div class="form-group">
-					<label for="customCheck1">¿El producto se encuentra en oferta?</label>
+			<div class="form-group row">
+				<div class="tipoMP col-md-5" id="tipo">
+					@if($publicacion->precio == "")
+						<label for="customCheck1">¿El producto se encuentra en oferta?</label>
+					@else
+						<label for="customCheck1">¿El servicio se encuentra en oferta?</label>
+					@endif
+					
 					<div class="custom-control custom-checkbox">
-						@if($producto->oferta == 1)
+						@if($publicacion->oferta == 1)
 							<input type="checkbox" class="custom-control-input" checked="" id="checkboxOferta" name="checkboxOferta" checked>
 						@else
 							<input type="checkbox" class="custom-control-input" checked="" id="checkboxOferta" name="checkboxOferta" >  
 						@endif						
 						<label class="custom-control-label" for="checkboxOferta">Si - No</label>
-					</div>		
+					</div>
+				</div> 	
+				<div class="tipoMP tamanio" id="precio">
+					<label for = "porcentajeOfertaProducto">Porcentaje de la oferta:</label>
+					@if($publicacion->oferta == "")
+						<input class="form-control" id="porcentajeOfertaProducto" name="porcentajeOfertaProducto"
+						type="number">
+					@else
+						<input class="form-control" id="porcentajeOfertaProducto" name="porcentajeOfertaProducto"
+						value="{{$publicacion->oferta}}" type="number">
+					@endif					
+				</div>
 			</div>
 			<div class="form-group tamanio">
+				@if($publicacion->tipoPub == "producto")
 					<label for="estadoProducto">Estado del producto:</label>
-					<select class="custom-select" id="estadoProducto" name="estadoProducto">
-						@if($producto->estado == "Activo")
-							<option selected value="Activo">Activo</option>
-							<option value="Pendiente">Pendiente</option>
-							<option value="Inactivo">Inactivo</option>
-						@elseif($producto->estado == "Pendiente")
-							<option value="Activo">Activo</option>
-							<option selected value="Pendiente">Pendiente</option>
-							<option value="Inactivo">Inactivo</option>
-						@else
-							<option value="Activo">Activo</option>
-							<option value="Pendiente">Pendiente</option>
-							<option selected value="Inactivo">Inactivo</option>
-						@endif
-					</select>
+				@else
+					<label for="estadoProducto">Estado del servicio:</label>
+				@endif
+
+				<select class="custom-select" id="estadoProducto" name="estadoProducto">
+					@if($publicacion->estado == "Activo")
+						<option selected value="Activo">Activo</option>
+						<option value="Pendiente">Pendiente</option>
+						<option value="Inactivo">Inactivo</option>
+					@elseif($publicacion->estado == "Pendiente")
+						<option value="Activo">Activo</option>
+						<option selected value="Pendiente">Pendiente</option>
+						<option value="Inactivo">Inactivo</option>
+					@else
+						<option value="Activo">Activo</option>
+						<option value="Pendiente">Pendiente</option>
+						<option selected value="Inactivo">Inactivo</option>
+					@endif
+				</select>
 			</div>
-			<div class="form-group tamanio">
+			@if($publicacion->tipoPub == "producto")
+				<div class="form-group tamanio">
 					<label for="stockProducto">Stock</label>
-					<input class="form-control" id="stockProducto" name="stockProducto" value="{{$producto->stock}}" type="number">
-			</div>
-			<div class="form-group tamanio">
+					@if($publicacion->stock == "")
+					<input class="form-control" id="stockProducto" name="stockProducto" type="number">
+					@else
+					<input class="form-control" id="stockProducto" name="stockProducto" value="{{$publicacion->stock}}" type="number">
+					@endif
+				</div>
+				<div class="form-group tamanio">
 					<label for="productosPorPersona">Límite de productos por persona:</label>
-					<input class="form-control" id="productosPorPersona" name="productosPorPersona" value="{{$producto->limitePorPersona}}" 
+					@if($publicacion->limitePorPersona == "")
+						<input class="form-control" id="productosPorPersona" name="productosPorPersona" 
+						value="{{$publicacion->limitePorPersona}}" type="number">
+					@else
+						<input class="form-control" id="productosPorPersona" name="productosPorPersona" 
+						type="number">
+					@endif			
+				</div>
+			@else
+				<div class="form-group tamanio">
+					<label for="stockProducto">Stock</label>
+					<input class="form-control" disabled ="" id="stockProducto" name="stockProducto" value="{{$publicacion->stock}}" type="number">
+				</div>
+				<div class="form-group tamanio">
+					<label for="productosPorPersona">Límite de productos por persona:</label>
+					<input class="form-control" disabled ="" id="productosPorPersona" name="productosPorPersona" value="{{$publicacion->limitePorPersona}}" 
 					type="number">
-			</div>
+				</div>
+			@endif
+			
 			<div class="form-group">
-				<label>Foto del producto:</label>				
+				@if($publicacion->tipoPub == "producto")
+					<label>Seleccione una foto para el producto:</label>
+				@else
+					<label>Seleccione una foto para el servicio:</label>
+				@endif							
 					<div class="custom-file">
-		  				<input type="file" class="custom-file-input" id="customFileLang" lang="es" onchange="preview_image(event)">
-		  				<label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
+		  				<input type="file" class="custom-file-input" id="file" name= "file" lang="es" onchange="preview_image(event)">
+		  				<label class="custom-file-label" data-browse="Examinar" for="customFileLang">Seleccionar Archivo</label>
 		  			</div>
 		  				<br>
-		  				<br>
-		  				<img id="output_image" height=200px width=200px\>
-				<div class="form-group boton">						
-					<button id= "validar" type="submit" class="btn btn-primary">Crear producto</button>
+		  				<br>		  				
+		  				<img id="output_image" src="../storage/productos/{{$publicacion->foto}}" height=200px width=200px\>
+				<div class="form-group boton">
+					@if($publicacion->tipoPub == "producto")
+						<button id= "validar" type="submit" class="btn btn-primary">Modificar producto</button>
+					@else
+						<button id= "validar" type="submit" class="btn btn-primary">Modificar servicio</button>
+					@endif				
+					
 				</div>
 			</div>		
 		</form>
