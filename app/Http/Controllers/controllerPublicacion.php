@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Publicacion;
+use App\Models\Servicio;
 use App\Models\Producto;
+use Illuminate\Support\Facades\Auth;
 
 
 class controllerPublicacion extends Controller
@@ -25,7 +27,7 @@ class controllerPublicacion extends Controller
             ->withInput()
             ->withErrors($validator);
     	}*/
-
+        
     	$publicacion = new Publicacion;
     	$publicacion->titulo = $request->nombreProducto;
     	$publicacion->descripcion = $request->descripcionProducto;
@@ -49,22 +51,48 @@ class controllerPublicacion extends Controller
             $publicacion->precio = 0;
         }
 
-        $publicacion->estado = $request->estadoProducto;
-    	$publicacion->limitePorPersona = $request->productosPorPersona;
-    	$publicacion->foto = "prueba";
-        $publicacion->usuario_id = 1;
+        if($publicacion->limitePorPersona == ""){
+            $publicacion->limitePorPersona = 0;
+        }else{
+            $publicacion->limitePorPersona = $request->productosPorPersona;
+        }
 
-        //Inserto la publicación a la base de datos.
-    	$publicacion->save();
+        $publicacion->porcentajeOferta = $request->porcentajeOfertaProducto;   
+        $publicacion->estado = $request->estadoProducto;    	  	
+        $publicacion->usuario_id = Auth::id();
 
-    	$producto = new Producto;
-    	$producto->stock = $request->stockProducto;
-        $producto->publicacion_id = $publicacion->getKey();
-    	$publicacion->productos()->save($producto);
-   
-        return redirect('/altaProducto');
+        //Para la foto
+         if ($request->hasFile('file')) {
+            //$destino = 'storage';
+            $nombreFoto = $request->file->hashName();           
+            $request->file->store('productos', 'public');
+            $publicacion->foto = $nombreFoto;
+         }
+
+
+        //Inserto la publicación a la base de datos.  	
+        $publicacion->save();
+
+        if($request['publicacion'] == 'productito'){
+            //Si el usuario seleccionó un producto.
+            $producto = new Producto;
+            $producto->stock = $request->stockProducto;                
+            $producto->publicacion_id = $publicacion->getKey();
+            $publicacion->productos()->save($producto);
+        }else{
+            //Si el usuario seleccionó un servicio.
+            $servicio = new Servicio;            
+            $servicio->publicacion_id = $publicacion->getKey();
+            $publicacion->servicios()->save($servicio);
+        }
+        
+ 
+        //return redirect(); 
+        
 
     }
+
+
 
     public function modificarProd(Request $request){
         $publicacionID = $request->idPublicacion;
@@ -95,8 +123,9 @@ class controllerPublicacion extends Controller
             $publicacion->precio = 0;
         }
 
+        $publicacion->porcentajeOferta = $request->porcentajeOfertaProducto;
         $publicacion->estado = $request->estadoProducto;
-        $publicacion->limitePorPersona = $request->productosPorPersona;
+        $publicacion->limitePorPersona = $request->productosPorPersona;      
         $publicacion->foto = "prueba";
         $publicacion->usuario_id = 1;
 
@@ -109,10 +138,11 @@ class controllerPublicacion extends Controller
    
         return redirect('/listarProductos');
 
+    }
 
-    
-
-
+    public function store(Request $request)
+    {
+        //
     }
 
 

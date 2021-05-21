@@ -20,6 +20,10 @@ route::get('/MostrarModEmpresa','App\Http\Controllers\ControllerEmpresa@MostrarM
 route::post('/ModificarEmpresa','App\Http\Controllers\ControllerEmpresa@ModificarEmpresa');
 Route::get('/AltaEmpresa','App\Http\Controllers\ControllerEmpresa@altaempresa');
 route::post('/altaVendedor','App\Http\Controllers\ControllerEmpresa@altaVendedor');
+route::get('/mostrarEmpresas','App\Http\Controllers\ControllerEmpresa@mostrarEmpresas');
+route::get('/VerEmpresa/{id}','App\Http\Controllers\ControllerEmpresa@VerEmpresa');
+route::get('/VermiPerfil','App\Http\Controllers\ControllerEmpresa@VermiPerfil');
+
 
 //RUTAS PRODUCTO
 Route::get('/altaProducto','App\Http\Controllers\controllerProducto@altaProducto');
@@ -28,6 +32,7 @@ route::get('/listarProductos','App\Http\Controllers\controllerProducto@listarPro
 route::get('/listar_productos','App\Http\Controllers\controllerProducto@listaP');
 Route::get('/modificarProducto/{idProducto}','App\Http\Controllers\controllerProducto@modificarProducto');
 Route::get('/modificarProd/idProd={idProducto}/idPub={idPublicacion}', 'App\Http\Controllers\controllerPublicacion@modificarProd');
+route::get('/VistaOferta','App\Http\Controllers\controllerProducto@Oferta');
 
 //RUTAS GENERALES
 route::get('/listar_localidades','App\Http\Controllers\controladorBD@listarLocalidades');

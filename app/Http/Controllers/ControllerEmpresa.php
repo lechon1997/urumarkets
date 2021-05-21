@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Vendedor;
+use App\Models\Localidad;
+use App\Models\Departamento;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -38,6 +40,32 @@ class ControllerEmpresa extends Controller
 
         //value="{{ $vendedor->razonSocial }}"
     }
+
+    public function VerEmpresa($id){
+        $usuario = Usuario::find($id);
+        $vendedor = Vendedor::find($id);
+        $localidad = Localidad::find($usuario->idLocalidad);
+        $departamento = Departamento::find($usuario->idDepartamento);
+        return view("Empresa.VerEmpresa")->with('vendedor',$vendedor)
+                                         ->with('usuario',$usuario)
+                                         ->with('localidad',$localidad)
+                                         ->with('departamento',$departamento);
+    }
+
+    public function VermiPerfil(){
+        $idUsu = Auth::id();
+        $usuario = Usuario::find($idUsu);
+        $vendedor = Vendedor::find($idUsu);
+        $tipovistaperfil = "verperfil";
+        $localidad = Localidad::find($usuario->idLocalidad);
+        $departamento = Departamento::find($usuario->idDepartamento);
+        return view("Empresa.VerEmpresa")->with('vendedor',$vendedor)
+                                         ->with('usuario',$usuario)
+                                         ->with('localidad',$localidad)
+                                         ->with('departamento',$departamento)
+                                         ->with('tipovistaperfil',$tipovistaperfil);
+    }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -48,10 +76,26 @@ class ControllerEmpresa extends Controller
         //
     }
 
+    public function mostrarEmpresas(){
+        $empresas = Usuario::select('usuario.*','vendedor.*','departamento.nombre AS dnombre','localidad.nombre AS lnombre')
+                                ->join('vendedor', 'usuario.id', '=', 'vendedor.id')
+                                ->join('departamento', 'usuario.idDepartamento', '=', 'departamento.id')
+                                ->join('localidad', 'usuario.idLocalidad', '=', 'localidad.id')
+                                ->get();
+        return view("Empresa.listarempresas")->with('empresas',$empresas);
+
+    }
+    
+
     public function altaVendedor(Request $request){
 
         $usuario = new Usuario;
         $usuario->primerNombre = $request->pnombre;
+        if($request->snombre == null){
+            $usuario->segundoNombre = "";
+        }else{
+            $usuario->segundoNombre = $request->snombre;
+        }
         $usuario->segundoNombre = $request->snombre;
         $usuario->primerApellido = $request->papellido;
         $usuario->segundoApellido = $request->sapellido;
@@ -61,6 +105,12 @@ class ControllerEmpresa extends Controller
         $usuario->telefono = $request->telefono;
         $usuario->idDepartamento = $request->Departamento;
         $usuario->idLocalidad = $request->localidad; 
+        if ($request->hasFile('file')) {
+            //$destino = 'storage';
+            $nombreFoto = $request->file->hashName();           
+            $request->file->store('empresa', 'public');
+            $usuario->imagen = $nombreFoto;
+        }
         $usuario->save();
 
         $vendedor = new Vendedor;
@@ -85,7 +135,11 @@ class ControllerEmpresa extends Controller
 
         $usuario = Usuario::find($idUsu);
         $usuario->primerNombre = $request->pnombre;
-        $usuario->segundoNombre = $request->snombre;
+        if($request->snombre == null){
+            $usuario->segundoNombre = "";
+        }else{
+            $usuario->segundoNombre = $request->snombre;
+        }
         $usuario->primerApellido = $request->papellido;
         $usuario->segundoApellido = $request->sapellido;
         $usuario->password = Hash::make($request->pass);
@@ -94,6 +148,12 @@ class ControllerEmpresa extends Controller
         $usuario->telefono = $request->telefono;
         $usuario->idDepartamento = $request->Departamento;
         $usuario->idLocalidad = $request->localidad;
+        if ($request->hasFile('file')) {
+            //$destino = 'storage';
+            $nombreFoto = $request->file->hashName();           
+            $request->file->store('empresa', 'public');
+            $usuario->imagen = $nombreFoto;
+        }
         $usuario->save();
 
         $vendedor = Vendedor::find($idUsu);

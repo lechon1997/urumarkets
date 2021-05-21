@@ -32,7 +32,7 @@ class controllerProducto extends Controller
                                 ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
                                 //->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
                                 ->where('producto.id', $idProducto)
-                                ->first();                                                                                                              
+                                ->first();                                                                                       
         return view("Producto.modificarProducto")->with('producto', $producto);
 
     }
@@ -51,6 +51,14 @@ class controllerProducto extends Controller
                                 ->where('producto.producto_id', '=', $id)
                                 ->get();
         return $productito;
+    }
+
+    public function Oferta(){
+         $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+                                ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                                ->where('publicacion.oferta', '=' , 1 )
+                                ->get();
+        return view("Empresa.ofertas")->with('productos',$producto);
     }
 
     /**
