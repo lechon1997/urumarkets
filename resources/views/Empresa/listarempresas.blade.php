@@ -10,7 +10,9 @@
 </head>
 
 </head>
+@include('layouts.headerVisitante')
 <body>
+
 	{{ csrf_field()}}
 	@foreach ($empresas as $empresa)
 
