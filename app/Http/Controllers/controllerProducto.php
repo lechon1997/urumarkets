@@ -116,6 +116,34 @@ class controllerProducto extends Controller
         return view("Empresa.ofertas")->with('productos',$producto);
     }
 
+    public function defecto(){
+        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+                               ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                               ->where('publicacion.oferta', '=' , 1 )
+                               ->get();
+       return json_encode($producto);
+   }
+
+    public function OfertaMayorMenor(){
+        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+                               ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                               ->where('publicacion.oferta', '=' , 1 )
+                               ->orderBy('publicacion.precio', 'DESC')
+                               ->get();
+        return json_encode($producto);
+       //return view("Empresa.ofertas")->with('productos',$producto);
+   }
+
+   public function OfertaMenorMayor(){
+    $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+                           ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                           ->where('publicacion.oferta', '=' , 1 )
+                           ->orderBy('publicacion.precio', 'ASC')
+                           ->get();
+    return json_encode($producto);
+   //return view("Empresa.ofertas")->with('productos',$producto);
+}
+
     /**
      * Show the form for creating a new resource.
      *

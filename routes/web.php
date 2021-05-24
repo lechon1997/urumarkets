@@ -34,6 +34,9 @@ route::get('/listar_productos','App\Http\Controllers\controllerProducto@listaP')
 Route::get('/modificarProducto/{idProducto}', 'App\Http\Controllers\controllerProducto@modificarProducto');
 Route::post('/modificarProd/{datosPub}', 'App\Http\Controllers\controllerPublicacion@modificarProd');
 route::get('/VistaOferta','App\Http\Controllers\controllerProducto@Oferta');
+route::get('/MayorMenor','App\Http\Controllers\controllerProducto@OfertaMayorMenor');
+route::get('/MenorMayor','App\Http\Controllers\controllerProducto@OfertaMenorMayor');
+route::get('/default','App\Http\Controllers\controllerProducto@defecto');
 
 //RUTAS GENERALES
 route::get('/listar_localidades','App\Http\Controllers\controladorBD@listarLocalidades');
