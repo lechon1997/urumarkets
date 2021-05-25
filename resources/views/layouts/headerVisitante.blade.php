@@ -172,7 +172,7 @@
           <i class="fa fa-globe">
             <span class="badge badge-success">11</span>
           </i>
-          Test
+          Testbackground-image: linear-gradient(#343a40,#FAFAFA, #343a40);
         </a>
       </li>-->    
     @endguest  

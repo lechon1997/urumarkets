@@ -10,7 +10,6 @@
 	<body>
 	@include('layouts.headerVisitante')	
 	<div class = "centro" id="pija">	
-
 	</div>
 
 

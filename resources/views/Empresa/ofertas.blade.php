@@ -28,10 +28,8 @@
 			<div id="myConteiner" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 				@foreach ($productos as $prod)
 				<div style="margin-bottom: 3%;" class="col">
-					<div class="card shadow-sm">
-						<div style="width:100%; height:225px;">
-							<img src="storage/productos/{{ $prod->foto }}" style="width:100%;height:225px;object-fit:scale-down;"></img>
-						</div>
+					<div class="card shadow-sm caca">
+						<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>{{ $prod->descripcion }}</title><rect width="100%" height="100%" fill="#FAFAFA"></rect><image href="storage/productos/{{ $prod->foto }}" height="100%" width="100%"/></svg>
 						<div class="card-body">
 							<p class="card-text">{{ $prod->titulo }}</p>
 							<div class="d-flex justify-content-between align-items-center">
@@ -147,4 +145,9 @@
 	</script>
 </body>
 
+<style type="text/css">
+.caca:hover {
+  border: 1px solid #777;
+}
+</style>
 </html>
