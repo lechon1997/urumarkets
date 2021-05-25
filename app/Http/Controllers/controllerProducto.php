@@ -79,8 +79,7 @@ class controllerProducto extends Controller
                                 ->join('servicio', 'publicacion.id', '=', 'servicio.publicacion_id')
                                 ->join('usuario', 'publicacion.usuario_id', '=',  'usuario.id')
                                 ->where('usuario.id', $idUsuario)
-                                ->get();
-    
+                                ->get();        
         
         $publicaciones = [];
 
@@ -92,7 +91,7 @@ class controllerProducto extends Controller
         }
         
         if(count($servicios) > 0){
-            for($i=0; $i < count($productos); $i++){
+            for($i=0; $i < count($servicios); $i++){
                 $servicios[$i]->esProducto = "servicio";
                 array_push($publicaciones, $servicios[$i]);
             }
