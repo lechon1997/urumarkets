@@ -106,4 +106,11 @@ class ControladorWebServices extends Controller
         $myArr2 = array("estado" => "incorrecto");
         return json_encode(["respuesta" => $myArr2]);
     }
+
+    public function actualizarUsu(Request $request){
+        $BD = new ControladorBD();
+        $BD->actualizarDatosUsuario($request);
+        $myArr = array("estado" => "ok");
+        return json_encode($myArr);
+    }
 }

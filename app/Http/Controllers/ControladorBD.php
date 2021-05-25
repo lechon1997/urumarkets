@@ -108,6 +108,11 @@ class ControladorBD extends Controller
         $idL = $request->input('localidad');
 
         $idUsu = Auth::id();
+        if(empty($idUsu)){
+            global $idUsu;
+            $idUsu = $request->input('id');
+        }
+
         $usua = Usuario::find($idUsu);
 
         $usua->primerNombre = $nom;
