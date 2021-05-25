@@ -26,3 +26,4 @@ Route::post('/altaUsuws','App\Http\Controllers\ControladorWebServices@altaUsuws'
 Route::post('/altaempws','App\Http\Controllers\ControladorWebServices@altaEmpws');
 Route::get('/getLocalidades','App\Http\Controllers\ControladorWebServices@getLocalidades');
 Route::post('/autenticarUsuario','App\Http\Controllers\ControladorWebServices@autenticarUsuario');
+route::post('/altaproductowbs','App\Http\Controllers\ControladorWebServices@altaproductowbs');

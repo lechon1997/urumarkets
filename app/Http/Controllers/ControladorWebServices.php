@@ -106,4 +106,11 @@ class ControladorWebServices extends Controller
         $myArr2 = array("estado" => "incorrecto");
         return json_encode(["respuesta" => $myArr2]);
     }
+
+    public function altaproductowbs(Request $request){
+        $ContP = new ControllerPublicacion();
+        $ContP->altaProd($request);
+        $myArr = array("estado" => "ok");
+        return json_encode($myArr);
+    }
 }

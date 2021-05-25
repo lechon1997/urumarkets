@@ -177,7 +177,7 @@
           <i class="fa fa-globe">
             <span class="badge badge-success">11</span>
           </i>
-          Test
+          Testbackground-image: linear-gradient(#343a40,#FAFAFA, #343a40);
         </a>
       </li>-->    
     @endguest  
@@ -187,6 +187,15 @@
 
 <style type="text/css">
   @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+html {
+    height: 100%;
+}
+  body{
+background: rgb(52,58,64);
+background: linear-gradient(180deg, rgba(52,58,64,1) 0%, rgba(255,255,255,1) 53%);
+background-repeat: no-repeat;
+  }
 
   .navbar-icon-top .navbar-nav .nav-link > .fa {
     position: relative;
