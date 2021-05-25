@@ -8,7 +8,7 @@ use App\Models\Publicacion;
 use App\Models\Servicio;
 use App\Models\Producto;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Storage;
 
 class controllerPublicacion extends Controller
 {
@@ -133,10 +133,13 @@ class controllerPublicacion extends Controller
         $publicacion->limitePorPersona = $request->productosPorPersona;            
         $publicacion->usuario_id = Auth::id();
 
-        //$publicacion->foto = "prueba";
-
         //Para la foto
-        if ($request->hasFile('file')) {            
+        if ($request->hasFile('file')) {
+            //Borro la imagen que tenía el producto/servicio anteriormente.
+            $imagenPublicacion = $publicacion->foto;
+            unlink(storage_path("app/public/productos/".$imagenPublicacion));
+
+            //Creo la imagen nueva y la guardo.           
             $nombreFoto = $request->file->hashName();           
             $request->file->store('productos', 'public');
             $publicacion->foto = $nombreFoto;
@@ -155,9 +158,9 @@ class controllerPublicacion extends Controller
             $publicacion->servicios()->save($servicio);
         }
    
-        return redirect('/listarProductos');
+        //return redirect('/listarProductos');
         
-        //return $request->datosProd;
+        //return $publicacion;
 
 
     }

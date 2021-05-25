@@ -56,11 +56,6 @@
     background-color: #CCFDFF
 }
 </style>-->
-
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">UruMarket</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -187,15 +182,6 @@
 
 <style type="text/css">
   @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
-
-html {
-    height: 100%;
-}
-  body{
-background: rgb(52,58,64);
-background: linear-gradient(180deg, rgba(52,58,64,1) 0%, rgba(255,255,255,1) 53%);
-background-repeat: no-repeat;
-  }
 
   .navbar-icon-top .navbar-nav .nav-link > .fa {
     position: relative;

@@ -10,7 +10,7 @@
 		@include('layouts.headerVisitante')
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<form action="../modificarProd/{{$publicacion->publicacion_id}}&{{$publicacion->tipoPub}}"
-		method="POST" class="centrado">
+		method="POST" class="centrado" enctype="multipart/form-data">
 			{{ csrf_field()}}
 			<div class="form-group tamanio">
 					@if($publicacion->tipoPub == "producto")

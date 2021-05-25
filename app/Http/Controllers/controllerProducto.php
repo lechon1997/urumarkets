@@ -67,7 +67,8 @@ class controllerProducto extends Controller
     }
 
     public function listaP(){
-        $idUsuario = Auth::id();
+
+        $idUsuario = Auth::id();             
         $productos = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock', 'producto.id')
                                 ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
                                 ->join('usuario', 'publicacion.usuario_id', '=',  'usuario.id')
@@ -79,19 +80,23 @@ class controllerProducto extends Controller
                                 ->join('usuario', 'publicacion.usuario_id', '=',  'usuario.id')
                                 ->where('usuario.id', $idUsuario)
                                 ->get();
-
+    
+        
         $publicaciones = [];
 
-        for($x=0; $x < count($productos); $x++){
-            $productos[$x]->esProducto = "producto";
-            array_push($publicaciones, $productos[$x]);
+        if(count($productos) > 0){
+            for($x=0; $x < count($productos); $x++){
+                $productos[$x]->esProducto = "producto";
+                array_push($publicaciones, $productos[$x]);
+            }  
         }
-
-        for($i=0; $i < count($productos); $i++){
-            $servicios[$i]->esProducto = "servicio";
-            array_push($publicaciones, $servicios[$i]);
+        
+        if(count($servicios) > 0){
+            for($i=0; $i < count($productos); $i++){
+                $servicios[$i]->esProducto = "servicio";
+                array_push($publicaciones, $servicios[$i]);
+            }
         }
-
 
         return $publicaciones;
     }
@@ -110,6 +115,34 @@ class controllerProducto extends Controller
                                 ->get();
         return view("Empresa.ofertas")->with('productos',$producto);
     }
+
+    public function defecto(){
+        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+                               ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                               ->where('publicacion.oferta', '=' , 1 )
+                               ->get();
+       return json_encode($producto);
+   }
+
+    public function OfertaMayorMenor(){
+        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+                               ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                               ->where('publicacion.oferta', '=' , 1 )
+                               ->orderBy('publicacion.precio', 'DESC')
+                               ->get();
+        return json_encode($producto);
+       //return view("Empresa.ofertas")->with('productos',$producto);
+   }
+
+   public function OfertaMenorMayor(){
+    $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+                           ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                           ->where('publicacion.oferta', '=' , 1 )
+                           ->orderBy('publicacion.precio', 'ASC')
+                           ->get();
+    return json_encode($producto);
+   //return view("Empresa.ofertas")->with('productos',$producto);
+}
 
     /**
      * Show the form for creating a new resource.
