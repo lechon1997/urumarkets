@@ -14,7 +14,7 @@
 		<div class="container">
 			<div class="d-flex pt-4 pb-3 flex-row-reverse">
 				<div>
-					<select id="orderby" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+					<select id="orderby" class="form-control " aria-label=".form-select-lg example">
 						<option value="0" selected>Por defecto</option>
 						<option value="1">Precio (mayor a menor)</option>
 						<option value="2">Precio (menor a mayor)</option>
@@ -22,21 +22,22 @@
 				</div>
 
 				<div class="mr-2 ">
-					<label>Ordenar por: </label>
+					<label style="margin-top: 8%">Ordenar por: </label>
 				</div>
 			</div>
 			<div id="myConteiner" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 				@foreach ($productos as $prod)
 				<div style="margin-bottom: 3%;" class="col">
-					<div class="card shadow-sm caca">
+					<div class="card shadow-sm">
 						<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>{{ $prod->descripcion }}</title><rect width="100%" height="100%" fill="#FAFAFA"></rect><image href="storage/productos/{{ $prod->foto }}" height="100%" width="100%"/></svg>
-						<div class="card-body">
-							<p class="card-text">{{ $prod->titulo }}</p>
+						<div class="card-body borde">
+							<p class="card-text">{{ $prod->titulo}} - {{ $prod->tipoMoneda}}{{ $prod->precio}}</p>		
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
-									<button type="button" value="{{ $prod->id }}" class="btn btn-sm btn-outline-secondary">Ver</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">EN OFERTA {{ $prod->porcentajeOferta }}%</button>
+									<button type="button" value="{{ $prod->id }}" class="btn btn-sm btn-outline-secondary">VER</button>
+									<button type="button" class="btn btn-sm btn-outline-danger">EN OFERTA {{ $prod->porcentajeOferta }}%</button>									
 								</div>
+								<button type="button" value="{{ $prod->id }}" class="btn btn-sm btn-outline-success"> Agregar al carrito <i class="bi-cart-fill me-1"></i></button>
 								<!-- <small class="text-muted">9 mins</small> -->
 							</div>
 						</div>
@@ -91,7 +92,7 @@
 
 						//DESCRIPCION DEL PRODUCTO
 						var titulo = $('<title>');
-						titulo.text(res[i].descripcion);
+						titulo.text(res[i].descripcion);						
 
 
 						//RECTANGULO BIEN NAZI
@@ -109,11 +110,11 @@
 						divCtnImg.append(imagen);
 						urlimg = "";
 
-						var divCardBody = $('<div>').attr("class", "card-body");
+						var divCardBody = $('<div>').attr("class", "card-body borde");
 						divCard.append(divCardBody);
 
-						var pTit = $('<p>').attr("class", "card-text");
-						pTit.text(res[i].titulo);
+						var pTit = $('<p>').attr("class", "card-text");						
+						pTit.text(res[i].titulo + " - " + res[i].tipoMoneda + res[i].precio);
 						divCardBody.append(pTit);
 
 						var divShrek = $('<div>').attr("class", "d-flex justify-content-between align-items-center");
@@ -137,6 +138,14 @@
 						divBtnOferta.text(oferta);
 						divBtnG.append(divBtnOferta);
 						oferta = "";
+
+						var btnAgregarCarrito = $('<button>').attr("type", "button")
+							.attr("class", "btn btn-sm btn-outline-success");
+						btnAgregarCarrito.text("Agregar al carrito")	
+						divShrek.append(btnAgregarCarrito);
+
+
+
 					}
 
 				}
@@ -146,6 +155,12 @@
 </body>
 
 <style type="text/css">
+
+.borde{	
+	border-top: 1px solid #777;
+	margin-top: 2%;
+}	
+
 .caca:hover {
   border: 1px solid #777;
 }

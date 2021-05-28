@@ -5,8 +5,8 @@
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 		<title>Empresas</title>
 	</head>
-
-	@include('layouts.headerVisitante')
+@include('layouts.headerVisitante')
+	
 	<body>
 		<div class="container">
 			@foreach ($empresas as $empresa)
