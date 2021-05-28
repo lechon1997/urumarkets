@@ -107,6 +107,12 @@ class ControladorWebServices extends Controller
         return json_encode(["respuesta" => $myArr2]);
     }
 
+    public function actualizarUsu(Request $request){
+        $BD = new ControladorBD();
+        $BD->actualizarDatosUsuario($request);
+        $myArr = array("estado" => "ok");
+        return json_encode($myArr);
+    }
     public function altaproductowbs(Request $request){
         $ContP = new ControllerPublicacion();
         $ContP->altaProd($request);
