@@ -27,6 +27,10 @@ class controllerProducto extends Controller
         return view("Producto.listarproductos");
     }
 
+    public function verProducto($id){
+        return view("Producto.verproducto")->with('id',$id);
+    }
+
     public function modificarProducto(Request $request){
 
         //datosPublicacion tiene el id de el producto/servicio
@@ -43,8 +47,10 @@ class controllerProducto extends Controller
 
         $idUsuario = Auth::id();
 
-        $publicacion;
+        //$publicacion;
 
+
+        
         if($tipoPub == "producto"){                    
             $publicacion = Publicacion::select('publicacion.*', 'producto.*')
                                     ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
