@@ -100,7 +100,7 @@
 
 						//IMAGEN DEL PRODUCTO
 						var urlimg = "storage/productos/" + res[i].foto;
-						console.log(urlimg)
+						
 						var imagen = $('<img>').attr("src", urlimg)
 							.attr("width", "100%")
 							.attr("height", "225px")

@@ -28,7 +28,20 @@ class controllerProducto extends Controller
     }
 
     public function verProducto($id){
-        return view("Producto.verproducto")->with('id',$id);
+        $datosP = Publicacion::select('publicacion.*', 'producto.*','vendedor.nombreFantasia')
+        ->join('producto', 'publicacion.id', '=', 'producto.id')
+        ->join('vendedor', 'vendedor.id', '=', 'publicacion.usuario_id')
+        ->where('producto.id', $id)
+        ->first();
+        if(empty($datosP->porcentajeOferta)){
+            
+            $datosP->porcentajeOferta = "0";
+        }else{
+            $descontar =  ($datosP->precio * $datosP->porcentajeOferta)/100;
+            $datosP->precioConDesc =round($datosP->precio - $descontar);
+
+        }
+        return view("Producto.verproducto")->with('datos',$datosP);
     }
 
     public function modificarProducto(Request $request){
