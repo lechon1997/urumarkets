@@ -27,6 +27,23 @@ class controllerProducto extends Controller
         return view("Producto.listarproductos");
     }
 
+    public function verProducto($id){
+        $datosP = Publicacion::select('publicacion.*', 'producto.*','vendedor.nombreFantasia')
+        ->join('producto', 'publicacion.id', '=', 'producto.id')
+        ->join('vendedor', 'vendedor.id', '=', 'publicacion.usuario_id')
+        ->where('producto.id', $id)
+        ->first();
+        if(empty($datosP->porcentajeOferta)){
+            
+            $datosP->porcentajeOferta = "0";
+        }else{
+            $descontar =  ($datosP->precio * $datosP->porcentajeOferta)/100;
+            $datosP->precioConDesc =round($datosP->precio - $descontar);
+
+        }
+        return view("Producto.verproducto")->with('datos',$datosP);
+    }
+
     public function modificarProducto(Request $request){
 
         //datosPublicacion tiene el id de el producto/servicio
@@ -43,8 +60,10 @@ class controllerProducto extends Controller
 
         $idUsuario = Auth::id();
 
-        $publicacion;
+        //$publicacion;
 
+
+        
         if($tipoPub == "producto"){                    
             $publicacion = Publicacion::select('publicacion.*', 'producto.*')
                                     ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')

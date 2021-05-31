@@ -34,7 +34,7 @@
 							<p class="card-text">{{ $prod->titulo}} - {{ $prod->tipoMoneda}}{{ $prod->precio}}</p>		
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
-									<button type="button" value="{{ $prod->id }}" class="btn btn-sm btn-outline-secondary">VER</button>
+									<button type="button" onclick="location.href='http://localhost/urumarkets/public/producto/{{ $prod->id }}'" value="{{ $prod->id }}" class="btn btn-sm btn-outline-secondary">VER</button>
 									<button type="button" class="btn btn-sm btn-outline-danger">EN OFERTA {{ $prod->porcentajeOferta }}%</button>									
 								</div>
 								<button type="button" value="{{ $prod->id }}" class="btn btn-sm btn-outline-success"> Agregar al carrito <i class="bi-cart-fill me-1"></i></button>
@@ -100,7 +100,7 @@
 
 						//IMAGEN DEL PRODUCTO
 						var urlimg = "storage/productos/" + res[i].foto;
-						console.log(urlimg)
+						
 						var imagen = $('<img>').attr("src", urlimg)
 							.attr("width", "100%")
 							.attr("height", "225px")

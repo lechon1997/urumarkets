@@ -37,6 +37,7 @@ route::get('/VistaOferta','App\Http\Controllers\controllerProducto@Oferta');
 route::get('/MayorMenor','App\Http\Controllers\controllerProducto@OfertaMayorMenor');
 route::get('/MenorMayor','App\Http\Controllers\controllerProducto@OfertaMenorMayor');
 route::get('/default','App\Http\Controllers\controllerProducto@defecto');
+route::get('/producto/{id}','App\Http\Controllers\controllerProducto@verProducto');
 
 //RUTAS GENERALES
 route::get('/listar_localidades','App\Http\Controllers\controladorBD@listarLocalidades');

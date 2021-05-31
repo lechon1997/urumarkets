@@ -5,29 +5,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Departamento;
 use App\Models\Localidad;
+use App\Models\Publicacion;
 use App\Models\Vendedor;
+use App\Models\Usuario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
-
-class Usuario
-{
-    private $nombre;
-    private $apellido;
-    private $corre;
-    private $contrasenia;
-    //private $tipoDoc;
-
-    public function __construct($nom, $ape, $corre, $contra)
-    {
-        $this->nombre = $nom;
-        $this->apellido = $ape;
-        $this->correo = $corre;
-        $this->contrasenia = $contra;
-        //     $this->tipoDoc = $tipoDoc;
-    }
-}
-
 
 class ControladorWebServices extends Controller
 {
@@ -110,13 +92,44 @@ class ControladorWebServices extends Controller
     public function actualizarUsu(Request $request){
         $BD = new ControladorBD();
         $BD->actualizarDatosUsuario($request);
-        $myArr = array("estado" => "ok");
-        return json_encode($myArr);
+        $usuario = Usuario::find($request->id);
+        $usu = Vendedor::find($request->id);
+            $tipoUsuario = "";
+            if(empty($usu)){
+                $tipoUsuario = "cliente";
+            }else{
+                $tipoUsuario = "vendedor";
+            
+            }
+
+        $departamento = Departamento::find($usuario->idDepartamento);
+        $localidad = Localidad::find($usuario->idLocalidad);
+        $myArr = array("estado" => "ok",
+                        "id" => $usuario->id,
+                        "tipoUsu" => $tipoUsuario,
+                        "pnombre" => $usuario->primerNombre,
+                        "snombre" => $usuario->segundoNombre,
+                        "papellido" => $usuario->primerApellido,
+                        "sapellido" => $usuario->segundoApellido,
+                        "cedula" => $usuario->cedula,
+                        "telefono" => $usuario->telefono,
+                        "email" => $usuario->email,
+                        "idDepartamento" => $usuario->idDepartamento,
+                        "nomDepartamento" => $departamento->nombre,
+                        "idLocalidad" => $usuario->idLocalidad,
+                        "nomLocalidad" => $localidad->nombre,
+                        "pnombre" => $usuario->primerNombre);
+        return json_encode(["respuesta" => $myArr]);
     }
     public function altaproductowbs(Request $request){
         $ContP = new ControllerPublicacion();
         $ContP->altaProd($request);
         $myArr = array("estado" => "ok");
         return json_encode($myArr);
+    }
+
+    public function listarProductos(){
+        $publicaciones = Publicacion::select('publicacion.*')->get();
+        return json_encode(["respuesta" =>$publicaciones]);
     }
 }
