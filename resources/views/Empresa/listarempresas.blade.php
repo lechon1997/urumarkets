@@ -8,33 +8,36 @@
 @include('layouts.headerVisitante')
 	
 	<body>
+		<br />
 		<div class="container">
 			@foreach ($empresas as $empresa)
 				<div class="card mb-3" style="max-width: 540px;">
-					<div class="row g-0">
-						<div class="col-md-4">
+					<div class="row g-0" style="margin-right: 0px;margin-left: 0px;">
+						<div class="col-md-4 imagenxd">
+							
 							<img
+							align="middle"
 							src="storage/empresa/{{ $empresa->imagen }} "
 							alt="..."
-							style="width:100%; height: 100%; object-fit: fill;"
+							style="height:auto;object-fit: fill;"
 							class="img-fluid"
 							/>
+							
 						</div>
-						<div class="col-md-8">
-								<h4>{{ $empresa->nombreFantasia }}</h4>
-								<small><cite title="{{ $empresa->dnombre}}, {{ $empresa->lnombre}}">{{ $empresa->direccion }} <i class="glyphicon glyphicon-map-marker">
-								</i></cite></small>
+						<div class="col-md-8" style="padding-left: 0px;padding-right: 0px; border: 1px solid gray;" >
+								<h4 style="	border-bottom: 1px solid #777;">{{ $empresa->nombreFantasia }}</h4>
+								<small style="margin-left: 2%;"><cite title="{{ $empresa->dnombre}}, {{ $empresa->lnombre}}">{{ $empresa->direccion }} <i class="fa fa-map-marker"></i></cite></small>
 								<p>
-									<i class="glyphicon glyphicon-envelope"></i>{{ $empresa->email }} 
+									<i class="fa fa-envelope" style="margin-left: 5%;"></i> {{ $empresa->email }} 
 									<br />
-									<i class="glyphicon glyphicon-globe"></i>{{ $empresa->telefono }} 
+									<i class="fa fa-phone" style="margin-left: 5%;"></i> {{ $empresa->telefono }} 
 									<br />
-									<i class="glyphicon glyphicon-gift"></i>{{ $empresa->rubro }}</p>
+									<i class="fa fa-window-restore" style="margin-left: 5%;"></i> {{ $empresa->rubro }}</p>
 
-									<div class="btn-group">
-										<button type="button" onclick="location.href = 'VerEmpresa/{{ $empresa->id }}'" class="btn btn-primary">
+									<div class="btn-group" style="margin-left: 5%;">
+										<button type="button" style="margin-bottom: 15%;" onclick="location.href = 'VerEmpresa/{{ $empresa->id }}'" class="btn btn-primary">
 										Ver Empresa</button>
-									</div>									
+									</div>	
 								</div>
 							</div>
 						</div>					
@@ -48,6 +51,17 @@
 					line-height: 1.428571429;
 					color: #999;
 				}
+				.imagenxd{
+					padding-right:0px;
+					padding-left: 0px;
+					border-top: 1px solid gray;
+					border-left: 1px solid gray;
+					border-bottom: 1px solid gray; 
+					background-color: #EEE;
+ 					display:flex;
+  					justify-content: center;
+  					align-items: center;
+				}
 			</style> 
 			<script type="text/javascript">
 				
@@ -55,33 +69,3 @@
 			</script>
 		</body>
 </html>
-
-		<!-- <div class="container">
-		<div class="row">
-			<div class="col-xs-12 col-sm-6 col-md-6">
-				<div class="well well-sm">
-					<div class="row">
-						<div class="col-sm-6 col-md-4">
-							<img src="storage/empresa/{{ $empresa->imagen }} " alt="" class="img-rounded img-responsive" />
-						</div>
-						<div class="col-sm-6 col-md-8">
-							<h4>{{ $empresa->nombreFantasia }}</h4>
-								<small><cite title="{{ $empresa->dnombre}}, {{ $empresa->lnombre}}">{{ $empresa->direccion }} <i class="glyphicon glyphicon-map-marker">
-								</i></cite></small>
-								<p>
-									<i class="glyphicon glyphicon-envelope"></i>{{ $empresa->email }} 
-									<br />
-									<i class="glyphicon glyphicon-globe"></i>{{ $empresa->telefono }} 
-									<br />
-									<i class="glyphicon glyphicon-gift"></i>{{ $empresa->rubro }}</p>
-
-									<div class="btn-group">
-										<button type="button" onclick="location.href = 'VerEmpresa/{{ $empresa->id }}'" class="btn btn-primary">
-										Ver Empresa</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div> -->
