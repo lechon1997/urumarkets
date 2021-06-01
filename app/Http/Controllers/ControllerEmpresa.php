@@ -185,6 +185,24 @@ class ControllerEmpresa extends Controller
         return redirect('/index');
     }
 
+    public function buscador($texto){
+        $text = "%" . $texto . "%";
+        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+                                ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                                ->where('publicacion.titulo', 'LIKE' , $text)
+                                ->orWhere('publicacion.descripcion', 'LIKE' , $text)
+                                ->get();
+        $empresas = Usuario::select('usuario.*','vendedor.*','departamento.nombre AS dnombre','localidad.nombre AS lnombre')
+                                ->join('vendedor', 'usuario.id', '=', 'vendedor.id')
+                                ->join('departamento', 'usuario.idDepartamento', '=', 'departamento.id')
+                                ->join('localidad', 'usuario.idLocalidad', '=', 'localidad.id')
+                                ->where('vendedor.nombrefantasia', 'LIKE' , $text)
+                                ->orWhere('vendedor.descripcion', 'LIKE' , $text)
+                                ->get();
+        return view("Empresa.buscador")->with('empresas',$empresas)
+                                       ->with('productos',$producto);
+    }
+
 
     /**
      * Store a newly created resource in storage.

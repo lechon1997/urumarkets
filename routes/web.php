@@ -23,6 +23,7 @@ route::post('/altaVendedor','App\Http\Controllers\ControllerEmpresa@altaVendedor
 route::get('/mostrarEmpresas','App\Http\Controllers\ControllerEmpresa@mostrarEmpresas');
 route::get('/VerEmpresa/{id}','App\Http\Controllers\ControllerEmpresa@VerEmpresa');
 route::get('/VermiPerfil','App\Http\Controllers\ControllerEmpresa@VermiPerfil');
+route::get('/buscar/{texto}','App\Http\Controllers\ControllerEmpresa@buscador');
 
 
 //RUTAS PRODUCTO
