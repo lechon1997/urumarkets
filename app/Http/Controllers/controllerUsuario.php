@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Usuario;
 use App\Models\Departamento;
 use App\Models\Localidad;
+use Illuminate\Support\Facades\Session;
 
 class controllerUsuario extends Controller
 {
@@ -67,7 +68,7 @@ class controllerUsuario extends Controller
         Auth::logout();
 
         $request->session()->regenerateToken();
-
+        Session::flush();
         return redirect('/loginUsuario');
     }
 

@@ -18,8 +18,9 @@ class ControllerCarrito extends Controller
     public function incrementar(Request $request){
         $id = $request->input('id');
         $cant = intval($request->input('cantidad'));
-        $titulo = $request->input('titulo');
+        
         $pub = Publicacion::find($request->id);
+        $titulo = $pub->titulo;
         $pre = $pub->precio;
         $dsc = $pub->porcentajeOferta;
         $descontar =  ($pre * $dsc)/100;

@@ -38,19 +38,6 @@ class controllerProducto extends Controller
             array_push($datos,$dato);                        
             }
         }
-
-        //return Session::get('cart');
-        /*
-        $lista = Session::get('cart');
-        if(Session::exists('cart')){
-            foreach($lista as $producto){
-
-
-            }
-             
-        
-        }
-        */
         
         return view("Producto.carrito")->with('datos',$datos);
     }
