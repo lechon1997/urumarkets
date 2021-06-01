@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Publicacion;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Session;
 class controllerProducto extends Controller
 {
     /**
@@ -25,6 +25,21 @@ class controllerProducto extends Controller
 
     public function listarProductos(){
         return view("Producto.listarproductos");
+    }
+
+    public function verCarrito(){
+        $datos = array();
+        $lista = Session::get('cart');
+        
+        if(Session::exists('cart')){
+            foreach($lista as $producto){
+                $dato = array("id"=>$producto[0],"titulo" => $producto[3],"precio" => $producto[2],
+                                "cantidad" => $producto[1],"total" => $producto[4]);
+            array_push($datos,$dato);                        
+            }
+        }
+        
+        return view("Producto.carrito")->with('datos',$datos);
     }
 
     public function verProducto($id){
