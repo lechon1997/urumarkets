@@ -65,7 +65,9 @@
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<button type="button" id="shrek" onclick="location.href='http://localhost/urumarkets/public/producto/{{ $prod->id }}'" value="{{ $prod->id }}" class="btn btn-sm btn-outline-secondary">VER</button>
-										<div class="btn btn-sm btn-danger">EN OFERTA {{ $prod->porcentajeOferta }}%</div>
+										@if( $prod->oferta == 1 )
+                    					<div class="btn btn-sm btn-danger">EN OFERTA {{ $prod->porcentajeOferta }}%</div>
+                 						 @endif
 									</div>
 									<button data-toggle="modal" data-target="#exampleModal" id="myModal" type="button" value="{{ $prod->id }}" class="carrito btn btn-sm btn-outline-success"> Agregar al carrito <i class="bi-cart-fill me-1"></i></button>
 									<!--<small class="text-muted">9 mins</small> -->
