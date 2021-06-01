@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Usuario;
 use App\Models\Departamento;
 use App\Models\Localidad;
+use App\Models\Publicacion;
 
 class controllerUsuario extends Controller
 {
@@ -17,7 +18,10 @@ class controllerUsuario extends Controller
      */
     public function index()
     {
-        return view("index");
+        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+                                ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                                ->get();
+        return view("index")->with('productos',$producto);
     }
 
     public function loginUser()

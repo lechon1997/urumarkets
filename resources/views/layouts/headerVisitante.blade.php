@@ -129,6 +129,9 @@
 
 <style type="text/css">
   @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+  body{
+      background-color: #ECE8E8;
+    }
   
   .navbar-icon-top .navbar-nav .nav-link>.fa {
     position: relative;

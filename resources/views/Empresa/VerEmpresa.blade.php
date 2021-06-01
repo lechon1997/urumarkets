@@ -177,30 +177,90 @@
 							</div>
 							<div class="row">
 								<div class="col-md-6">
-									<label>Direccion</label>
-								</div>
-								<div class="col-md-6">
-									<p>{{ $vendedor->direccion }}</p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
 									<label>Descripcion:</label>
 								</div>
 								<div class="col-md-6">
 									<p>{{ $vendedor->descripcion }}</p>
 								</div>
 							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Direccion</label>
+								</div>
+								<div class="col-md-6">
+									<p>{{ $vendedor->direccion }}</p>
+									
+								</div>
+								<div id="map">
+		
+								</div>
+							</div>							
 						</div>
 					</div>
 				</div>
 			</div>
 		</form>           
 	</div>
+
+	<div id="pub"><p id="ppub">Publicaciones</p></div>
+
+	<div class="album ">
+		<div class="container">
+			<div id="myConteiner" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+				@foreach ($productos as $prod)
+				<div style="margin-bottom: 3%;" class="col">
+					<div class="card shadow-sm caca">
+						<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>{{ $prod->descripcion }}</title><rect width="100%" height="100%" fill="#FAFAFA"></rect><image href="storage/productos/{{ $prod->foto }}" height="100%" width="100%"/></svg>
+						<div class="card-body borde">
+							<p class="card-text">{{ $prod->titulo}} - {{ $prod->tipoMoneda}}{{ $prod->precio}}</p>		
+							<div class="d-flex justify-content-between align-items-center">
+								<div class="btn-group">
+									<button type="button" onclick="location.href='http://localhost/urumarkets/public/producto/{{ $prod->id }}'" value="{{ $prod->id }}" class="btn btn-sm btn-outline-secondary">VER</button>
+									@if( $prod->oferta == 1 )
+										<button type="button" class="btn btn-sm btn-outline-danger">EN OFERTA {{ $prod->porcentajeOferta }}%</button>
+									@endif
+																		
+								</div>
+								<button type="button" value="{{ $prod->id }}" class="btn btn-sm btn-outline-success"> Agregar al carrito <i class="bi-cart-fill me-1"></i></button>
+								<!-- <small class="text-muted">9 mins</small> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				@endforeach
+			</div>
+		</div>
+	</div>
 	<style type="text/css">
-		body{
-		 background: -webkit-linear-gradient(left, #3931af, #00c6ff);/* */	
+		.borde{	
+			border-top: 1px solid #777;
+			margin-top: 2%;
+		}	
+
+		.caca:hover {
+		  border: 1px solid #777;
 		}
+
+		#map {
+			    height: 400px;
+			    width: 100%;
+		}	
+
+		#pub{
+		    background: white;
+		    width: 100%;
+		    display: inline-block;
+		    padding: .5%;
+		    font-size: x-large;
+		    font-family: inherit;
+		    margin-bottom: 2%;
+		}		
+		#ppub{
+		    margin-top: 0;
+		    margin-bottom: 0;
+		    margin-left: 20%;
+		}
+		
 		.emp-profile{
 			padding: 3%;
 			margin-top: 3%;
@@ -295,4 +355,23 @@
 		}
 	</style>
 </body>
+<script>
+      // Initialize and add the map
+      function initMap() {
+        // The location of Uluru
+        const uluru = { lat: -25.344, lng: 131.036 };
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 4,
+          center: uluru,
+        });
+        // The marker, positioned at Uluru
+        const marker = new google.maps.Marker({
+          position: uluru,
+          map: map,
+        });
+      }
+    </script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd3tMhoqH5_greqnS-dUCBwPFDe1h0eJI&callback=initMap">
+</script>
 </html>
