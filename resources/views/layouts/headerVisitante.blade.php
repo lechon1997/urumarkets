@@ -56,7 +56,6 @@
     </div>
 
     </div>
-    <
 
 
 
@@ -76,7 +75,7 @@
       </li>
       @else
       <div class="d-flex">
-        <button id="carrito" class="btn btn-outline-success" type="submit">
+        <button id="carrito" class="btn btn-outline-success" type="submit" onclick="location.href='http://localhost/urumarkets/public/Carrito'">
           <i class="bi-cart-fill me-1"></i>
           Carrito
           <span class="badge badge-success">0</span>
