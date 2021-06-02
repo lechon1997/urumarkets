@@ -125,10 +125,16 @@
 <script type="text/javascript">
   $('#buscador').on('click', function() {
         $texto = $(textobuscador).val();
-        console.log($texto);
-        $url = "http://localhost/urumarkets/public/buscar/" + $texto;
-        console.log($url);
-        window.location.href=$url;     
+        var textoxd = $("#textobuscador").val();
+        if(textoxd == ""){
+          alert("Debe ingresar un texto para buscar.");
+          return false;
+        }else{
+          console.log($texto);
+          $url = "http://localhost/urumarkets/public/buscar/" + $texto;
+          console.log($url);
+          window.location.href=$url;     
+        }        
     });
 </script>
 
