@@ -1,7 +1,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
 
-  <img src="../imagenes/logo7.png" style="width:7%;">
+  <img src="http://localhost/urumarkets/imagenes/logo7.png" style="width:7%;">
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -48,18 +48,14 @@
       @endguest
 
     </ul>
-    
+
     <div style="flex-grow: 15;">
     <div class="d-flex w-75" style="margin: 0 auto;">
-      <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+      <input id="textobuscador" class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Search">
+      <button id="buscador" class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
     </div>
-
     </div>
     
-
-
-
     <ul class="navbar-nav " style="flex-grow: 1;">
       @guest
       <li class="nav-item dropdown dropleft">
@@ -76,7 +72,7 @@
       </li>
       @else
       <div class="d-flex">
-        <button id="carrito" class="btn btn-outline-success" type="submit">
+        <button id="carrito" class="btn btn-outline-success" type="submit" onclick="location.href='http://localhost/urumarkets/public/Carrito'">
           <i class="bi-cart-fill me-1"></i>
           Carrito
           <span class="badge badge-success">0</span>
@@ -126,9 +122,21 @@
     </ul>
   </div>
 </nav>
+<script type="text/javascript">
+  $('#buscador').on('click', function() {
+        $texto = $(textobuscador).val();
+        console.log($texto);
+        $url = "http://localhost/urumarkets/public/buscar/" + $texto;
+        console.log($url);
+        window.location.href=$url;     
+    });
+</script>
 
 <style type="text/css">
   @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+  body{
+      background-color: #ECE8E8;
+    }
   
   .navbar-icon-top .navbar-nav .nav-link>.fa {
     position: relative;

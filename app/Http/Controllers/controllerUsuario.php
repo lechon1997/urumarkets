@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Usuario;
 use App\Models\Departamento;
 use App\Models\Localidad;
+use App\Models\Publicacion;
+use Illuminate\Support\Facades\Session;
 
 class controllerUsuario extends Controller
 {
@@ -17,7 +19,16 @@ class controllerUsuario extends Controller
      */
     public function index()
     {
-        return view("index");
+        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+                                ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                                ->get();
+        $empresas = Usuario::select('usuario.*','vendedor.*','departamento.nombre AS dnombre','localidad.nombre AS lnombre')
+                                ->join('vendedor', 'usuario.id', '=', 'vendedor.id')
+                                ->join('departamento', 'usuario.idDepartamento', '=', 'departamento.id')
+                                ->join('localidad', 'usuario.idLocalidad', '=', 'localidad.id')
+                                ->get();
+        return view("index")->with('productos',$producto)
+                            ->with('productos',$producto);
     }
 
     public function loginUser()
@@ -67,7 +78,7 @@ class controllerUsuario extends Controller
         Auth::logout();
 
         $request->session()->regenerateToken();
-
+        Session::flush();
         return redirect('/loginUsuario');
     }
 

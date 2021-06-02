@@ -23,6 +23,7 @@ route::post('/altaVendedor','App\Http\Controllers\ControllerEmpresa@altaVendedor
 route::get('/mostrarEmpresas','App\Http\Controllers\ControllerEmpresa@mostrarEmpresas');
 route::get('/VerEmpresa/{id}','App\Http\Controllers\ControllerEmpresa@VerEmpresa');
 route::get('/VermiPerfil','App\Http\Controllers\ControllerEmpresa@VermiPerfil');
+route::get('/buscar/{texto}','App\Http\Controllers\ControllerEmpresa@buscador');
 
 
 //RUTAS PRODUCTO
@@ -30,7 +31,6 @@ Route::get('/altaProducto','App\Http\Controllers\controllerProducto@altaProducto
 route::post('/altaProducto','App\Http\Controllers\controllerPublicacion@altaProd');
 route::get('/listarProductos','App\Http\Controllers\controllerProducto@listarProductos');
 route::get('/listar_productos','App\Http\Controllers\controllerProducto@listaP');
-
 Route::get('/modificarProducto/{idProducto}', 'App\Http\Controllers\controllerProducto@modificarProducto');
 Route::post('/modificarProd/{datosPub}', 'App\Http\Controllers\controllerPublicacion@modificarProd');
 route::get('/VistaOferta','App\Http\Controllers\controllerProducto@Oferta');
@@ -38,6 +38,10 @@ route::get('/MayorMenor','App\Http\Controllers\controllerProducto@OfertaMayorMen
 route::get('/MenorMayor','App\Http\Controllers\controllerProducto@OfertaMenorMayor');
 route::get('/default','App\Http\Controllers\controllerProducto@defecto');
 route::get('/producto/{id}','App\Http\Controllers\controllerProducto@verProducto');
+route::get('/Carrito','App\Http\Controllers\controllerProducto@verCarrito');
+route::get('/aumentar','App\Http\Controllers\ControllerCarrito@incrementar');
+route::get('/pijazo','App\Http\Controllers\ControllerCarrito@poronga');
+route::get('/borrarTodo','App\Http\Controllers\ControllerCarrito@borrarProductoCarrito');
 
 //RUTAS GENERALES
 route::get('/listar_localidades','App\Http\Controllers\controladorBD@listarLocalidades');

@@ -8,6 +8,7 @@ use App\Models\Usuario;
 use App\Models\Vendedor;
 use App\Models\Localidad;
 use App\Models\Departamento;
+use App\Models\Publicacion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -42,6 +43,10 @@ class ControllerEmpresa extends Controller
     }
 
     public function VerEmpresa($id){
+        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+                                ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                                ->where('publicacion.usuario_id', '=' , $id)
+                                ->get();
         $usuario = Usuario::find($id);
         $vendedor = Vendedor::find($id);
         $localidad = Localidad::find($usuario->idLocalidad);
@@ -49,11 +54,16 @@ class ControllerEmpresa extends Controller
         return view("Empresa.VerEmpresa")->with('vendedor',$vendedor)
                                          ->with('usuario',$usuario)
                                          ->with('localidad',$localidad)
-                                         ->with('departamento',$departamento);
+                                         ->with('departamento',$departamento)
+                                         ->with('productos',$producto);
     }
 
     public function VermiPerfil(){
         $idUsu = Auth::id();
+        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+                                ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                                ->where('publicacion.usuario_id', '=' , $idUsu)
+                                ->get();
         $usuario = Usuario::find($idUsu);
         $vendedor = Vendedor::find($idUsu);
         $tipovistaperfil = "verperfil";
@@ -63,7 +73,8 @@ class ControllerEmpresa extends Controller
                                          ->with('usuario',$usuario)
                                          ->with('localidad',$localidad)
                                          ->with('departamento',$departamento)
-                                         ->with('tipovistaperfil',$tipovistaperfil);
+                                         ->with('tipovistaperfil',$tipovistaperfil)
+                                         ->with('productos',$producto);
     }
     
     /**
@@ -172,6 +183,24 @@ class ControllerEmpresa extends Controller
         $vendedor->save();
         
         return redirect('/index');
+    }
+
+    public function buscador($texto){
+        $text = "%" . $texto . "%";
+        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+                                ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+                                ->where('publicacion.titulo', 'LIKE' , $text)
+                                ->orWhere('publicacion.descripcion', 'LIKE' , $text)
+                                ->get();
+        $empresas = Usuario::select('usuario.*','vendedor.*','departamento.nombre AS dnombre','localidad.nombre AS lnombre')
+                                ->join('vendedor', 'usuario.id', '=', 'vendedor.id')
+                                ->join('departamento', 'usuario.idDepartamento', '=', 'departamento.id')
+                                ->join('localidad', 'usuario.idLocalidad', '=', 'localidad.id')
+                                ->where('vendedor.nombrefantasia', 'LIKE' , $text)
+                                ->orWhere('vendedor.descripcion', 'LIKE' , $text)
+                                ->get();
+        return view("Empresa.buscador")->with('empresas',$empresas)
+                                       ->with('productos',$producto);
     }
 
 

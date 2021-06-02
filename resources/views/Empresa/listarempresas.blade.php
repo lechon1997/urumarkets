@@ -24,8 +24,8 @@
 							/>
 							
 						</div>
-						<div class="col-md-8" style="padding-left: 0px;padding-right: 0px; border: 1px solid gray;" >
-								<h4 style="	border-bottom: 1px solid #777;">{{ $empresa->nombreFantasia }}</h4>
+						<div class="col-md-8" style="padding-left: 0px;padding-right: 0px; border: 1px solid #D9D7D7;" >
+								<h4 style="	border-bottom: 1px solid #D9D7D7;">{{ $empresa->nombreFantasia }}</h4>
 								<small style="margin-left: 2%;"><cite title="{{ $empresa->dnombre}}, {{ $empresa->lnombre}}">{{ $empresa->direccion }} <i class="fa fa-map-marker"></i></cite></small>
 								<p>
 									<i class="fa fa-envelope" style="margin-left: 5%;"></i> {{ $empresa->email }} 
@@ -54,9 +54,9 @@
 				.imagenxd{
 					padding-right:0px;
 					padding-left: 0px;
-					border-top: 1px solid gray;
-					border-left: 1px solid gray;
-					border-bottom: 1px solid gray; 
+					border-top: 1px solid #D9D7D7;
+					border-left: 1px solid #D9D7D7;
+					border-bottom: 1px solid #D9D7D7; 
 					background-color: #EEE;
  					display:flex;
   					justify-content: center;
