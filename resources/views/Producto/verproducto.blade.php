@@ -19,7 +19,8 @@
         </div>
         <div class="p-2" style="width:40%;">
             <div class="w-100">
-                <img src="http://localhost/urumarkets/public/storage/productos/{{$datos->foto}}" width="100%" style="object-fit: contain;border-radius: 5px;">
+                <img src="http://localhost/urumarkets/public/storage/productos/{{$datos->foto}}" width="100%" 
+                style="object-fit: contain; border-radius: 5px;">
             </div>
 
         </div>
@@ -62,16 +63,22 @@
                         <input id="cantProd" class="w-25 ml-3 form-control" type="number" min="0" value="1">
                     </div>
                 </div>
-
-
             </div>
+        </div>        
+    </div>  
+    <script>
+		$('#myAlert').on('closed.bs.alert', function () {
+  		// do something…
+		})
+	</script>
+</body>
 
 
 
         </div>
 
     </div>
-    <!-- Button trigger modal -->
+    <!-- Button trigger modal pija -->
     <!-- Modal -->
     <div class="modal fade modal-auto-clear" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

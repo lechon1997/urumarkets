@@ -40,6 +40,9 @@ route::get('/default','App\Http\Controllers\controllerProducto@defecto');
 route::get('/producto/{id}','App\Http\Controllers\controllerProducto@verProducto');
 route::get('/Carrito','App\Http\Controllers\controllerProducto@verCarrito');
 route::get('/aumentar','App\Http\Controllers\ControllerCarrito@incrementar');
+route::get('/pijazo','App\Http\Controllers\ControllerCarrito@poronga');
+route::get('/borrarTodo','App\Http\Controllers\ControllerCarrito@borrarProductoCarrito');
+
 //RUTAS GENERALES
 route::get('/listar_localidades','App\Http\Controllers\controladorBD@listarLocalidades');
 route::get('/index','App\Http\Controllers\controllerUsuario@index')->middleware('auth');
