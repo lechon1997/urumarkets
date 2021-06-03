@@ -58,8 +58,12 @@ class controllerPublicacion extends Controller
         }
 
         $publicacion->porcentajeOferta = $request->porcentajeOfertaProducto;   
-        $publicacion->estado = $request->estadoProducto;    	  	
+        $publicacion->estado = $request->estadoProducto;  
+          	  	
         $publicacion->usuario_id = Auth::id();
+        if(empty($publicacion->usuario_id) || $publicacion->usuario_id= ""){
+            $publicacion->usuario_id = $request->usuario_id;
+        }
 
         //Para la foto
          if ($request->hasFile('file')) {            
