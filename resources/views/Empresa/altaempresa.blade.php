@@ -5,9 +5,6 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-
   <title>Alta Empresa</title>
 </head>
 @include('layouts.headerVisitante')
@@ -219,6 +216,7 @@
             map: map,
             position: results[0].geometry.location
           });
+          map.setZoom(10);
           markers.push(marker);
         } else {
           alert('Localizacion no encontrada: ' + status);
@@ -239,6 +237,7 @@
             map: map,
             position: results[0].geometry.location
           });
+          map.setZoom(12);
           markers.push(marker);
         } else {
           alert('Localizacion no encontrada: ' + status);
