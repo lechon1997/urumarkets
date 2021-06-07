@@ -117,7 +117,7 @@
                 },
                 method: "GET",
                 success: function(res) {
-
+                	   
                        console.log(res); 
                 }
             });

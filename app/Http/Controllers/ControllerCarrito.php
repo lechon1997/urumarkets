@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\Publicacion;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-class ControllerCarrito extends Controller
-{
+use MercadoPago; 
+
+class ControllerCarrito extends Controller{
     /**
      * Create a new controller instance.
      *
@@ -31,13 +32,13 @@ class ControllerCarrito extends Controller
         $total = 0;
         
         if(Session::exists('cart')){
-            foreach($lista as $producto)
-            
-            if($producto[0] == $id){
-                $producto[1] += $cant;
-                $total = $producto[1] * $precio;
-                $producto[4] = $total;
-                $existe = true;
+            foreach($lista as $producto){            
+                if($producto[0] == $id){
+                    $producto[1] += $cant;
+                    $total = $producto[1] * $precio;
+                    $producto[4] = $total;
+                    $existe = true;
+                }
             } 
         
         }
@@ -66,13 +67,13 @@ class ControllerCarrito extends Controller
         $total = 0;
         
         if(Session::exists('cart')){
-            foreach($lista as $producto)
-            
-            if($producto[0] == $id){
-                $producto[1] = $cant;
-                $total = $producto[1] * $precio;
-                $producto[4] = $total;
-                $existe = true;
+            foreach($lista as $producto){           
+                if($producto[0] == $id){
+                    $producto[1] = $cant;
+                    $total = $producto[1] * $precio;
+                    $producto[4] = $total;
+                    $existe = true;
+                }
             } 
         
         }
@@ -84,10 +85,10 @@ class ControllerCarrito extends Controller
         }
         
         return $total;
-     }
+    }
 
 
-     public function borrarProductoCarrito(Request $request){
+    public function borrarProductoCarrito(Request $request){
         $id = $request->input('id');        
         $pub = Publicacion::find($id);
         $lista = Session::get('cart');
@@ -107,4 +108,48 @@ class ControllerCarrito extends Controller
         }
 
     }
+
+    public function apiMP(Request $request){
+        $total = 0;
+        if(Session::exists('cart')){
+            $lista = Session::get('cart');
+            foreach($lista as $producto){
+                $total = $total + $producto[4];
+            }
+                                  
+        }            
+        return view("Producto.mercadoPago")->with("total", $total);
+     }
+
+    public function finalizarCompra(Request $request){
+        
+        MercadoPago\SDK::setAccessToken("TEST-4251261657334410-060221-d9a126650d3a87c75c6d04f416e936ad-655194637");
+
+        $payment = new MercadoPago\Payment();
+
+        $payment->transaction_amount = (float) $request->transaction_amount;
+        $payment->token = $request->token;
+        $payment->description = (int) $request->installments;
+        $payment->payment_method_id = $request->payment_method_id;
+        $payment->issuer_id = (int) $request->issuer_id;
+
+        $payer = new MercadoPago\Payer();
+        $payer->email = $request->payer['email'];
+        $payer->identification = array(
+            "type" => $request->payer['identification']['type'],
+            "number" => $request->payer['identification']['number']
+        );
+        
+        $payment->payer = $payer;        
+        $payment->save();
+
+        $response = array(
+            'status' => $payment->status,
+            'status_detail' => $payment->status_detail,
+            'id' => $payment->id
+        );
+
+        echo json_encode($response);
+    }
+
 }

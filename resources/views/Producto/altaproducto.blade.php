@@ -10,7 +10,7 @@
 		@include('layouts.headerVisitante')
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<form action="altaProducto" method="POST" class="centrado" enctype="multipart/form-data">
-			{{ csrf_field()}}
+			@csrf
 			<div class="form-group tamanio">
 				<label for="tipoPublicacion">Tipo de publicación:</label>
 				<div class="btn-group btn-group-toggle" id = "tipoPublicacion" data-toggle="buttons">

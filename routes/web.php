@@ -43,6 +43,10 @@ route::get('/aumentar','App\Http\Controllers\ControllerCarrito@incrementar');
 route::get('/pijazo','App\Http\Controllers\ControllerCarrito@poronga');
 route::get('/borrarTodo','App\Http\Controllers\ControllerCarrito@borrarProductoCarrito');
 
+route::post('/completarCompra', 'App\Http\Controllers\ControllerCarrito@apiMP');
+route::post('/process_payment', 'App\Http\Controllers\ControllerCarrito@finalizarCompra');
+
+
 //RUTAS GENERALES
 route::get('/listar_localidades','App\Http\Controllers\controladorBD@listarLocalidades');
 route::get('/index','App\Http\Controllers\controllerUsuario@index')->middleware('auth');

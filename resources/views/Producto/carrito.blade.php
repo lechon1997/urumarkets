@@ -6,12 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <title>Carrito</title>
 </head>
 
 <body>
     @include('layouts.headerVisitante')
+    <form id="form-checkout" method="POST" action="completarCompra">
+    @csrf
     <div class="container mt-5 pt-5">
         <table class="table table-hover">
             <thead>
@@ -43,8 +46,13 @@
                 </tr>
                 @endforeach
             </tbody>
-        </table>
+        </table>                
+            <div class="form-group boton">                      
+                <button id= "validar" type="submit" class="btn btn-primary">Finalizar compra</button>
+            </div>
+        </form>
     </div>
+    
 
     <style type="text/css">
         .borrar:hover{
