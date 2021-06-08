@@ -75,7 +75,7 @@
         <button id="carrito" class="btn btn-outline-success" type="submit" onclick="location.href='http://localhost/urumarkets/public/Carrito'">
           <i class="bi-cart-fill me-1"></i>
           Carrito
-          <span class="badge badge-success">0</span>
+          <span id ="spanCarrito" class="badge badge-success">0</span>
         </button>
       </div>
       <li class="nav-item dropdown">

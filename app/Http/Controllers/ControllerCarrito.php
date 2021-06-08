@@ -93,10 +93,8 @@ class ControllerCarrito extends Controller{
         $pub = Publicacion::find($id);
         $lista = Session::get('cart');
         $shrek = 0;
-        if(Session::exists('cart')){           
-            //if (($clave = array_search($id, $lista)) !== false) {              
-            //}
 
+        if(Session::exists('cart')){           
             foreach($lista as $producto){
                 if($producto[0] == $id){                  
                     unset($lista[$shrek]); 
@@ -123,15 +121,16 @@ class ControllerCarrito extends Controller{
 
     public function finalizarCompra(Request $request){
         
-        MercadoPago\SDK::setAccessToken("TEST-4251261657334410-060221-d9a126650d3a87c75c6d04f416e936ad-655194637");
+        MercadoPago\SDK::setAccessToken("TEST-5577742987867958-060722-7495a84e342d0c7f24c2e30b0e9687a1-771972444");
 
         $payment = new MercadoPago\Payment();
 
         $payment->transaction_amount = (float) $request->transaction_amount;
         $payment->token = $request->token;
-        $payment->description = (int) $request->installments;
+        $payment->description = $request->description;
+        $payment->installments = (int) $request->installments;
         $payment->payment_method_id = $request->payment_method_id;
-        $payment->issuer_id = (int) $request->issuer_id;
+        $payment->issuer_id = (int) $request->issuer_id;      
 
         $payer = new MercadoPago\Payer();
         $payer->email = $request->payer['email'];
@@ -149,7 +148,12 @@ class ControllerCarrito extends Controller{
             'id' => $payment->id
         );
 
-        echo json_encode($response);
+        echo json_encode($response['status']);
+        
+        if($response['status'] == "approved"){
+            //Session::forget('cart');    
+        }      
+                
     }
 
 }

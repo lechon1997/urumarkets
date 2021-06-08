@@ -18,15 +18,15 @@
    <div class="container">
      <form id="form-checkout" class="d-flex" method="POST">
       @csrf
-      <input type="text" class="form-control" name="cardNumber" id="form-checkout__cardNumber" />
-      <input type="text" class="form-control" name="cardExpirationMonth" id="form-checkout__cardExpirationMonth" />
-      <input type="text" class="form-control" name="cardExpirationYear" id="form-checkout__cardExpirationYear" />
-      <input type="text" class="form-control" name="cardholderName" id="form-checkout__cardholderName"/>
-      <input type="email" class="form-control" name="cardholderEmail" id="form-checkout__cardholderEmail"/>
-      <input type="text" class="form-control" name="securityCode" id="form-checkout__securityCode" />
+      <input type="text" value = "5031755734530604" class="form-control" name="cardNumber" id="form-checkout__cardNumber" />
+      <input type="text" value ="11" class="form-control" name="cardExpirationMonth" id="form-checkout__cardExpirationMonth" />
+      <input type="text" value = "25" class="form-control" name="cardExpirationYear" id="form-checkout__cardExpirationYear" />
+      <input type="text" value = "Prueba" class="form-control" name="cardholderName" id="form-checkout__cardholderName"/>
+      <input type="email" value = "test_user_32127025@testuser.com" class="form-control" name="cardholderEmail" id="form-checkout__cardholderEmail"/>
+      <input type="text" class="form-control" value = "123" name="securityCode" id="form-checkout__securityCode" />
       <select name="issuer" class="custom-select" id="form-checkout__issuer"></select>
       <select name="identificationType" class="custom-select" id="form-checkout__identificationType"></select>
-      <input type="text" class="form-control" name="identificationNumber" id="form-checkout__identificationNumber"/>
+      <input type="text" value = "11111111" class="form-control" name="identificationNumber" id="form-checkout__identificationNumber"/>
       <select class="custom-select" name="installments" id="form-checkout__installments"></select>
       <div class="d-flex" style="width: 400px">
       <button type="submit" class="btn btn-success" id="form-checkout__submit">Pagar</button>
@@ -55,7 +55,7 @@
 
    <script>    
        var total = document.getElementById('total').value;
-       const mp = new MercadoPago('TEST-5c464343-5ec0-42c5-8c93-9d9111f2cd1d');
+       const mp = new MercadoPago('TEST-a2ac55fc-ea02-4a16-8106-a2d56b0c7386');
        const cardForm = mp.cardForm({
           amount: total,
           autoMount: true,
@@ -105,6 +105,7 @@
           callbacks: {
             onFormMounted: error => {
               if (error) return console.warn("Form Mounted handling error: ", error);
+              if (error) return alert(error);
               console.log("Form mounted");
             },
             onSubmit: event => {
