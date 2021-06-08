@@ -164,7 +164,7 @@
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Direccion</label>
-            <input type="text" style="display: inline-block;width: 73%;" class="form-control" id="direccion" name="direccion" placeholder="direccion" value="{{ $vendedor->direccion }}" >
+            <input type="text" style="display: inline-block;width: 73%;" class="form-control" placeholder="ej: Av España 1428" id="direccion" name="direccion" placeholder="direccion" value="{{ $vendedor->direccion }}" >
             <button type="button" class="btn btn-info" style="padding :0.200rem 0.75rem" id="Localizar" name="Localizar">Localizar</button>
           </div>
 
@@ -244,28 +244,43 @@
     });
 
     $('#Localizar').on('click', function() {
-      var address = document.getElementById('direccion').value;
-      if(address==""){
-        alert("no ingreso ninguna direccion");
-      }else{
-        clearMarkers();      
-        var dir = address + " " + localidadseleccionada;
-        console.log(dir);
+      var e = document.getElementById("shrekislife");
+      var localidad = e.options[e.selectedIndex].text;
 
-        geocoder.geocode( { 'address': dir}, function(results, status) {
-          if (status == 'OK') {
-            map.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-              map: map,
-              position: results[0].geometry.location
-            });
-            map.setZoom(16);
-            markers.push(marker);
-          } else {
-            alert('Localizacion no encontrada: ' + status);
-          }
-        });
-      }      
+      var d = document.getElementById("shrekisstrong");
+      var Departamento = d.options[d.selectedIndex].text;
+
+      if(localidad == "Seleccione su Departamento"){
+        alert("No selecciono su departamento.");
+        return false;
+      }else if(Departamento == "localidad" || Departamento == "Seleccione su Localidad"){
+        alert("No selecciono su localidad.");
+        return false;
+      }else{
+        var address = document.getElementById('direccion').value;
+        if(address==""){
+          alert("no ingreso ninguna direccion");
+        }else{
+          clearMarkers();      
+          var dir = address + " " + localidadseleccionada;
+          console.log(dir);
+
+          geocoder.geocode( { 'address': dir}, function(results, status) {
+            if (status == 'OK') {
+              map.setCenter(results[0].geometry.location);
+              var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+              });
+              map.setZoom(16);
+              markers.push(marker);
+            } else {
+              alert('Localizacion no encontrada: ' + status);
+            }
+          });
+        }  
+      }
+
     });
 
   // Sets the map on all markers in the array.
