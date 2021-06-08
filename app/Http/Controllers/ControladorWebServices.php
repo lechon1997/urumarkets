@@ -68,7 +68,32 @@ class ControladorWebServices extends Controller
             }
             $departamento = Departamento::find($usuario->idDepartamento);
             $localidad = Localidad::find($usuario->idLocalidad);
-            $myArr = array("estado" => "ok",
+            if($tipoUsuario == "vendedor"){
+                $myArr = array("estado" => "ok",
+                            "id" => $usuario->id,
+                            "tipoUsu" => $tipoUsuario,
+                            "pnombre" => $usuario->primerNombre,
+                            "snombre" => $usuario->segundoNombre,
+                            "papellido" => $usuario->primerApellido,
+                            "sapellido" => $usuario->segundoApellido,
+                            "cedula" => $usuario->cedula,
+                            "telefono" => $usuario->telefono,
+                            "email" => $usuario->email,
+                            "idDepartamento" => $usuario->idDepartamento,
+                            "nomDepartamento" => $departamento->nombre,
+                            "idLocalidad" => $usuario->idLocalidad,
+                            "nomLocalidad" => $localidad->nombre,
+                            "pnombre" => $usuario->primerNombre,
+                            "RUT"=> $usu->RUT,
+                            "razonSocial"=> $usu->razonSocial,
+                            "nombreFantasia"=> $usu->nombreFantasia,
+                            "tipoOrganizacion"=> $usu->tipoOrganizacion,
+                            "rubro"=> $usu->rubro, 
+                            "telefonoEmpresa"=> $usu->telefonoEmpresa,
+                            "direccion"=> $usu->direccion,
+                            "descripcion"=> $usu->descripcion);
+            }else{
+                $myArr = array("estado" => "ok",
                             "id" => $usuario->id,
                             "tipoUsu" => $tipoUsuario,
                             "pnombre" => $usuario->primerNombre,
@@ -83,6 +108,8 @@ class ControladorWebServices extends Controller
                             "idLocalidad" => $usuario->idLocalidad,
                             "nomLocalidad" => $localidad->nombre,
                             "pnombre" => $usuario->primerNombre);
+            }
+            
             return json_encode(["respuesta" => $myArr]);
         }
         $myArr2 = array("estado" => "incorrecto");
