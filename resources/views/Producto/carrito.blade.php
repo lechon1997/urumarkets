@@ -36,8 +36,7 @@
                     <td style="width: 15%"><div id="divrancio" style="width: 70px"><input id="cantProd{{$dato['id']}}" class="form-control" type="number" min="0" onchange = "cambioCantidad(this)" 
                     data-value = "{{$dato['id']}}" value="{{$dato['cantidad']}}"></div></td>                     
                     <td id = "total{{$dato['id']}}" >{{$dato['total']}}</td>
-                    <td>
-                        <button type="button" class="btn btn-light actualizar">Actualizar</i></button>
+                    <td>                    
                         <button id = "{{$dato['id']}}" type="button" value = "{{$dato['id']}}" 
                                 onclick = "eliminarProducto(this)" class="btn btn-light borrar">
                                 <i class="fa fa-trash"></i>
@@ -96,7 +95,6 @@
                 },
                 method: "GET",
                 success: function(res) {
-                    
                 }
             }); 
         }        
