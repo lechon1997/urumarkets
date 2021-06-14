@@ -34,19 +34,24 @@ class ControllerEmpresa extends Controller
 
         $usuario = Usuario::find($idUsu);
         $vendedor = Vendedor::find($idUsu);
+        $localidad = Localidad::find($usuario->idLocalidad);
         //echo $usuario;
         //echo $vendedor;
         return view("Empresa.modificarEmpresa")->with('vendedor',$vendedor)
-                                               ->with('usuario',$usuario);
+                                               ->with('usuario',$usuario)
+                                               ->with('localidad',$localidad);
 
         //value="{{ $vendedor->razonSocial }}"
     }
 
     public function VerEmpresa($id){
-        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+        $publicaciones = Publicacion::select('publicacion.*')
+                                    ->where('publicacion.usuario_id', '=' ,$id)
+                                    ->get();
+        /*$producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
                                 ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
                                 ->where('publicacion.usuario_id', '=' , $id)
-                                ->get();
+                                ->get();*/
         $usuario = Usuario::find($id);
         $vendedor = Vendedor::find($id);
         $localidad = Localidad::find($usuario->idLocalidad);
@@ -55,15 +60,18 @@ class ControllerEmpresa extends Controller
                                          ->with('usuario',$usuario)
                                          ->with('localidad',$localidad)
                                          ->with('departamento',$departamento)
-                                         ->with('productos',$producto);
+                                         ->with('productos',$publicaciones);
     }
 
     public function VermiPerfil(){
         $idUsu = Auth::id();
-        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+        $publicaciones = Publicacion::select('publicacion.*')
+                                    ->where('publicacion.usuario_id', '=' , $idUsu)
+                                    ->get();
+        /*$producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
                                 ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
                                 ->where('publicacion.usuario_id', '=' , $idUsu)
-                                ->get();
+                                ->get();*/
         $usuario = Usuario::find($idUsu);
         $vendedor = Vendedor::find($idUsu);
         $tipovistaperfil = "verperfil";
@@ -74,7 +82,7 @@ class ControllerEmpresa extends Controller
                                          ->with('localidad',$localidad)
                                          ->with('departamento',$departamento)
                                          ->with('tipovistaperfil',$tipovistaperfil)
-                                         ->with('productos',$producto);
+                                         ->with('productos',$publicaciones);
     }
     
     /**
@@ -147,7 +155,6 @@ class ControllerEmpresa extends Controller
     public function ModificarEmpresa(Request $request)
     {
         $idUsu = Auth::id();
-
         $usuario = Usuario::find($idUsu);
         $usuario->primerNombre = $request->pnombre;
         if($request->snombre == null){
@@ -157,12 +164,18 @@ class ControllerEmpresa extends Controller
         }
         $usuario->primerApellido = $request->papellido;
         $usuario->segundoApellido = $request->sapellido;
-        $usuario->password = Hash::make($request->pass);
+        if($request->pass != null || $request->pass != ""){
+            $usuario->password = Hash::make($request->pass);
+        }
         $usuario->cedula = $request->cedula;
         $usuario->email = $request->email;
         $usuario->telefono = $request->telefono;
         $usuario->idDepartamento = $request->Departamento;
-        $usuario->idLocalidad = $request->localidad;
+        if($request->localidad == "0"){
+            $usuario->idLocalidad = $request->localidadhidden;
+        }else{
+            $usuario->idLocalidad = $request->localidad;
+        }
         if ($request->hasFile('file')) {
             //$destino = 'storage';
             $nombreFoto = $request->file->hashName();           
@@ -187,11 +200,15 @@ class ControllerEmpresa extends Controller
 
     public function buscador($texto){
         $text = "%" . $texto . "%";
-        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+        $publicaciones = Publicacion::select('publicacion.*')
+                                    ->where('publicacion.titulo', 'LIKE' , $text)
+                                    ->orWhere('publicacion.descripcion', 'LIKE' , $text)
+                                    ->get();
+        /*$producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
                                 ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
                                 ->where('publicacion.titulo', 'LIKE' , $text)
                                 ->orWhere('publicacion.descripcion', 'LIKE' , $text)
-                                ->get();
+                                ->get();*/
         $empresas = Usuario::select('usuario.*','vendedor.*','departamento.nombre AS dnombre','localidad.nombre AS lnombre')
                                 ->join('vendedor', 'usuario.id', '=', 'vendedor.id')
                                 ->join('departamento', 'usuario.idDepartamento', '=', 'departamento.id')
@@ -199,8 +216,20 @@ class ControllerEmpresa extends Controller
                                 ->where('vendedor.nombrefantasia', 'LIKE' , $text)
                                 ->orWhere('vendedor.descripcion', 'LIKE' , $text)
                                 ->get();
+
+        $sizeproductos = $publicaciones->count();
+        $sizeempresas = $empresas->count();
         return view("Empresa.buscador")->with('empresas',$empresas)
-                                       ->with('productos',$producto);
+                                       ->with('productos',$publicaciones)
+                                       ->with('sizeproductos',$sizeproductos)
+                                       ->with('sizeempresas',$sizeempresas);
+    }
+
+    public function desactivarcuenta(){
+        $idUsu = Auth::id();
+
+        
+        return redirect('/index');
     }
 
 

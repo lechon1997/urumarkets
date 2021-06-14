@@ -151,7 +151,7 @@ class ControllerCarrito extends Controller{
         echo json_encode($response['status']);
         
         if($response['status'] == "approved"){
-            //Session::forget('cart');    
+            Session::forget('cart');    
         }      
                 
     }
