@@ -19,16 +19,15 @@ class controllerUsuario extends Controller
      */
     public function index()
     {
-        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
-                                ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
-                                ->get();
+        $publicaciones = Publicacion::select('publicacion.*')
+                                    ->get();
         $empresas = Usuario::select('usuario.*','vendedor.*','departamento.nombre AS dnombre','localidad.nombre AS lnombre')
                                 ->join('vendedor', 'usuario.id', '=', 'vendedor.id')
                                 ->join('departamento', 'usuario.idDepartamento', '=', 'departamento.id')
                                 ->join('localidad', 'usuario.idLocalidad', '=', 'localidad.id')
                                 ->get();
-        return view("index")->with('productos',$producto)
-                            ->with('productos',$producto);
+        return view("index")->with('productos',$publicaciones)
+                            ->with('empresas',$empresas);
     }
 
     public function loginUser()

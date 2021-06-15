@@ -24,6 +24,7 @@ route::get('/mostrarEmpresas','App\Http\Controllers\ControllerEmpresa@mostrarEmp
 route::get('/VerEmpresa/{id}','App\Http\Controllers\ControllerEmpresa@VerEmpresa');
 route::get('/VermiPerfil','App\Http\Controllers\ControllerEmpresa@VermiPerfil');
 route::get('/buscar/{texto}','App\Http\Controllers\ControllerEmpresa@buscador');
+route::get('/desactivarcuenta','App\Http\Controllers\ControllerEmpresa@desactivarcuenta');
 
 
 //RUTAS PRODUCTO
