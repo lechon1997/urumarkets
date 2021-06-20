@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Publicacion;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+Use Redirect;
 use MercadoPago; 
 
 class ControllerCarrito extends Controller{
@@ -105,6 +106,9 @@ class ControllerCarrito extends Controller{
             }
         }
 
+        return response()->json([
+            'redirect' => url('http://localhost/urumarkets/public/Carrito')
+        ]);
     }
 
     public function apiMP(Request $request){
@@ -151,7 +155,7 @@ class ControllerCarrito extends Controller{
         echo json_encode($response['status']);
         
         if($response['status'] == "approved"){
-            //Session::forget('cart');    
+            Session::forget('cart');    
         }      
                 
     }

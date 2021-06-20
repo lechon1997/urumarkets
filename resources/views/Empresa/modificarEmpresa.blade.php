@@ -20,6 +20,7 @@
           <a class="nav-item nav-link" id="nav-Empresa-tab" data-toggle="tab" href="#nav-Empresa" role="tab" aria-controls="nav-Empresa" aria-selected="false">Empresa</a>
           <a class="nav-item nav-link" id="nav-Fotodeperfil-tab" data-toggle="tab" href="#nav-Fotodeperfil" role="tab" aria-controls="nav-Fotodeperfil" aria-selected="false">Foto de perfil</a>
           <a class="nav-item nav-link" id="nav-Direccion-tab" data-toggle="tab" href="#nav-Direccion" role="tab" aria-controls="nav-Direccion" aria-selected="false">Direccion</a>
+          <a class="nav-item nav-link" id="desactivar" data-toggle="tab" href="#nav-desactivar" role="tab" aria-controls="nav-desactivar" aria-selected="false">Desactivar Cuenta</a>
         </div>
       </nav>
       <div class="tab-content" id="nav-tabContent">
@@ -30,13 +31,13 @@
           </div>
 
           <div class="form-group">
-            <label style="font-weight: normal;" for="exampleFormControlInput1">Apellido</label>
-            <input type="text" class="form-control" id="papellido" name="papellido" placeholder="Apellido" value="{{ $usuario->primerApellido }}">
+            <label style="font-weight: normal;" for="exampleFormControlInput1">Segundo Nombre</label>
+            <input type="text" class="form-control" id="snombre" name="snombre" placeholder="Segundo Nombre" value="{{ $usuario->segundoNombre }}">
           </div>
 
           <div class="form-group">
-            <label style="font-weight: normal;" for="exampleFormControlInput1">Segundo Nombre</label>
-            <input type="text" class="form-control" id="snombre" name="snombre" placeholder="Segundo Nombre" value="{{ $usuario->segundoNombre }}">
+            <label style="font-weight: normal;" for="exampleFormControlInput1">Apellido</label>
+            <input type="text" class="form-control" id="papellido" name="papellido" placeholder="Apellido" value="{{ $usuario->primerApellido }}">
           </div>
 
           <div class="form-group">
@@ -60,13 +61,41 @@
           </div>
 
           <div class="form-group">
-            <label style="font-weight: normal;" for="exampleInputPassword1">Contraseña</label>
-            <input type="password" class="form-control" id="pass" name="pass" placeholder="Contraseña" value="{{ $usuario->contrasenia }}">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" id="cambiarpass">Cambiar Contraseña</button>
           </div>
 
-          <div class="form-group">
-            <label style="font-weight: normal;" for="exampleInputPassword1">Confirmar contraseña</label>
-            <input type="password" class="form-control" id="confirmpass" name="confirmpass" placeholder="Contraseña">
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Cambiar Contraseña</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <!--<div class="form-group">
+                    <label style="font-weight: normal;" for="exampleInputPassword1">Antigua contraseña</label>
+                    <input type="password" class="form-control" id="antpass" name="antpass" placeholder="contraseña vieja" value="">
+                  </div>-->
+
+                  <div class="form-group">
+                    <label style="font-weight: normal;" for="exampleInputPassword1">Nueva contraseña</label>
+                    <input type="password" class="form-control" id="pass" name="pass" placeholder="contraseña nueva">
+                  </div>
+
+                  <div class="form-group">
+                    <label style="font-weight: normal;" for="exampleInputPassword1">Confirmar contraseña</label>
+                    <input type="password" class="form-control" id="confirmpass" name="confirmpass" placeholder="confirme su nueva contraseña">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" id="confcambiarpass">Confirmar</button>
+                </div>
+              </div>
+            </div>
           </div>
 
           <button type="button" id="siguiente1" class="btn btn-info" style="float: right;">Siguiente</button>
@@ -88,19 +117,42 @@
           </div>
 
           <div class="form-group">
-            <label style="font-weight: normal;" for="exampleFormControlSelect1">Tipo Organizacion</label>
+            <label style="font-weight: normal;" for="exampleFormControlSelect1">Tipo de Organizacion</label>
             <select class="form-control" id="tipoOrg" name="tipoOrg">
+              <option>Empresa</option>
               <option>ONG</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+              <option>Estatal</option>
+              <option>Profesional</option>
+              <option>Particular</option>
             </select>
+            <input type="hidden" id="tipoOrghidden" value="{{ $vendedor->tipoOrganizacion}}">
           </div>
 
           <div class="form-group">
-            <label style="font-weight: normal;" for="exampleFormControlInput1">Rubro</label>
-            <input type="text" class="form-control" id="rubro" name="rubro" placeholder="rubro" value="{{ $vendedor->rubro }}">
+            <label style="font-weight: normal;" for="exampleFormControlSelect1">Rubro</label>
+            <select class="form-control" id="rubro" name="rubro">
+              <option>Tecnología</option>
+              <option>Accesorios para Vehículos</option>
+              <option>Salud y Equipamiento Médico</option>
+              <option>Belleza y Cuidado Personal</option>
+              <option>Deportes y Fitness</option>
+              <option>Hogar y Muebles</option>
+              <option>Electrodomésticos</option>
+              <option>Informática</option>
+              <option>Herramientas</option>
+              <option>Construcción</option>
+              <option>Comida Rapida</option>
+              <option>Industrias y Oficinas</option>
+              <option>Moda</option>
+              <option>Limpieza</option>
+              <option>Juguetes</option>
+              <option>Bebés</option>
+              <option>Vehículos</option>
+              <option>Inmuebles</option>
+              <option>Productos Sustentables</option>
+              <option>Música</option>
+            </select>
+            <input type="hidden" id="rubrohidden" value="{{ $vendedor->rubro}}">
           </div>
 
           <div class="form-group">
@@ -153,13 +205,18 @@
               <option value="18">Soriano</option>
               <option value="19">Treinta y Tres</option>
             </select>
+            <input type="hidden" id="dephidden" value="{{ $usuario->idDepartamento}}">
           </div>
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlSelect1">Localidad</label>
-            <select class="form-control" name="localidad" id="shrekisstrong">
+            <input type="text" class="form-control"style="display: inline-block;width: 62%;" id="loclabel" value="{{$localidad->nombre}}" disabled>
+            <button type="button" class="btn btn-info" style="padding :0.200rem 0.75rem" id="cambiarloc" name="cambiarloc">Cambiar localidad</button>
+            <br>
+            <select class="form-control dispnone" name="localidad" id="shrekisstrong">
               <option selected>Localidad</option>
             </select>
+            <input type="hidden" id="localidad" name="localidadhidden" value="{{$localidad->id}}">
           </div>
 
           <div class="form-group">
@@ -172,7 +229,38 @@
           </div>
 
           <br>
-          <button type="submit" class="btn btn-success"  style="float: right;" id="Finalizar" name="Finalizar">Finalizar</button>
+          <button type="submit" class="btn btn-primary"  style="float: right;" id="Finalizar" name="Finalizar">Guardar Cambios</button>
+        </div>
+        <div class="tab-pane fade" id="nav-desactivar" style="margin-top: 5%;" role="tabpanel" aria-labelledby="nav-desactivar-tab">
+          <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Advertencia! <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></h4>
+            <p>Si desactivas tu cuenta, quedara oculto tu perfil, asi como tambien todas tus publicaciones, ya sean productos o servicios.
+            Podras volver a activar tu cuenta simplemente iniciando sesion.</p>
+            <hr>
+            <p class="mb-0">¿Seguro quieres desactivar tu cuenta? <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+              DESACTIVAR CUENTA
+            </button>
+          </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cuenta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Cuenta desactivada! Si quieres volver a activar esta cuenta, bastara con solo volver a iniciar sesion. Saludos.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="location.href = 'http://localhost/urumarkets/public/desactivarcuenta';" class="btn btn-primary" id="desactivarcuenta">Guardar Cambios</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -189,16 +277,34 @@
 
     function iniciarMap(){
       geocoder = new google.maps.Geocoder();
-      var coord = {lat:-34.904569 ,lng: -56.159872};
       map = new google.maps.Map(document.getElementById('map'),{
-        zoom: 10,
-        center: coord
+        zoom: 10
       });
-      var marker = new google.maps.Marker({
-        position: coord,
-        map: map
-      });
-      markers.push(marker);
+      var e = document.getElementById("shrekislife");
+      var Departamento = e.options[e.selectedIndex].text;
+      var localidad = document.getElementById("loclabel").value;
+      var address = document.getElementById('direccion').value;
+      if(address==""){
+        alert("no ingreso ninguna direccion");
+      }else{
+        clearMarkers();      
+        var dir = address + " " + localidad + " " + Departamento + " " +  "Uruguay";
+        console.log(dir);
+
+        geocoder.geocode( { 'address': dir}, function(results, status) {
+          if (status == 'OK') {
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+            });
+            map.setZoom(16);
+            markers.push(marker);
+          } else {
+            alert('Localizacion no encontrada: ' + status);
+          }
+        });
+      }  
     }
 
     $('#shrekislife').on('change', function() {
@@ -224,8 +330,12 @@
 
     $('#shrekisstrong').on('change', function() {
       clearMarkers();
+
+      var depto = document.getElementById('shrekislife');
+      var depselec = depto.options[depto.selectedIndex].text+ " " + "Uruguay";
+
       var address = document.getElementById('shrekisstrong');
-      var loc = address.options[address.selectedIndex].text + " " + deptoseleccionado;
+      var loc = address.options[address.selectedIndex].text + " " + depselec;
       console.log(loc);
       localidadseleccionada = loc;
       geocoder.geocode( { 'address': loc}, function(results, status) {
@@ -244,42 +354,39 @@
     });
 
     $('#Localizar').on('click', function() {
-      var e = document.getElementById("shrekislife");
-      var localidad = e.options[e.selectedIndex].text;
 
-      var d = document.getElementById("shrekisstrong");
-      var Departamento = d.options[d.selectedIndex].text;
+      var depto = document.getElementById('shrekislife');
+      var depselec = depto.options[depto.selectedIndex].text+ " " + "Uruguay";
 
-      if(localidad == "Seleccione su Departamento"){
-        alert("No selecciono su departamento.");
-        return false;
-      }else if(Departamento == "localidad" || Departamento == "Seleccione su Localidad"){
-        alert("No selecciono su localidad.");
-        return false;
+      var l = document.getElementById('shrekisstrong');
+      var loc;
+      if(l.options[l.selectedIndex].text == "localidad" || l.options[l.selectedIndex].text == "Seleccione su Localidad"){
+        loc = document.getElementById('loclabel').value + " " + depselec;
       }else{
-        var address = document.getElementById('direccion').value;
-        if(address==""){
-          alert("no ingreso ninguna direccion");
-        }else{
-          clearMarkers();      
-          var dir = address + " " + localidadseleccionada;
-          console.log(dir);
-
-          geocoder.geocode( { 'address': dir}, function(results, status) {
-            if (status == 'OK') {
-              map.setCenter(results[0].geometry.location);
-              var marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location
-              });
-              map.setZoom(16);
-              markers.push(marker);
-            } else {
-              alert('Localizacion no encontrada: ' + status);
-            }
-          });
-        }  
+        loc = l.options[l.selectedIndex].text + " " + depselec;
       }
+      var address = document.getElementById('direccion').value;
+      if(address==""){
+        alert("no ingreso ninguna direccion");
+      }else{
+        clearMarkers();      
+        var dir = address + " " + loc;
+        console.log(dir);
+
+        geocoder.geocode( { 'address': dir}, function(results, status) {
+          if (status == 'OK') {
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+            });
+            map.setZoom(16);
+            markers.push(marker);
+          } else {
+            alert('Localizacion no encontrada: ' + status);
+          }
+        });
+      }  
 
     });
 
@@ -351,10 +458,12 @@
       return false;
     }
 
-    if(pass!=confirmpass){
-      alert("No coincide la contraseña con la confirmacion de la misma.");
-      return false;
-    }
+     if(pass != ""){
+        if(pass!=confirmpass){
+        alert("No coincide la contraseña con la confirmacion de la misma.");
+        return false;
+        }
+      }
 
     if(pnombre == ""){
       alert("Debe ingresar su primer nombre.");
@@ -370,12 +479,6 @@
       return false;
     }else if(email == ""){
       alert("Debe ingresar su email.");
-      return false;
-    }else if(pass == ""){
-      alert("Debe ingresar una contraseña.");
-      return false;
-    }else if(confirmpass == ""){
-      alert("Debe confimar su contraseña.");
       return false;
     }else if(razonsocial == ""){
       alert("Debe ingresar la razon social de su empresa.");
@@ -395,10 +498,9 @@
     }else if(localidad == "Seleccione su Departamento"){
       alert("No selecciono su departamento.");
       return false;
-    }else if(Departamento == "localidad" || Departamento == "Seleccione su Localidad"){
-      alert("No selecciono su localidad.");
-      return false;
-    }});
+    }
+
+  });
 
   $('#siguiente1').on('click', function() {
     //$('#home').hide();
@@ -432,8 +534,9 @@ function listarLocalidades() {
       var elemento,
       cant = Object.keys(res).length;
       limpiar_select_localidades();
-      for (var i = 0; i < cant; i++)
+      for (var i = 0; i < cant; i++){
         $("#shrekisstrong").append(new Option(res[i].nombre, res[i].id));
+      }
     }
   });
 }
@@ -441,10 +544,27 @@ function listarLocalidades() {
 function limpiar_select_localidades() {
   $('#shrekisstrong')
   .empty()
-  .append('<option value="0" selected="selected" require >Seleccione su Localidad</option>')
+  .append('<option value="0">Seleccione su Localidad</option>')
 }
 
 $("#shrekislife").on("click", listarLocalidades);
+
+$( document ).ready(function() {
+  var tipoor = $("#tipoOrghidden").val();
+  document.getElementById('tipoOrg').value=tipoor;
+
+  var rubro = $("#rubrohidden").val();
+  document.getElementById('rubro').value=rubro;
+
+  var dep = $("#dephidden").val();
+  document.getElementById('shrekislife').selectedIndex = dep;
+
+  listarLocalidades(); 
+});
+
+$('#cambiarloc').click(function() {
+  $('#shrekisstrong').removeClass("dispnone");
+});
 
 </script>
 </body>
@@ -452,6 +572,9 @@ $("#shrekislife").on("click", listarLocalidades);
   #map {
     height: 500px;
     width: 100%;
+  }
+  .dispnone{
+    display: none;
   }
 </style>
 </html>
