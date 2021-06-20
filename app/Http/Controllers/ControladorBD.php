@@ -137,7 +137,7 @@ class ControladorBD extends Controller
             request()->session()->regenerate();
             return redirect('/index');
         }
-
+        
         return redirect('/loginUsuario');
     }
 }
