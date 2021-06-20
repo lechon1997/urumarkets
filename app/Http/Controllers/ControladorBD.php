@@ -51,6 +51,7 @@ class ControladorBD extends Controller
             $usua->telefono = $telefono;
             $usua->idDepartamento = intval($idD);
             $usua->idLocalidad = intval($idL);
+            $usua->isadmin = false;
             $usua->save();
             $cli = new Cliente();
             $usua->clientes()->save($cli);
@@ -139,5 +140,9 @@ class ControladorBD extends Controller
         }
         
         return redirect('/loginUsuario');
+    }
+
+    public function listarcompras(){
+        return view("Usuario.compras");
     }
 }

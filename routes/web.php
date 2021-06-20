@@ -14,7 +14,7 @@ route::get('/registrarse','App\Http\Controllers\controllerUsuario@registrarse')-
 route::post('autenticar','App\Http\Controllers\controladorBD@autenticarUsuario');
 route::post('/cerrarSession','App\Http\Controllers\controllerUsuario@cerrarSession');
 route::get('/loginUsuario','App\Http\Controllers\controllerUsuario@loginUser')->name('loginUsuario')->middleware('guest');
-
+route::get('/MisCompras','App\Http\Controllers\ControladorBD@listarcompras');
 //RUTAS USUARIO EMPRESA
 route::get('/MostrarModEmpresa','App\Http\Controllers\ControllerEmpresa@MostrarModEmpresa');
 route::post('/ModificarEmpresa','App\Http\Controllers\ControllerEmpresa@ModificarEmpresa');
