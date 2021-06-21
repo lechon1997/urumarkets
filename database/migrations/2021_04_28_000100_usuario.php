@@ -25,7 +25,7 @@ class Usuario extends Migration
             $table->rememberToken();
             $table->string('telefono')->nullable();
             $table->string('imagen')->nullable();
-
+            $table->boolean('isadmin');
             //Faltan foreign keys localidad y departamento.
             $table->integer('idDepartamento');
             $table->integer('idLocalidad');

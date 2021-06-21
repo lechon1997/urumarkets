@@ -125,8 +125,8 @@ class ControllerEmpresa extends Controller
         $usuario->idDepartamento = $request->Departamento;
 
         $usuario->idLocalidad = $request->localidad;       
-
         $usuario->idLocalidad = $request->localidad; 
+        $usuario->isadmin = true;
         if ($request->hasFile('file')) {
             //$destino = 'storage';
             $nombreFoto = $request->file->hashName();           

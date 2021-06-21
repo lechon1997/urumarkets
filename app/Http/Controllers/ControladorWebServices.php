@@ -156,7 +156,9 @@ class ControladorWebServices extends Controller
     }
 
     public function listarProductos(){
-        $publicaciones = Publicacion::select('publicacion.*')->get();
+        $publicaciones = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+        ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+        ->get();
         return json_encode(["respuesta" =>$publicaciones]);
     }
 }
