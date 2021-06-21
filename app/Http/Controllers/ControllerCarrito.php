@@ -2,10 +2,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Publicacion;
+use App\Models\Historial;
+use App\Models\Vendedor;
+use App\Models\Cliente;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 Use Redirect;
 use MercadoPago; 
+use DateTime;
 
 class ControllerCarrito extends Controller{
     /**
@@ -23,6 +28,7 @@ class ControllerCarrito extends Controller{
         $cant = intval($request->input('cantidad'));
         
         $pub = Publicacion::find($request->id);
+        $idVendedor = $pub->usuario_id;
         $titulo = $pub->titulo;
         $pre = $pub->precio;
         $dsc = $pub->porcentajeOferta;
@@ -46,11 +52,10 @@ class ControllerCarrito extends Controller{
         
         if($existe == false){
             $total = $precio * $cant;
-            $product = collect([$id , $cant, $precio,$titulo,$total]);
+            $product = collect([$id , $cant, $precio,$titulo,$total, $idVendedor]);
             Session::push('cart', $product);
-        }
-        
-        
+        }       
+                
      }
 
     public function poronga(Request $request){
@@ -150,14 +155,31 @@ class ControllerCarrito extends Controller{
             'status' => $payment->status,
             'status_detail' => $payment->status_detail,
             'id' => $payment->id
-        );
+        );    
 
-        echo json_encode($response['status']);
+        echo json_encode($response);   
         
         if($response['status'] == "approved"){
-            Session::forget('cart');    
-        }      
+            $idUsu = Auth::id();          
+            if(Session::exists('cart')){
+                $lista = Session::get('cart');
+                foreach($lista as $producto){
+                    $historial = new Historial();
+                    $historial->publicacion_id = $producto[0];
+                    $historial->cliente_id = $idUsu;
+                    $historial->vendedor_id = $producto[5];
+                    $historial->cantidad = $producto[1];
+                    $historial->fecha = new DateTime();
+                    $historial->save();                    
+            }
+            Session::forget('cart');
+        }           
                 
+        }
+    }
+
+    public function mostrarHistorialV(){
+        return view("Producto.historial");
     }
 
 }

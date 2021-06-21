@@ -33,7 +33,11 @@
 						<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
 							<title>{{ $prod->descripcion }}</title>
 							<rect width="100%" height="100%" fill="#FAFAFA"></rect>
-							<image href="storage/productos/{{ $prod->foto }}" height="100%" width="100%" />
+							@if($prod->foto != "")
+								<image href="storage/productos/{{ $prod->foto }}" height="100%" width="100%" />
+							@else
+								<image href="http://localhost/urumarkets/imagenes/producto-defecto.jpg" height="100%" width="100%" />
+							@endif						
 						</svg>
 						<div class="card-body borde">
 							<p class="card-text">{{ $prod->titulo}} - {{ $prod->tipoMoneda}}{{ $prod->precio}}</p>

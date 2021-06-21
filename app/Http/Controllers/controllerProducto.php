@@ -48,8 +48,7 @@ class controllerProducto extends Controller
         ->join('vendedor', 'vendedor.id', '=', 'publicacion.usuario_id')
         ->where('producto.id', $id)
         ->first();
-        if(empty($datosP->porcentajeOferta)){
-            
+        if(empty($datosP->porcentajeOferta)){           
             $datosP->porcentajeOferta = "0";
         }else{
             $descontar =  ($datosP->precio * $datosP->porcentajeOferta)/100;
@@ -74,11 +73,7 @@ class controllerProducto extends Controller
         $tipoPub = $arrayPublicacion[1];
 
         $idUsuario = Auth::id();
-
-        //$publicacion;
-
-
-        
+       
         if($tipoPub == "producto"){                    
             $publicacion = Publicacion::select('publicacion.*', 'producto.*')
                                     ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')

@@ -132,7 +132,7 @@ class ControllerEmpresa extends Controller
             $nombreFoto = $request->file->hashName();           
             $request->file->store('empresa', 'public');
             $usuario->imagen = $nombreFoto;
-        }
+        }        
 
         $usuario->save();
 
@@ -145,7 +145,7 @@ class ControllerEmpresa extends Controller
         $vendedor->telefonoEmpresa = $request->telefonoEmpresa;
         $vendedor->direccion = $request->direccion;
         $vendedor->descripcion = $request->Descripcion;
-        
+        $vendedor->deshabilitado = 0;
         $usuario->vendedores()->save($vendedor);
    
         return redirect('/loginUsuario');

@@ -18,7 +18,8 @@ class Localidad extends Migration
             $table->integer('idDepartamento');
             $table->string('nombre');
 
-            $table->foreign('idDepartamento')->references('id')->on('departamento');
+            //Foreign keys
+             $table->foreign('idDepartamento')->references('id')->on('departamento');
         });
     }
 

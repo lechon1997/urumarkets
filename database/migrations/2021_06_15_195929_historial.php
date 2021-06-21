@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Producto extends Migration
+class Historial extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,17 @@ class Producto extends Migration
      */
     public function up()
     {
-        Schema::create('producto', function (Blueprint $table) {
+        Schema::create('historial', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->integer('stock')->nullable();
             $table->bigInteger('publicacion_id')->unsigned();
+            $table->bigInteger('cliente_id')->unsigned();
+            $table->bigInteger('vendedor_id')->unsigned();
+            $table->integer('cantidad');
+            $table->date('fecha');
+
+            //Foreign keys
+            $table->foreign('cliente_id')->references('id')->on('cliente');
+            $table->foreign('vendedor_id')->references('id')->on('vendedor');
             $table->foreign('publicacion_id')->references('id')->on('publicacion');
         });
     }
@@ -28,6 +35,6 @@ class Producto extends Migration
      */
     public function down()
     {
-        Schema::drop('producto');
+        Schema::drop('historial');
     }
 }

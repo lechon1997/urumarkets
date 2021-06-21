@@ -46,6 +46,7 @@ route::get('/borrarTodo','App\Http\Controllers\ControllerCarrito@borrarProductoC
 
 route::post('/completarCompra', 'App\Http\Controllers\ControllerCarrito@apiMP');
 route::post('/process_payment', 'App\Http\Controllers\ControllerCarrito@finalizarCompra');
+route::get('/MostrarHistorialVentas','App\Http\Controllers\ControllerCarrito@mostrarHistorialV');
 
 
 //RUTAS GENERALES

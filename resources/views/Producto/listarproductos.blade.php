@@ -28,9 +28,16 @@
 		     			var br = $('<br/>');
 		     			console.log(res[i]);
 		     			//Botón desplegable
-		     			var button = $('<button>').attr("class", "accordion claserandom")
+		     			if(res[i].esProducto == "producto" ){
+		     				var button = $('<button>').attr("class", "accordion claserandom")
 		     									  .attr("type", "button")
-		     									  .attr("value", res[i].idProducto).text(res[i].titulo);
+		     									  .attr("value", res[i].idProducto).text(res[i].titulo + " - " + "Producto" );
+		     			}else{
+		     				var button = $('<button>').attr("class", "accordion claserandom")
+		     									  .attr("type", "button")
+		     									  .attr("value", res[i].idProducto).text(res[i].titulo + " - " + "Servicio" );
+		     			}
+		     			
 		     			$("#pija").append(button);
 
 		     			//Div contenedor de otro div

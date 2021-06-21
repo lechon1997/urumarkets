@@ -87,6 +87,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="http://localhost/urumarkets/public/VermiPerfil">Ver mi Perfil</a>
           <a class="dropdown-item" href="http://localhost/urumarkets/public/MostrarModEmpresa">Modificar Perfil</a>
+          <a class="dropdown-item" href="http://localhost/urumarkets/public/MostrarHistorialVentas">Historial de ventas</a>
         </div>
       </li>
       <li class="nav-item">

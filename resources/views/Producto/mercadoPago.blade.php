@@ -32,6 +32,8 @@
       <button type="submit" class="btn btn-success" id="form-checkout__submit">Pagar</button>
       </div>
       <progress value="0" class="progress-bar">Cargando...</progress>
+      <p><b>Status: </b><span id="payment-status"></span></p>
+      <p><b>Detail: </b><span id="payment-detail"></span></p>
       
       <input type="hidden" name="total" id="total" value = "{{$total}}" />   
       
@@ -53,7 +55,7 @@
 
   </style>
 
-   <script>    
+<script>    
        var total = document.getElementById('total').value;
        const mp = new MercadoPago('TEST-a2ac55fc-ea02-4a16-8106-a2d56b0c7386');
        const cardForm = mp.cardForm({
@@ -110,7 +112,6 @@
             },
             onSubmit: event => {
               event.preventDefault();
-
               const {
                 paymentMethodId: payment_method_id,
                 issuerId: issuer_id,
@@ -121,7 +122,6 @@
                 identificationNumber,
                 identificationType,
               } = cardForm.getCardFormData();
-
               fetch("process_payment", {
                 method: "POST",
                 headers: {
@@ -143,23 +143,36 @@
                     },
                   },
                 }),
-              });
+              })
+              .then(response => {
+                    return response.json();
+                })
+              .then(result => {
+                    document.getElementById("payment-status").innerText = result.status;
+                    document.getElementById("payment-detail").innerText = result.status_detail;
+                    $('.container__payment').fadeOut(500);
+                    setTimeout(() => { $('.container__result').show(500).fadeIn(); }, 500);
+                })
+                .catch(error => {
+                    alert("Unexpected error\n"+JSON.stringify(error));
+                });;
             },
             onFetching: (resource) => {
               console.log("Fetching resource: ", resource);
-
               // Animate progress bar
               const progressBar = document.querySelector(".progress-bar");
               progressBar.removeAttribute("value");
-
               return () => {
                 progressBar.setAttribute("value", "0");
               };
             },
           },
         });
+
    </script>
 </body>
 
 
+
 </html>
+

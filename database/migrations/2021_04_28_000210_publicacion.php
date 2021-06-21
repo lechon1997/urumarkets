@@ -19,13 +19,14 @@ class Publicacion extends Migration
             $table->string('titulo');
             $table->string('estado');
             $table->string('tipoMoneda');
-            $table->float('precio');
+            $table->float('precio')->nullable();
             $table->string('descripcion');
             $table->boolean('conPrecio');
-            $table->boolean('oferta');
-            $table->float('porcentajeOferta');
-            $table->integer('limitePorPersona');
-            $table->string('foto');
+            $table->boolean('oferta')->nullable();
+            $table->float('porcentajeOferta')->nullable();
+            $table->integer('limitePorPersona')->nullable();
+            $table->string('foto')->nullable();
+            $table->boolean('deshabilitado');
             $table->foreign('usuario_id')->references('id')->on('usuario');
         });    
     }
