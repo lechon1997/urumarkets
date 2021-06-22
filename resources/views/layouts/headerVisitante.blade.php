@@ -33,6 +33,7 @@
       </li>
       @guest
       @else
+      @if ($isadmin == 1)
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fa fa-gift">
@@ -40,11 +41,12 @@
           </i>
           Productos
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">    
           <a class="dropdown-item" href="http://localhost/urumarkets/public/altaProducto">Crear publicación</a>
           <a class="dropdown-item" href="http://localhost/urumarkets/public/listarProductos">Administrar publicaciones</a>
         </div>
       </li>
+      @endif
       @endguest
 
     </ul>
@@ -71,6 +73,7 @@
         </div>
       </li>
       @else
+      @if($isadmin == 0)
       <div class="d-flex">
         <button id="carrito" class="btn btn-outline-success" type="submit" onclick="location.href='http://localhost/urumarkets/public/Carrito'">
           <i class="bi-cart-fill me-1"></i>
@@ -78,6 +81,7 @@
           <span id ="spanCarrito" class="badge badge-success">0</span>
         </button>
       </div>
+      @endif
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fa fa-user-circle">
@@ -86,7 +90,12 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="http://localhost/urumarkets/public/VermiPerfil">Ver mi Perfil</a>
-          <a class="dropdown-item" href="http://localhost/urumarkets/public/MostrarModEmpresa">Modificar Perfil</a>
+          <a class="dropdown-item" href="http://localhost/urumarkets/public/MostrarModEmpresa">Modificar Perfil</a>         
+          @if ($isadmin == 1)
+          <a class="dropdown-item" href="http://localhost/urumarkets/public/MostrarHistorialVentas">Ver mis Ventas</a>
+          @else
+          <a class="dropdown-item" href="http://localhost/urumarkets/public/MisCompras">Ver mis Compras</a>
+          @endif
         </div>
       </li>
       <li class="nav-item">
@@ -122,6 +131,26 @@
     </ul>
   </div>
 </nav>
+
+<!-- 
+
+⢀⡴⠑⡄⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ 
+⠸⡇⠀⠿⡀⠀⠀⠀⣀⡴⢿⣿⣿⣿⣿⣿⣿⣿⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀ 
+⠀⠀⠀⠀⠑⢄⣠⠾⠁⣀⣄⡈⠙⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀ 
+⠀⠀⠀⠀⢀⡀⠁⠀⠀⠈⠙⠛⠂⠈⣿⣿⣿⣿⣿⠿⡿⢿⣆⠀⠀⠀⠀⠀⠀⠀ 
+⠀⠀⠀⢀⡾⣁⣀⠀⠴⠂⠙⣗⡀⠀⢻⣿⣿⠭⢤⣴⣦⣤⣹⠀⠀⠀⢀⢴⣶⣆ 
+⠀⠀⢀⣾⣿⣿⣿⣷⣮⣽⣾⣿⣥⣴⣿⣿⡿⢂⠔⢚⡿⢿⣿⣦⣴⣾⠁⠸⣼⡿ 
+⠀⢀⡞⠁⠙⠻⠿⠟⠉⠀⠛⢹⣿⣿⣿⣿⣿⣌⢤⣼⣿⣾⣿⡟⠉⠀⠀⠀⠀⠀ 
+⠀⣾⣷⣶⠇⠀⠀⣤⣄⣀⡀⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀ 
+⠀⠉⠈⠉⠀⠀⢦⡈⢻⣿⣿⣿⣶⣶⣶⣶⣤⣽⡹⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀ 
+⠀⠀⠀⠀⠀⠀⠀⠉⠲⣽⡻⢿⣿⣿⣿⣿⣿⣿⣷⣜⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀ 
+⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣷⣶⣮⣭⣽⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀ 
+⠀⠀⠀⠀⠀⠀⣀⣀⣈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀⠀⠀ 
+⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀ 
+⠀⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀ 
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⠿⠿⠿⠛⠉
+
+-->
 <script type="text/javascript">
   $('#buscador').on('click', function() {
         $texto = $(textobuscador).val();
@@ -136,6 +165,19 @@
           window.location.href=$url;     
         }        
     });
+
+  $(document).ready(function() {
+    $.ajax({
+      url: "http://localhost/urumarkets/public/traerCantidadCarrito",
+      method: "GET",
+      success: function(cantidad) {
+        let cantidadCarrito = parseInt(cantidad);
+        console.log(cantidadCarrito);
+        $('#spanCarrito').html(cantidadCarrito);     
+      }
+    });
+  });
+
 </script>
 
 <style type="text/css">

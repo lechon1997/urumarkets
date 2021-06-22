@@ -14,7 +14,7 @@ route::get('/registrarse','App\Http\Controllers\controllerUsuario@registrarse')-
 route::post('autenticar','App\Http\Controllers\controladorBD@autenticarUsuario');
 route::post('/cerrarSession','App\Http\Controllers\controllerUsuario@cerrarSession');
 route::get('/loginUsuario','App\Http\Controllers\controllerUsuario@loginUser')->name('loginUsuario')->middleware('guest');
-
+route::get('/MisCompras','App\Http\Controllers\ControladorBD@listarcompras');
 //RUTAS USUARIO EMPRESA
 route::get('/MostrarModEmpresa','App\Http\Controllers\ControllerEmpresa@MostrarModEmpresa');
 route::post('/ModificarEmpresa','App\Http\Controllers\ControllerEmpresa@ModificarEmpresa');
@@ -46,9 +46,11 @@ route::get('/borrarTodo','App\Http\Controllers\ControllerCarrito@borrarProductoC
 
 route::post('/completarCompra', 'App\Http\Controllers\ControllerCarrito@apiMP');
 route::post('/process_payment', 'App\Http\Controllers\ControllerCarrito@finalizarCompra');
+route::get('/MostrarHistorialVentas','App\Http\Controllers\ControllerCarrito@mostrarHistorialV');
+route::get('/traerCantidadCarrito', 'App\Http\Controllers\ControllerCarrito@traerCantidad');
 
 
 //RUTAS GENERALES
 route::get('/listar_localidades','App\Http\Controllers\controladorBD@listarLocalidades');
-route::get('/index','App\Http\Controllers\controllerUsuario@index')->middleware('auth');
+route::get('/index','App\Http\Controllers\controllerUsuario@index');
 

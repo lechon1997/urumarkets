@@ -20,11 +20,13 @@ class controllerProducto extends Controller
     }
 
     public function altaProducto(){
-        return view("Producto.altaProducto");
+        $usuario = Auth::user();
+        return view("Producto.altaProducto")->with('isadmin', $usuario->isadmin);
     }
 
     public function listarProductos(){
-        return view("Producto.listarproductos");
+        $usuario = Auth::user();
+        return view("Producto.listarproductos")->with("isadmin", $usuario->isadmin());
     }
 
     public function verCarrito(){
@@ -39,7 +41,8 @@ class controllerProducto extends Controller
             }
         }
         
-        return view("Producto.carrito")->with('datos',$datos);
+        return view("Producto.carrito")->with('datos',$datos)
+                                       ->with('isadmin', Auth::user()->isadmin);
     }
 
     public function verProducto($id){
@@ -48,15 +51,15 @@ class controllerProducto extends Controller
         ->join('vendedor', 'vendedor.id', '=', 'publicacion.usuario_id')
         ->where('producto.id', $id)
         ->first();
-        if(empty($datosP->porcentajeOferta)){
-            
+        if(empty($datosP->porcentajeOferta)){           
             $datosP->porcentajeOferta = "0";
         }else{
             $descontar =  ($datosP->precio * $datosP->porcentajeOferta)/100;
             $datosP->precioConDesc =round($datosP->precio - $descontar);
 
         }
-        return view("Producto.verproducto")->with('datos',$datosP);
+        return view("Producto.verproducto")->with('datos',$datosP)
+                                           ->with('isadmin', Auth::user()->isadmin);
     }
 
     public function modificarProducto(Request $request){
@@ -74,11 +77,7 @@ class controllerProducto extends Controller
         $tipoPub = $arrayPublicacion[1];
 
         $idUsuario = Auth::id();
-
-        //$publicacion;
-
-
-        
+       
         if($tipoPub == "producto"){                    
             $publicacion = Publicacion::select('publicacion.*', 'producto.*')
                                     ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
@@ -97,7 +96,8 @@ class controllerProducto extends Controller
             $publicacion->tipoPub = "servicio";
         }
       
-        return view("Producto.modificarProducto")->with('publicacion', $publicacion);              
+        return view("Producto.modificarProducto")->with('publicacion', $publicacion)   
+                                                 ->with('isadmin', Auth::user()->isadmin);           
     }
 
     public function listaP(){
@@ -149,7 +149,10 @@ class controllerProducto extends Controller
                                 ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
                                 ->where('publicacion.oferta', '=' , 1 )
                                 ->get();*/
-        return view("Empresa.ofertas")->with('productos',$publicaciones);
+
+        $usuario = Auth::user();
+        return view("Empresa.ofertas")->with('productos',$publicaciones)
+                                      ->with('isadmin', $usuario->isadmin);
     }
 
     public function defecto(){

@@ -16,16 +16,16 @@ class Usuario extends Migration
         Schema::create('usuario', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('primerNombre');
-            $table->string('segundoNombre');
+            $table->string('segundoNombre')->nullable();
             $table->string('primerApellido');
             $table->string('segundoApellido');
             $table->string('cedula')->unique();
             $table->string('email')->unique();  
             $table->string('password');
             $table->rememberToken();
-            $table->string('telefono');
-            $table->string('imagen');
-
+            $table->string('telefono')->nullable();
+            $table->string('imagen')->nullable();
+            $table->boolean('isadmin');
             //Faltan foreign keys localidad y departamento.
             $table->integer('idDepartamento');
             $table->integer('idLocalidad');

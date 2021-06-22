@@ -2,9 +2,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Publicacion;
+use App\Models\Historial;
+use App\Models\Vendedor;
+use App\Models\Cliente;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+Use Redirect;
 use MercadoPago; 
+use DateTime;
 
 class ControllerCarrito extends Controller{
     /**
@@ -22,6 +28,7 @@ class ControllerCarrito extends Controller{
         $cant = intval($request->input('cantidad'));
         
         $pub = Publicacion::find($request->id);
+        $idVendedor = $pub->usuario_id;
         $titulo = $pub->titulo;
         $pre = $pub->precio;
         $dsc = $pub->porcentajeOferta;
@@ -45,11 +52,12 @@ class ControllerCarrito extends Controller{
         
         if($existe == false){
             $total = $precio * $cant;
-            $product = collect([$id , $cant, $precio,$titulo,$total]);
+            $product = collect([$id , $cant, $precio,$titulo,$total, $idVendedor]);
             Session::push('cart', $product);
         }
-        
-        
+
+        return $cant;       
+                
      }
 
     public function poronga(Request $request){
@@ -93,10 +101,11 @@ class ControllerCarrito extends Controller{
         $pub = Publicacion::find($id);
         $lista = Session::get('cart');
         $shrek = 0;
+        $cantidad = 0;
 
         if(Session::exists('cart')){           
             foreach($lista as $producto){
-                if($producto[0] == $id){                  
+                if($producto[0] == $id){                
                     unset($lista[$shrek]); 
                     $lista = array_values($lista);
                     Session::put('cart', $lista);                     
@@ -105,6 +114,9 @@ class ControllerCarrito extends Controller{
             }
         }
 
+        return response()->json([
+            'redirect' => url('http://localhost/urumarkets/public/Carrito'),          
+        ]);
     }
 
     public function apiMP(Request $request){
@@ -116,7 +128,8 @@ class ControllerCarrito extends Controller{
             }
                                   
         }            
-        return view("Producto.mercadoPago")->with("total", $total);
+        return view("Producto.mercadoPago")->with("total", $total)
+                                           ->with('isadmin', Auth::user()->isadmin);
      }
 
     public function finalizarCompra(Request $request){
@@ -146,14 +159,58 @@ class ControllerCarrito extends Controller{
             'status' => $payment->status,
             'status_detail' => $payment->status_detail,
             'id' => $payment->id
-        );
+        );    
 
-        echo json_encode($response['status']);
+        echo json_encode($response);   
         
         if($response['status'] == "approved"){
-            Session::forget('cart');    
-        }      
+            $idUsu = Auth::id();          
+            if(Session::exists('cart')){
+                $lista = Session::get('cart');
+                foreach($lista as $producto){
+                    $historial = new Historial();
+                    $historial->publicacion_id = $producto[0];
+                    $historial->cliente_id = $idUsu;
+                    $historial->vendedor_id = $producto[5];
+                    $historial->cantidad = $producto[1];
+                    $historial->fecha = new DateTime();
+                    $historial->save();                    
+            }
+            Session::forget('cart');
+        }           
                 
+        }
+    }
+
+    public function mostrarHistorialV(){
+        $datos = array();
+
+        $vendedor = Auth::user();
+
+        $datosHistorial = Historial::select('publicacion.*', 'historial.cantidad', 'historial.fecha')
+                                    ->join('vendedor', 'vendedor.id', '=', 'historial.vendedor_id')
+                                    ->join('publicacion', 'publicacion.id', '=', 'historial.publicacion_id')
+                                    ->where('historial.vendedor_id', $vendedor->id)
+                                    ->orWhere('historial.vendedor_id', '=', 'vendedor.id')
+                                    ->get();
+                                                                                        
+
+        return view("Producto.historial")->with('datos', $datosHistorial)
+                                         ->with('isadmin', Auth::user()->isadmin);
+
+
+    }
+
+    public function traerCantidad(){
+        $cantidad = 0;
+        if(Session::exists('cart')){
+            $lista = Session::get('cart');
+            foreach($lista as $producto){
+                    $cantidad = $cantidad + $producto[1];
+            }
+        }
+
+        return $cantidad;
     }
 
 }

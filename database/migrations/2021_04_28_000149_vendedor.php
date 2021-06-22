@@ -23,7 +23,9 @@ class Vendedor extends Migration
             $table->string('rubro');
             $table->string('telefonoEmpresa');
             $table->string('direccion');
-            $table->string('descripcion');
+            $table->string('descripcion')->nullable();
+            $table->boolean('deshabilitado');
+            
             $table->foreign('id')->references('id')->on('usuario');
             
         });

@@ -33,7 +33,11 @@
 						<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
 							<title>{{ $prod->descripcion }}</title>
 							<rect width="100%" height="100%" fill="#FAFAFA"></rect>
-							<image href="storage/productos/{{ $prod->foto }}" height="100%" width="100%" />
+							@if($prod->foto != "")
+								<image href="storage/productos/{{ $prod->foto }}" height="100%" width="100%" />
+							@else
+								<image href="http://localhost/urumarkets/imagenes/producto-defecto.jpg" height="100%" width="100%" />
+							@endif						
 						</svg>
 						<div class="card-body borde">
 							<p class="card-text">{{ $prod->titulo}} - {{ $prod->tipoMoneda}}{{ $prod->precio}}</p>
@@ -66,6 +70,7 @@
 	</div>
 
 	<script>
+
 		$('.modal-auto-clear').on('shown.bs.modal', function() {
 			$(this).delay(500).fadeOut(200, function() {
 				$(this).modal('hide');
@@ -80,8 +85,7 @@
     //onclick="location.href='http://192.168.1.11/urumarkets/public/aumentar'"
     $('.carrito').on('click', function() {
         let _id = $(this).val();
-        console.log(_id);
-        
+       
 		$.ajax({
                 url: "http://localhost/urumarkets/public/aumentar",
                 dataType: "json",
@@ -92,12 +96,14 @@
                 },
                 method: "GET",
                 success: function(res) {
-
-                       console.log(res); 
+                	   let variable = $('#spanCarrito').text();
+                	   console.log("La poronga de pinato mide" + variable);
+                	   let variableInt = parseInt(variable);
+                	   variableInt+=1;
+                	   $('#spanCarrito').html(variableInt);                	   
                 }
             });
 			
-        
 
     });
 
@@ -175,7 +181,8 @@
 
 						var divBtnG = $('<div>').attr("class", "btn-group");
 						divShrek.append(divBtnG);
-						//<button type="button" value="{{ $prod->id }}" class="btn btn-sm btn-outline-secondary">Ver</button>
+
+						// {{-- <button type="button" value="{{ $prod->id }}" class="btn btn-sm btn-outline-secondary">Ver</button> --}}
 						var divBtnVer = $('<button>').attr("type", "button")
 							.attr("value", res[i].id)
 							.attr("class", "btn btn-sm btn-outline-secondary");
@@ -184,7 +191,7 @@
 
 
 
-						//<button type="button" class="btn btn-sm btn-outline-danger">EN OFERTA {{ $prod->porcentajeOferta }}%</button>
+						// {{-- <button type="button" class="btn btn-sm btn-outline-danger">EN OFERTA {{ $prod->porcentajeOferta }}%</button> --}}
 						var divBtnOferta = $('<button>').attr("type", "button")
 							.attr("class", "btn btn-sm btn-outline-danger");
 						var oferta = "EN OFERTA " + res[i].porcentajeOferta + "%";

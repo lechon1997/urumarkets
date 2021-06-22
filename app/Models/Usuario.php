@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,10 +12,11 @@ use Illuminate\Notifications\Notifiable;
 class Usuario extends Authenticatable
 {
   use HasFactory,Notifiable;
+
   protected $table = 'usuario';
   public $timestamps = false;
   protected $primaryKey = 'id';
-
+  private $isadmin;
     
     protected $fillable = [
         'primerNombre',
@@ -29,12 +29,21 @@ class Usuario extends Authenticatable
         'telefono',
         'idDepartamento',
         'idLocalidad',
+        'isadmin'
     ];
 
     protected $hidden = [
       'password',
       'remember_token',
   ];
+
+  public function isAdmin(){
+    return $this->isadmin;
+  }
+
+  public function setAdmin($estado){
+    $this->isadmin = $estado;
+  }
 
   public function clientes()
   {
@@ -55,5 +64,6 @@ class Usuario extends Authenticatable
   {
     return $this->hasMany(Publicacion::class);
   }
+
 
 }

@@ -8,7 +8,7 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <title>Carrito</title>
+    <title>Historial de ventas</title>
 </head>
 
 <body>
@@ -28,27 +28,18 @@
             </thead>
             <tbody>
                 @foreach ($datos as $dato)
-                <tr>
+                <tr>                  
                     <th scope="row">{{$loop->iteration}}</th>
-                    <!--{{$dato['id']}} este iría en el value del boton quitar producto,maldito garca uwu, grax bb uwu >.< -->
                     <td>{{$dato['titulo']}}</td>
                     <td>{{$dato['precio']}}</td>                    
-                    <td style="width: 15%"><div id="divrancio" style="width: 70px"><input id="cantProd{{$dato['id']}}" class="form-control" type="number" min="0" onchange = "cambioCantidad(this)" 
+                    <td style="width: 15%"><div id="divrancio" style="width: 70px"><input id="cantProd{{$dato['id']}}" class="form-control" type="number" disabled="" min="0" onchange = "cambioCantidad(this)" 
                     data-value = "{{$dato['id']}}" value="{{$dato['cantidad']}}"></div></td>                     
-                    <td id = "total{{$dato['id']}}" >{{$dato['total']}}</td>
-                    <td>                    
-                        <button id = "{{$dato['id']}}" type="button" value = "{{$dato['id']}}" 
-                                onclick = "eliminarProducto(this)" class="btn btn-light borrar">
-                                <i class="fa fa-trash"></i>
-                        </button>
-                    </td>
+                    <td id = "total{{$dato['id']}}" >{{$dato['precio'] * $dato['cantidad'] - 
+                    $dato['precio'] * $dato['cantidad'] * $dato['porcentajeOferta'] / 100 }}</td>
                 </tr>
                 @endforeach
             </tbody>
         </table>                
-            <div class="form-group boton">                      
-                <button id= "validar" type="submit" class="btn btn-primary">Finalizar compra</button>
-            </div>
         </form>
     </div>
     
@@ -95,7 +86,6 @@
                 },
                 method: "GET",
                 success: function(res) {
-                     
                      window.location = res.redirect;
                 }
             }); 
