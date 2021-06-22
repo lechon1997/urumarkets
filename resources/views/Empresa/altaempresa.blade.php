@@ -362,7 +362,6 @@
     var rubro = $("#rubro").val();
     var direccion = $("#direccion").val();
     var Descripcion = $("#Descripcion").val();
-    let verificiones_duplicate;
 
     var e = document.getElementById("shrekislife");
     var localidad = e.options[e.selectedIndex].text;
@@ -372,7 +371,6 @@
 
     $.ajax({
       url: "http://localhost/urumarkets/public/verificarDatosEmpresa",
-      dataType: "json",
       data: {
         email: email,
         rut: Rut,
@@ -380,26 +378,20 @@
       },
       method: "GET",
       success: function(res) {
-        verificiones_duplicate = res;
+        if(res != "OK"){
+          alert(res);
+          return false;
+        }
       }
     });
 
-    if(verificiones_duplicate != "OK"){
-      alert(verificiones_duplicate);
-      return false;
-    }
-    
     if(!validateEmail(email)){
       alert("Email invalido.");
       return false;
-    }
-
-    if(pass!=confirmpass){
+    }else if(pass!=confirmpass){
       alert("No coincide la contraseña con la confirmacion de la misma.");
       return false;
-    }
-
-    if(pnombre == ""){
+    }else if(pnombre == ""){
       alert("Debe ingresar su primer nombre.");
       return false;
     }else if(papellido == ""){
@@ -441,7 +433,8 @@
     }else if(Departamento == "localidad" || Departamento == "Seleccione su Localidad"){
       alert("No selecciono su localidad.");
       return false;
-    }});
+    }
+  });
 
   $('#siguiente1').on('click', function() {
     //$('#home').hide();

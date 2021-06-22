@@ -107,8 +107,12 @@ class ControllerEmpresa extends Controller
                                 ->join('localidad', 'usuario.idLocalidad', '=', 'localidad.id')
                                 ->get();
         $usuario = Auth::user();
+        if(empty(Auth::user())){
+            return view("Empresa.listarempresas")->with('empresas',$empresas)
+            ->with('isadmin', 2);
+        }
         return view("Empresa.listarempresas")->with('empresas',$empresas)
-                                             ->with('isadmin', $usuario->isadmin);
+        ->with('isadmin', $usuario->isadmin);
 
     }
     
@@ -227,6 +231,13 @@ class ControllerEmpresa extends Controller
         $sizeproductos = $publicaciones->count();
         $sizeempresas = $empresas->count();
         $usuario = Auth::user();
+        if(empty(Auth::user())){
+        return view("Empresa.buscador")->with('empresas',$empresas)
+                                       ->with('productos',$publicaciones)
+                                       ->with('sizeproductos',$sizeproductos)
+                                       ->with('sizeempresas',$sizeempresas)
+                                       ->with('isadmin', 2);
+        }
         return view("Empresa.buscador")->with('empresas',$empresas)
                                        ->with('productos',$publicaciones)
                                        ->with('sizeproductos',$sizeproductos)
