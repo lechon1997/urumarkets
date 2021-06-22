@@ -47,7 +47,8 @@
 									<button type="button" id="shrek" onclick="location.href='http://localhost/urumarkets/public/producto/{{ $prod->id }}'" value="{{ $prod->id }}" class="btn btn-sm btn-outline-secondary">VER</button>
 									<div class="btn btn-sm btn-danger">EN OFERTA {{ $prod->porcentajeOferta }}%</div>
 								</div>
-								<button data-toggle="modal" data-target="#exampleModal" id="myModal" type="button" value="{{ $prod->id }}" class="carrito btn btn-sm btn-outline-success"> Agregar al carrito <i class="bi-cart-fill me-1"></i></button>
+								<button data-toggle="modal" data-target="#exampleModal" type="button" value="{{ $prod->id }}"
+								class="carrito btn btn-sm btn-outline-success"> Agregar al carrito <i class="bi-cart-fill me-1"></i></button>
 								<!-- <small class="text-muted">9 mins</small> -->
 							</div>
 						</div>
@@ -83,30 +84,6 @@
         });
     })
     //onclick="location.href='http://192.168.1.11/urumarkets/public/aumentar'"
-    $('.carrito').on('click', function() {
-        let _id = $(this).val();
-       
-		$.ajax({
-                url: "http://localhost/urumarkets/public/aumentar",
-                dataType: "json",
-                data: {
-                    id: _id,
-                    cantidad: 1
-
-                },
-                method: "GET",
-                success: function(res) {
-                	   let variable = $('#spanCarrito').text();
-                	   console.log("La poronga de pinato mide" + variable);
-                	   let variableInt = parseInt(variable);
-                	   variableInt+=1;
-                	   $('#spanCarrito').html(variableInt);                	   
-                }
-            });
-			
-
-    });
-
 		$('#orderby').on('change', function() {
 
 			$("#myConteiner").empty();
@@ -141,7 +118,7 @@
 						$("#myConteiner").append(divContCard);
 
 						//CONTENEDOR-CARD
-						var divCard = $('<div>').attr("class", "card shadow-sm");
+						var divCard = $('<div>').attr("class", "card shadow-sm caca");
 						divContCard.append(divCard);
 
 						var divCtnImg = $('<div>').css("width", "100%")
@@ -152,10 +129,6 @@
 						//DESCRIPCION DEL PRODUCTO
 						var titulo = $('<title>');
 						titulo.text(res[i].descripcion);
-
-
-						//RECTANGULO BIEN NAZI
-
 
 						//IMAGEN DEL PRODUCTO
 						var urlimg = "storage/productos/" + res[i].foto;
@@ -189,24 +162,45 @@
 						divBtnVer.text("Ver");
 						divBtnG.append(divBtnVer);
 
-
-
 						// {{-- <button type="button" class="btn btn-sm btn-outline-danger">EN OFERTA {{ $prod->porcentajeOferta }}%</button> --}}
 						var divBtnOferta = $('<button>').attr("type", "button")
-							.attr("class", "btn btn-sm btn-outline-danger");
+							.attr("class", "btn btn-sm btn-danger");
 						var oferta = "EN OFERTA " + res[i].porcentajeOferta + "%";
 						divBtnOferta.text(oferta);
 						divBtnG.append(divBtnOferta);
 						oferta = "";
 
 						var btnAgregarCarrito = $('<button>').attr("type", "button")
-							.attr("class", "btn btn-sm btn-outline-success");
+							.attr("class", "carrito btn btn-sm btn-outline-success")
+							.attr("data-toggle", "modal")
+							.attr("data-target", "#exampleModal")	
+							.attr("value", {{ $prod->id }} );
+
 						btnAgregarCarrito.text("Agregar al carrito")
-						divShrek.append(btnAgregarCarrito);
-
-
-
+						divShrek.append(btnAgregarCarrito);						
+	
 					}
+
+					$('.carrito').on('click', function() {
+						let _id = $(this).val();      
+						$.ajax({
+							url: "http://localhost/urumarkets/public/aumentar",
+							dataType: "json",
+							data: {
+								id: _id,
+								cantidad: 1
+							},
+							method: "GET",
+							success: function(res) {
+								let variable = $('#spanCarrito').text();
+								let variableInt = parseInt(variable);
+								variableInt+=1;
+								$('#spanCarrito').html(variableInt);                	   
+							}
+						});
+
+
+					});
 
 				}
 			});
