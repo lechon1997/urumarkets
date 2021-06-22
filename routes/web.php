@@ -47,9 +47,10 @@ route::get('/borrarTodo','App\Http\Controllers\ControllerCarrito@borrarProductoC
 route::post('/completarCompra', 'App\Http\Controllers\ControllerCarrito@apiMP');
 route::post('/process_payment', 'App\Http\Controllers\ControllerCarrito@finalizarCompra');
 route::get('/MostrarHistorialVentas','App\Http\Controllers\ControllerCarrito@mostrarHistorialV');
+route::get('/traerCantidadCarrito', 'App\Http\Controllers\ControllerCarrito@traerCantidad');
 
 
 //RUTAS GENERALES
 route::get('/listar_localidades','App\Http\Controllers\controladorBD@listarLocalidades');
-route::get('/index','App\Http\Controllers\controllerUsuario@index')->middleware('auth');
+route::get('/index','App\Http\Controllers\controllerUsuario@index');
 

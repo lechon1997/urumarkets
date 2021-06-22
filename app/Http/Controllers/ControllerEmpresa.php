@@ -25,7 +25,7 @@ class ControllerEmpresa extends Controller
         //
     }
 
-    public function AltaEmpresa(){
+    public function AltaEmpresa(){       
     	return view("Empresa.altaempresa");
     }
 
@@ -39,7 +39,8 @@ class ControllerEmpresa extends Controller
         //echo $vendedor;
         return view("Empresa.modificarEmpresa")->with('vendedor',$vendedor)
                                                ->with('usuario',$usuario)
-                                               ->with('localidad',$localidad);
+                                               ->with('localidad',$localidad)
+                                               ->with('isadmin', $usuario->isadmin);
 
         //value="{{ $vendedor->razonSocial }}"
     }
@@ -77,12 +78,14 @@ class ControllerEmpresa extends Controller
         $tipovistaperfil = "verperfil";
         $localidad = Localidad::find($usuario->idLocalidad);
         $departamento = Departamento::find($usuario->idDepartamento);
+
         return view("Empresa.VerEmpresa")->with('vendedor',$vendedor)
                                          ->with('usuario',$usuario)
                                          ->with('localidad',$localidad)
                                          ->with('departamento',$departamento)
                                          ->with('tipovistaperfil',$tipovistaperfil)
-                                         ->with('productos',$publicaciones);
+                                         ->with('productos',$publicaciones)
+                                         ->with('isadmin', $usuario->isadmin);
     }
     
     /**
@@ -101,7 +104,9 @@ class ControllerEmpresa extends Controller
                                 ->join('departamento', 'usuario.idDepartamento', '=', 'departamento.id')
                                 ->join('localidad', 'usuario.idLocalidad', '=', 'localidad.id')
                                 ->get();
-        return view("Empresa.listarempresas")->with('empresas',$empresas);
+        $usuario = Auth::user();
+        return view("Empresa.listarempresas")->with('empresas',$empresas)
+                                             ->with('isadmin', $usuario->isadmin);
 
     }
     

@@ -20,15 +20,24 @@ class controllerUsuario extends Controller
     public function index()
     {
         $publicaciones = Publicacion::select('publicacion.*')
-                                    ->get();
+        ->get();
         $empresas = Usuario::select('usuario.*','vendedor.*','departamento.nombre AS dnombre','localidad.nombre AS lnombre')
-                                ->join('vendedor', 'usuario.id', '=', 'vendedor.id')
-                                ->join('departamento', 'usuario.idDepartamento', '=', 'departamento.id')
-                                ->join('localidad', 'usuario.idLocalidad', '=', 'localidad.id')
-                                ->get();
-        return view("index")->with('productos',$publicaciones)
-                            ->with('empresas',$empresas);
-    }
+        ->join('vendedor', 'usuario.id', '=', 'vendedor.id')
+        ->join('departamento', 'usuario.idDepartamento', '=', 'departamento.id')
+        ->join('localidad', 'usuario.idLocalidad', '=', 'localidad.id')
+        ->get();
+        $usuario = Auth::user();
+
+        if(isset($usuario)){
+           return view("index")->with('productos',$publicaciones)
+           ->with('empresas',$empresas)
+           ->with('isadmin', $usuario->isadmin);   
+       }
+
+       return view("index")->with('productos',$publicaciones)
+       ->with('empresas',$empresas);
+       
+   }
 
     public function loginUser()
     {

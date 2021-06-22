@@ -28,7 +28,8 @@ class Usuario extends Authenticatable
         'password',
         'telefono',
         'idDepartamento',
-        'idLocalidad'
+        'idLocalidad',
+        'isadmin'
     ];
 
     protected $hidden = [

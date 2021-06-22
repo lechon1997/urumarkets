@@ -51,7 +51,7 @@ class ControladorBD extends Controller
             $usua->telefono = $telefono;
             $usua->idDepartamento = intval($idD);
             $usua->idLocalidad = intval($idL);
-            $usua->isadmin = false;
+            $usua->isadmin = false;            
             $usua->save();
             $cli = new Cliente();
             $usua->clientes()->save($cli);

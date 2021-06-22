@@ -95,6 +95,7 @@
                 },
                 method: "GET",
                 success: function(res) {
+                     
                      window.location = res.redirect;
                 }
             }); 
