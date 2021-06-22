@@ -30,13 +30,13 @@
           </div>
 
           <div class="form-group">
-            <label style="font-weight: normal;" for="exampleFormControlInput1">Apellido</label>
-            <input type="text" class="form-control" id="papellido" name="papellido" placeholder="Apellido">
+            <label style="font-weight: normal;" for="exampleFormControlInput1">Segundo Nombre</label>
+            <input type="text" class="form-control" id="snombre" name="snombre" placeholder="Segundo Nombre">
           </div>
 
           <div class="form-group">
-            <label style="font-weight: normal;" for="exampleFormControlInput1">Segundo Nombre</label>
-            <input type="text" class="form-control" id="snombre" name="snombre" placeholder="Segundo Nombre">
+            <label style="font-weight: normal;" for="exampleFormControlInput1">Apellido</label>
+            <input type="text" class="form-control" id="papellido" name="papellido" placeholder="Apellido">
           </div>
 
           <div class="form-group">
@@ -88,19 +88,40 @@
           </div>
 
           <div class="form-group">
-            <label style="font-weight: normal;" for="exampleFormControlSelect1">Tipo Organizacion</label>
+            <label style="font-weight: normal;" for="exampleFormControlSelect1">Tipo de Organizacion</label>
             <select class="form-control" id="tipoOrg" name="tipoOrg">
+              <option>Empresa</option>
               <option>ONG</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+              <option>Estatal</option>
+              <option>Profesional</option>
+              <option>Particular</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label style="font-weight: normal;" for="exampleFormControlInput1">Rubro</label>
-            <input type="text" class="form-control" id="rubro" name="rubro" placeholder="rubro">
+            <label style="font-weight: normal;" for="exampleFormControlSelect1">Rubro</label>
+            <select class="form-control" id="rubro" name="rubro">
+              <option>Tecnología</option>
+              <option>Accesorios para Vehículos</option>
+              <option>Salud y Equipamiento Médico</option>
+              <option>Belleza y Cuidado Personal</option>
+              <option>Deportes y Fitness</option>
+              <option>Hogar y Muebles</option>
+              <option>Electrodomésticos</option>
+              <option>Informática</option>
+              <option>Herramientas</option>
+              <option>Construcción</option>
+              <option>Comida Rapida</option>
+              <option>Industrias y Oficinas</option>
+              <option>Moda</option>
+              <option>Limpieza</option>
+              <option>Juguetes</option>
+              <option>Bebés</option>
+              <option>Vehículos</option>
+              <option>Inmuebles</option>
+              <option>Productos Sustentables</option>
+              <option>Música</option>
+            </select>
           </div>
 
           <div class="form-group">
@@ -308,116 +329,136 @@
     markers = [];
   }
 
-    function validateEmail(email) {
-      const re = /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/;
-      console.log(re.test(email));
-      return re.test(email);
+  function validateEmail(email) {
+    const re = /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/;
+    console.log(re.test(email));
+    return re.test(email);
+  }
+
+  function preview_image(event) {
+    var reader = new FileReader();
+    reader.onload = function(){
+      var output = document.getElementById('fotoperfil');
+      output.src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+  }
+
+  $('#Finalizar').on('click', function() {
+
+    var pnombre = $("#pnombre").val();
+    var papellido = $("#papellido").val();
+    var snombre = $("#snombre").val();
+    var sapellido = $("#sapellido").val();
+    var Cedula = $("#Cedula").val();
+    var email = $("#email").val();
+    var telefono = $("#telefono").val();
+    var pass = $("#pass").val();
+    var confirmpass = $("#confirmpass").val();
+    var razonsocial = $("#razonsocial").val();
+    var nombrefantasia = $("#nombrefantasia").val();
+    var Rut = $("#Rut").val();
+    var telefonoEmpresa = $("#telefonoEmpresa").val();
+    var rubro = $("#rubro").val();
+    var direccion = $("#direccion").val();
+    var Descripcion = $("#Descripcion").val();
+    let verificiones_duplicate;
+
+    var e = document.getElementById("shrekislife");
+    var localidad = e.options[e.selectedIndex].text;
+
+    var d = document.getElementById("shrekisstrong");
+    var Departamento = d.options[d.selectedIndex].text;
+
+    $.ajax({
+      url: "http://localhost/urumarkets/public/verificarDatosEmpresa",
+      dataType: "json",
+      data: {
+        email: email,
+        rut: Rut,
+        cedula: Cedula
+      },
+      method: "GET",
+      success: function(res) {
+        verificiones_duplicate = res;
+      }
+    });
+
+    if(verificiones_duplicate != "OK"){
+      alert(verificiones_duplicate);
+      return false;
+    }
+    
+    if(!validateEmail(email)){
+      alert("Email invalido.");
+      return false;
     }
 
-    function preview_image(event) {
-      var reader = new FileReader();
-      reader.onload = function(){
-        var output = document.getElementById('fotoperfil');
-        output.src = reader.result;
-      }
-      reader.readAsDataURL(event.target.files[0]);
+    if(pass!=confirmpass){
+      alert("No coincide la contraseña con la confirmacion de la misma.");
+      return false;
     }
 
-    $('#Finalizar').on('click', function() {
+    if(pnombre == ""){
+      alert("Debe ingresar su primer nombre.");
+      return false;
+    }else if(papellido == ""){
+      alert("Debe ingresar su primer apellido.");
+      return false;
+    }else if(sapellido == ""){
+      alert("Debe ingresar su segundo apellido.");
+      return false;
+    }else if(Cedula == ""){
+      alert("Debe ingresar su cedula.");
+      return false;
+    }else if(email == ""){
+      alert("Debe ingresar su email.");
+      return false;
+    }else if(pass == ""){
+      alert("Debe ingresar una contraseña.");
+      return false;
+    }else if(confirmpass == ""){
+      alert("Debe confimar su contraseña.");
+      return false;
+    }else if(razonsocial == ""){
+      alert("Debe ingresar la razon social de su empresa.");
+      return false;
+    }else if(nombrefantasia == ""){
+      alert("Debe ingresar el nombre de fantasia de su empresa.");
+      return false;
+    }else if(Rut == ""){
+      alert("Debe ingresar el rut de su empresa.");
+      return false;
+    }else if(telefonoEmpresa == ""){
+      alert("Debe ingresar el telefono de su empresa.");
+      return false;
+    }else if(direccion == ""){
+      alert("Debe ingresar la direccion de su empresa.");
+      return false;
+    }else if(localidad == "Seleccione su Departamento"){
+      alert("No selecciono su departamento.");
+      return false;
+    }else if(Departamento == "localidad" || Departamento == "Seleccione su Localidad"){
+      alert("No selecciono su localidad.");
+      return false;
+    }});
 
-      var pnombre = $("#pnombre").val();
-      var papellido = $("#papellido").val();
-      var snombre = $("#snombre").val();
-      var sapellido = $("#sapellido").val();
-      var Cedula = $("#Cedula").val();
-      var email = $("#email").val();
-      var telefono = $("#telefono").val();
-      var pass = $("#pass").val();
-      var confirmpass = $("#confirmpass").val();
-      var razonsocial = $("#razonsocial").val();
-      var nombrefantasia = $("#nombrefantasia").val();
-      var Rut = $("#Rut").val();
-      var telefonoEmpresa = $("#telefonoEmpresa").val();
-      var rubro = $("#rubro").val();
-      var direccion = $("#direccion").val();
-      var Descripcion = $("#Descripcion").val();
-
-      var e = document.getElementById("shrekislife");
-      var localidad = e.options[e.selectedIndex].text;
-
-      var d = document.getElementById("shrekisstrong");
-      var Departamento = d.options[d.selectedIndex].text;
-
-      if(!validateEmail(email)){
-        alert("Email invalido.");
-        return false;
-      }
-
-      if(pass!=confirmpass){
-        alert("No coincide la contraseña con la confirmacion de la misma.");
-        return false;
-      }
-
-      if(pnombre == ""){
-        alert("Debe ingresar su primer nombre.");
-        return false;
-      }else if(papellido == ""){
-        alert("Debe ingresar su primer apellido.");
-        return false;
-      }else if(sapellido == ""){
-        alert("Debe ingresar su segundo apellido.");
-        return false;
-      }else if(Cedula == ""){
-        alert("Debe ingresar su cedula.");
-        return false;
-      }else if(email == ""){
-        alert("Debe ingresar su email.");
-        return false;
-      }else if(pass == ""){
-        alert("Debe ingresar una contraseña.");
-        return false;
-      }else if(confirmpass == ""){
-        alert("Debe confimar su contraseña.");
-        return false;
-      }else if(razonsocial == ""){
-        alert("Debe ingresar la razon social de su empresa.");
-        return false;
-      }else if(nombrefantasia == ""){
-        alert("Debe ingresar el nombre de fantasia de su empresa.");
-        return false;
-      }else if(Rut == ""){
-        alert("Debe ingresar el rut de su empresa.");
-        return false;
-      }else if(telefonoEmpresa == ""){
-        alert("Debe ingresar el telefono de su empresa.");
-        return false;
-      }else if(direccion == ""){
-        alert("Debe ingresar la direccion de su empresa.");
-        return false;
-      }else if(localidad == "Seleccione su Departamento"){
-        alert("No selecciono su departamento.");
-        return false;
-      }else if(Departamento == "localidad" || Departamento == "Seleccione su Localidad"){
-        alert("No selecciono su localidad.");
-        return false;
-      }});
-
-    $('#siguiente1').on('click', function() {
+  $('#siguiente1').on('click', function() {
     //$('#home').hide();
     activaTab('nav-Empresa');
   });
 
-    $('#siguiente2').on('click', function() {
-      activaTab('nav-Fotodeperfil');
-    });
+  $('#siguiente2').on('click', function() {
+    activaTab('nav-Fotodeperfil');
+  });
 
-    $('#siguiente3').on('click', function() {
-      activaTab('nav-Direccion');
-    });
+  $('#siguiente3').on('click', function() {
+    activaTab('nav-Direccion');
+  });
 
-    function activaTab(tab){
-      $('.nav-tabs a[href="#' + tab + '"]').tab('show');
-    };
+  function activaTab(tab){
+    $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+  };
 
 //para las localidades-----------------------------------
 function listarLocalidades() {

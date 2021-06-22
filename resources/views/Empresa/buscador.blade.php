@@ -29,6 +29,7 @@
 
 							<div id="myConteiner" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 								@foreach ($productos as $prod)
+								@if($prod->deshabilitado == 0)
 								<div style="margin-bottom: 3%;" class="col">
 									<div class="card shadow-sm caca">
 										<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -52,6 +53,7 @@
 											</div>
 										</div>
 									</div>
+									@endif
 									@endforeach
 								</div>
 							</div>
@@ -71,6 +73,7 @@
 					<div class="card-body" style="background-color: #ECE8E8;">
 						<div class="container">
 							@foreach ($empresas as $empresa)
+							@if($empresa->deshabilitado == 0)
 							<div class="card mb-3" style="max-width: 540px;">
 								<div class="row g-0" style="margin-right: 0px;margin-left: 0px;">
 									<div class="col-md-4 imagenxd">
@@ -100,7 +103,8 @@
 											</div>	
 										</div>
 									</div>
-								</div>					
+								</div>	
+								@endif				
 								@endforeach
 							</div>
 						</div>

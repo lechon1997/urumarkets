@@ -11,6 +11,7 @@
 		<br />
 		<div class="container">
 			@foreach ($empresas as $empresa)
+			@if($empresa->deshabilitado == 0)
 				<div class="card mb-3" style="max-width: 540px;">
 					<div class="row g-0" style="margin-right: 0px;margin-left: 0px;">
 						<div class="col-md-4 imagenxd">
@@ -40,7 +41,8 @@
 									</div>	
 								</div>
 							</div>
-						</div>					
+						</div>		
+			@endif			
 			@endforeach
 		</div>
 			<style type="text/css">
