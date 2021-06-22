@@ -227,7 +227,7 @@ class ControllerEmpresa extends Controller
 
     public function desactivarcuenta(){
         $idUsu = Auth::id();
-
+        
         
         return redirect('/index');
     }
