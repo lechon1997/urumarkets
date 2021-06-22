@@ -89,8 +89,12 @@
           Perfil
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          @if ($isadmin == 1)
           <a class="dropdown-item" href="http://localhost/urumarkets/public/VermiPerfil">Ver mi Perfil</a>
-          <a class="dropdown-item" href="http://localhost/urumarkets/public/MostrarModEmpresa">Modificar Perfil</a>         
+          <a class="dropdown-item" href="http://localhost/urumarkets/public/MostrarModEmpresa">Modificar Perfil</a>      
+          @else
+          <a class="dropdown-item" href="http://localhost/urumarkets/public/modificarUsuario">Modificar Perfil</a>
+          @endif   
           @if ($isadmin == 1)
           <a class="dropdown-item" href="http://localhost/urumarkets/public/MostrarHistorialVentas">Ver mis Ventas</a>
           @else

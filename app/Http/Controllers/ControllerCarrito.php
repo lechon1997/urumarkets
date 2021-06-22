@@ -201,6 +201,25 @@ class ControllerCarrito extends Controller{
 
     }
 
+    public function mostrarHistorialC(){
+        $datos = array();
+
+        $cliente = Auth::user();
+
+        $datosHistorial = Historial::select('publicacion.*', 'historial.cantidad', 'historial.fecha')
+                                    ->join('cliente', 'cliente.id', '=', 'historial.cliente_id')
+                                    ->join('publicacion', 'publicacion.id', '=', 'historial.publicacion_id')
+                                    ->where('historial.cliente_id', $cliente->id)
+                                    ->orWhere('historial.cliente_id', '=', 'cliente.id')
+                                    ->get();
+                                                                                        
+
+        return view("Usuario.compras")->with('datos', $datosHistorial)
+                                         ->with('isadmin', Auth::user()->isadmin);
+
+
+    }
+
     public function traerCantidad(){
         $cantidad = 0;
         if(Session::exists('cart')){

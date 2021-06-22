@@ -77,7 +77,8 @@ class controllerUsuario extends Controller
             ->with('localidades', $localidades)
             ->with('departamentos', $departamentos)
             ->with('departamentoUsu', $departamentoUsu)
-            ->with('localidadUsu', $localidadusu);
+            ->with('localidadUsu', $localidadusu)
+            ->with('isadmin',$usuario->isadmin);
     }
 
     public function cerrarSession(Request $request)

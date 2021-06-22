@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Publicacion;
+use App\Models\Vendedor;
 
 class ControladorBD extends Controller
 {
@@ -136,6 +138,26 @@ class ControladorBD extends Controller
         if (Auth::attempt($credenciales)) {
 
             request()->session()->regenerate();
+
+            //esta parte es para que habilite empresas y productos cuando se logea
+            $idUsu = Auth::id();
+            
+            $vendedor = Vendedor::find($idUsu);
+            if($vendedor != null){
+                $vendedor->deshabilitado = 0;
+
+                $publicaciones = Publicacion::select('publicacion.*')
+                                            ->where('publicacion.usuario_id', '=' , $idUsu)
+                                            ->get();
+                foreach ($publicaciones as $p) {
+                    $p->deshabilitado = 0;
+                    $p->save();
+                }
+
+                $vendedor->save();
+            }
+            //aca termina xd
+
             return redirect('/index');
         }
         

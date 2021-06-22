@@ -7,6 +7,7 @@ use App\Models\Producto;
 use App\Models\Publicacion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Models\Servicio;
 class controllerProducto extends Controller
 {
     /**
@@ -36,30 +37,27 @@ class controllerProducto extends Controller
         if(Session::exists('cart')){
             foreach($lista as $producto){
                 $dato = array("id"=>$producto[0],"titulo" => $producto[3],"precio" => $producto[2],
-                                "cantidad" => $producto[1],"total" => $producto[4]);
-            array_push($datos,$dato);                        
+                    "cantidad" => $producto[1],"total" => $producto[4]);
+                array_push($datos,$dato);                        
             }
         }
         
         return view("Producto.carrito")->with('datos',$datos)
-                                       ->with('isadmin', Auth::user()->isadmin);
+        ->with('isadmin', Auth::user()->isadmin);
     }
 
     public function verProducto($id){
-        $datosP = Publicacion::select('publicacion.*', 'producto.*','vendedor.nombreFantasia')
-        ->join('producto', 'publicacion.id', '=', 'producto.id')
-        ->join('vendedor', 'vendedor.id', '=', 'publicacion.usuario_id')
-        ->where('producto.id', $id)
-        ->first();
-        if(empty($datosP->porcentajeOferta)){           
-            $datosP->porcentajeOferta = "0";
-        }else{
-            $descontar =  ($datosP->precio * $datosP->porcentajeOferta)/100;
-            $datosP->precioConDesc =round($datosP->precio - $descontar);
+        $publicacion = Publicacion::find($id);
+        $descontar =  ($publicacion->precio * $publicacion->porcentajeOferta)/100;
+        $publicacion->precioConDesc =round($publicacion->precio - $descontar);
 
+        if(empty(Auth::user())){
+           return view("Producto.verproducto")->with('datos',$publicacion)
+           ->with('isadmin', 2);
         }
-        return view("Producto.verproducto")->with('datos',$datosP)
-                                           ->with('isadmin', Auth::user()->isadmin);
+
+        return view("Producto.verproducto")->with('datos',$publicacion)
+        ->with('isadmin', Auth::user()->isadmin);
     }
 
     public function modificarProducto(Request $request){
@@ -77,43 +75,43 @@ class controllerProducto extends Controller
         $tipoPub = $arrayPublicacion[1];
 
         $idUsuario = Auth::id();
-       
+
         if($tipoPub == "producto"){                    
             $publicacion = Publicacion::select('publicacion.*', 'producto.*')
-                                    ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
-                                    ->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
-                                    ->where('producto.id', $idPub)
-                                    ->where('usuario.id', $idUsuario)
-                                    ->first();
+            ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+            ->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
+            ->where('producto.id', $idPub)
+            ->where('usuario.id', $idUsuario)
+            ->first();
             $publicacion->tipoPub = "producto";      
         }else{
             $publicacion = Publicacion::select('publicacion.*', 'servicio.*')
-                                    ->join('servicio', 'publicacion.id', '=', 'servicio.publicacion_id')
-                                    ->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
-                                    ->where('servicio.id', $idPub)
-                                    ->where('usuario.id', $idUsuario)
-                                    ->first();   
+            ->join('servicio', 'publicacion.id', '=', 'servicio.publicacion_id')
+            ->join('usuario', 'publicacion.usuario_id', '=', 'usuario.id')
+            ->where('servicio.id', $idPub)
+            ->where('usuario.id', $idUsuario)
+            ->first();   
             $publicacion->tipoPub = "servicio";
         }
-      
+
         return view("Producto.modificarProducto")->with('publicacion', $publicacion)   
-                                                 ->with('isadmin', Auth::user()->isadmin);           
+        ->with('isadmin', Auth::user()->isadmin);           
     }
 
     public function listaP(){
 
         $idUsuario = Auth::id();             
         $productos = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock', 'producto.id')
-                                ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
-                                ->join('usuario', 'publicacion.usuario_id', '=',  'usuario.id')
-                                ->where('usuario.id', $idUsuario)
-                                ->get();
+        ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+        ->join('usuario', 'publicacion.usuario_id', '=',  'usuario.id')
+        ->where('usuario.id', $idUsuario)
+        ->get();
 
         $servicios = Publicacion::select('publicacion.*','publicacion.id', 'servicio.id')
-                                ->join('servicio', 'publicacion.id', '=', 'servicio.publicacion_id')
-                                ->join('usuario', 'publicacion.usuario_id', '=',  'usuario.id')
-                                ->where('usuario.id', $idUsuario)
-                                ->get();        
+        ->join('servicio', 'publicacion.id', '=', 'servicio.publicacion_id')
+        ->join('usuario', 'publicacion.usuario_id', '=',  'usuario.id')
+        ->where('usuario.id', $idUsuario)
+        ->get();        
         
         $publicaciones = [];
 
@@ -136,52 +134,53 @@ class controllerProducto extends Controller
 
     public function modProducto($id){            
         $productito = Producto::select('producto.*')
-                                ->where('producto.producto_id', '=', $id)
-                                ->get();
+        ->where('producto.producto_id', '=', $id)
+        ->get();
         return $productito;
     }
 
     public function Oferta(){
         $publicaciones = Publicacion::select('publicacion.*')
-                                    ->where('publicacion.oferta', '=' , 1 )
-                                    ->get();
-        /*$producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
-                                ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
-                                ->where('publicacion.oferta', '=' , 1 )
-                                ->get();*/
+        ->where('publicacion.oferta', '=' , 1 )
+        ->get();
 
         $usuario = Auth::user();
+        if(empty($usuario)){
+            return view("Empresa.ofertas")->with('productos',$publicaciones)
+            ->with('isadmin', 2);
+        }
+
         return view("Empresa.ofertas")->with('productos',$publicaciones)
-                                      ->with('isadmin', $usuario->isadmin);
+        ->with('isadmin', $usuario->isadmin);
     }
 
     public function defecto(){
         $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
-                               ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
-                               ->where('publicacion.oferta', '=' , 1 )
-                               ->get();
-       return json_encode($producto);
-   }
+        ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+        ->where('publicacion.oferta', '=' , 1 )
+        ->get();
+        return json_encode($producto);
+    }
 
     public function OfertaMayorMenor(){
         $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
-                               ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
-                               ->where('publicacion.oferta', '=' , 1 )
-                               ->orderBy('publicacion.precio', 'DESC')
-                               ->get();
+        ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+        ->where('publicacion.oferta', '=' , 1 )
+        ->orderBy('publicacion.precio', 'DESC')
+        ->get();
         return json_encode($producto);
        //return view("Empresa.ofertas")->with('productos',$producto);
-   }
+    }
 
-   public function OfertaMenorMayor(){
-    $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
-                           ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
-                           ->where('publicacion.oferta', '=' , 1 )
-                           ->orderBy('publicacion.precio', 'ASC')
-                           ->get();
-    return json_encode($producto);
+    public function OfertaMenorMayor(){
+        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
+        ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
+        ->where('publicacion.oferta', '=' , 1 )
+        ->orderBy('publicacion.precio', 'ASC')
+        ->get();
+        return json_encode($producto);
    //return view("Empresa.ofertas")->with('productos',$producto);
-}
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -12,6 +12,7 @@ use App\Models\Publicacion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class ControllerEmpresa extends Controller
 {
@@ -61,7 +62,8 @@ class ControllerEmpresa extends Controller
                                          ->with('usuario',$usuario)
                                          ->with('localidad',$localidad)
                                          ->with('departamento',$departamento)
-                                         ->with('productos',$publicaciones);
+                                         ->with('productos',$publicaciones)
+                                         ->with('isadmin', $usuario->isadmin);
     }
 
     public function VermiPerfil(){
@@ -105,8 +107,12 @@ class ControllerEmpresa extends Controller
                                 ->join('localidad', 'usuario.idLocalidad', '=', 'localidad.id')
                                 ->get();
         $usuario = Auth::user();
+        if(empty(Auth::user())){
+            return view("Empresa.listarempresas")->with('empresas',$empresas)
+            ->with('isadmin', 2);
+        }
         return view("Empresa.listarempresas")->with('empresas',$empresas)
-                                             ->with('isadmin', $usuario->isadmin);
+        ->with('isadmin', $usuario->isadmin);
 
     }
     
@@ -224,17 +230,72 @@ class ControllerEmpresa extends Controller
 
         $sizeproductos = $publicaciones->count();
         $sizeempresas = $empresas->count();
+        $usuario = Auth::user();
+        if(empty(Auth::user())){
         return view("Empresa.buscador")->with('empresas',$empresas)
                                        ->with('productos',$publicaciones)
                                        ->with('sizeproductos',$sizeproductos)
-                                       ->with('sizeempresas',$sizeempresas);
+                                       ->with('sizeempresas',$sizeempresas)
+                                       ->with('isadmin', 2);
+        }
+        return view("Empresa.buscador")->with('empresas',$empresas)
+                                       ->with('productos',$publicaciones)
+                                       ->with('sizeproductos',$sizeproductos)
+                                       ->with('sizeempresas',$sizeempresas)
+                                       ->with('isadmin', $usuario->isadmin);
     }
 
     public function desactivarcuenta(){
         $idUsu = Auth::id();
+        $publicaciones = Publicacion::select('publicacion.*')
+                                    ->where('publicacion.usuario_id', '=' , $idUsu)
+                                    ->get();
+        foreach ($publicaciones as $p) {
+            $p->deshabilitado = 1;
+            $p->save();
+        }
 
-        
+        $vendedor = Vendedor::find($idUsu);
+        $vendedor->deshabilitado = 1;
+
+        $vendedor->save();
+
+        Auth::logout();
+        Session::flush();
+
         return redirect('/index');
+    }
+
+    public function verificarDatosEmpresa(Request $request){
+        $email = $request->email;
+        $cedula = $request->cedula;
+        $rut = $request->rut;
+
+        if($email != null && $email != ""){
+            $usuario_email = Usuario::select('usuario.*')
+            ->where('usuario.email', '=' , $email)
+            ->get();
+            if($usuario_email->count() > 0){
+                return "El email ya esta en uso";
+            }
+        }
+        if($cedula != null && $cedula != ""){
+            $usuario_cedula = Usuario::select('usuario.*')
+            ->where('usuario.cedula', '=' , $cedula)
+            ->get();
+            if($usuario_cedula->count() > 0){
+                return "La cedula ya esta en uso";
+            }
+        }
+        if($rut != null && $rut != ""){
+            $usuario_rut = Vendedor::select('vendedor.*')
+            ->where('vendedor.rut', '=' , $rut)
+            ->get();
+            if($usuario_rut->count() > 0){
+                return "El rut ya esta en uso";
+            }
+        }
+        return "OK";
     }
 
 

@@ -57,7 +57,12 @@ class controllerPublicacion extends Controller
             $publicacion->limitePorPersona = $request->productosPorPersona;
         }
 
-        $publicacion->porcentajeOferta = $request->porcentajeOfertaProducto;   
+        if($request->porcentajeOfertaProducto == ""){
+            $publicacion->porcentajeOferta = 0;
+        }else{
+            $publicacion->porcentajeOferta = $request->porcentajeOfertaProducto;
+        }
+        
         $publicacion->estado = $request->estadoProducto;
         $publicacion->deshabilitado = 0;  
           	  	

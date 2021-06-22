@@ -25,6 +25,7 @@ route::get('/VerEmpresa/{id}','App\Http\Controllers\ControllerEmpresa@VerEmpresa
 route::get('/VermiPerfil','App\Http\Controllers\ControllerEmpresa@VermiPerfil');
 route::get('/buscar/{texto}','App\Http\Controllers\ControllerEmpresa@buscador');
 route::get('/desactivarcuenta','App\Http\Controllers\ControllerEmpresa@desactivarcuenta');
+route::get('/verificarDatosEmpresa','App\Http\Controllers\ControllerEmpresa@verificarDatosEmpresa');
 
 
 //RUTAS PRODUCTO
@@ -47,6 +48,7 @@ route::get('/borrarTodo','App\Http\Controllers\ControllerCarrito@borrarProductoC
 route::post('/completarCompra', 'App\Http\Controllers\ControllerCarrito@apiMP');
 route::post('/process_payment', 'App\Http\Controllers\ControllerCarrito@finalizarCompra');
 route::get('/MostrarHistorialVentas','App\Http\Controllers\ControllerCarrito@mostrarHistorialV');
+route::get('/MisCompras','App\Http\Controllers\ControllerCarrito@mostrarHistorialC');
 route::get('/traerCantidadCarrito', 'App\Http\Controllers\ControllerCarrito@traerCantidad');
 
 

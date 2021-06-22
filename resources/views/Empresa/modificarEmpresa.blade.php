@@ -446,12 +446,32 @@
     var rubro = $("#rubro").val();
     var direccion = $("#direccion").val();
     var Descripcion = $("#Descripcion").val();
+    let verificiones_duplicate;
 
     var e = document.getElementById("shrekislife");
     var localidad = e.options[e.selectedIndex].text;
 
     var d = document.getElementById("shrekisstrong");
     var Departamento = d.options[d.selectedIndex].text;
+
+    $.ajax({
+      url: "http://localhost/urumarkets/public/verificarDatosEmpresa",
+      dataType: "json",
+      data: {
+        email: email,
+        rut: Rut,
+        cedula: Cedula
+      },
+      method: "GET",
+      success: function(res) {
+        verificiones_duplicate = res;
+      }
+    });
+
+    if(verificiones_duplicate != "OK"){
+      alert(verificiones_duplicate);
+      return false;
+    }
 
     if(!validateEmail(email)){
       alert("Email invalido.");
