@@ -4,14 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <script src="{{ asset('js/app.js') }}"></script>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <title>Historial de ventas</title>
 </head>
 
 <body>
     @include('layouts.headerVisitante')
+    <form id="form-checkout" method="POST" action="completarCompra">
+    @csrf
     <div class="container mt-5 pt-5">
         <table class="table table-hover">
             <thead>
@@ -23,28 +26,23 @@
                     <th scope="col">Total</th>
                 </tr>
             </thead>
-         
             <tbody>
                 @foreach ($datos as $dato)
-                <tr>
+                <tr>                  
                     <th scope="row">{{$loop->iteration}}</th>
-                    <!--{{$dato['id']}} este iría en el value del boton quitar producto,maldito garca uwu, grax bb uwu >.< -->
                     <td>{{$dato['titulo']}}</td>
-                    <td>{{$dato['precio']}}</td>
-                    <td style="width: 15%">
-                        <div id="divrancio" style="width: 70px"><input id="cantProd{{$dato['id']}}" class="form-control" type="number" min="0" onchange="cambioCantidad(this)" data-value="{{$dato['id']}}" value="{{$dato['cantidad']}}"></div>
-                    </td>
-                    <td id="total{{$dato['id']}}">{{$dato['total']}}</td>
-                    <td>
-                        <button id="{{$dato['id']}}" type="button" value="{{$dato['id']}}" onclick="eliminarProducto(this)" class="btn btn-light borrar">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    </td>
+                    <td>{{$dato['precio']}}</td>                    
+                    <td style="width: 15%"><div id="divrancio" style="width: 70px"><input id="cantProd{{$dato['id']}}" class="form-control" type="number" disabled="" min="0" onchange = "cambioCantidad(this)" 
+                    data-value = "{{$dato['id']}}" value="{{$dato['cantidad']}}"></div></td>                     
+                    <td id = "total{{$dato['id']}}" >{{$dato['precio'] * $dato['cantidad'] - 
+                    $dato['precio'] * $dato['cantidad'] * $dato['porcentajeOferta'] / 100 }}</td>
                 </tr>
                 @endforeach
-               
             </tbody>
-        </table>
+        </table>                
+        </form>
+    </div>
+
 </body>
 
 </html>
