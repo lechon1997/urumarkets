@@ -47,12 +47,14 @@
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Cedula</label>
-            <input type="text" class="form-control" id="Cedula" name="cedula" placeholder="Cedula" value="{{ $usuario->cedula }}">
+            <input type="text" class="form-control" id="CedulaVisible" disabled="true" name="cedula" placeholder="Cedula" value="{{ $usuario->cedula }}">
+            <input type="text" class="form-control" id="Cedula" hidden="true" name="cedula" placeholder="Cedula" value="{{ $usuario->cedula }}">
           </div>
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" value="{{ $usuario->email }}">
+            <input type="email" class="form-control" id="emailVisible" disabled="true" name="email" placeholder="name@example.com" value="{{ $usuario->email }}">
+            <input type="email" class="form-control" id="email" hidden="true" name="email" placeholder="name@example.com" value="{{ $usuario->email }}">
           </div>
 
           <div class="form-group">
@@ -103,7 +105,8 @@
         <div class="tab-pane fade" id="nav-Empresa" role="tabpanel" aria-labelledby="nav-Empresa-tab">
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Razon social</label>
-            <input type="text" class="form-control" id="razonsocial" name="razonsocial" placeholder="razon social" value="{{ $vendedor->razonSocial }}">
+            <input type="text" class="form-control" id="razonsocialVisible" disabled="true" name="razonsocial" placeholder="razon social" value="{{ $vendedor->razonSocial }}">
+            <input type="text" class="form-control" id="razonsocial" hidden="true" name="razonsocial" placeholder="razon social" value="{{ $vendedor->razonSocial }}">
           </div>
 
           <div class="form-group">
@@ -113,7 +116,8 @@
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Rut</label>
-            <input type="text" class="form-control" id="Rut" name="Rut" placeholder="Rut" value="{{ $vendedor->RUT }}">
+            <input type="text" class="form-control" id="RutVisible" disabled="true" name="Rut" placeholder="Rut" value="{{ $vendedor->RUT }}">
+            <input type="text" class="form-control" id="Rut" hidden="true" name="Rut" placeholder="Rut" value="{{ $vendedor->RUT }}">
           </div>
 
           <div class="form-group">
@@ -446,7 +450,7 @@
     var rubro = $("#rubro").val();
     var direccion = $("#direccion").val();
     var Descripcion = $("#Descripcion").val();
-    let verificiones_duplicate;
+    //let verificiones_duplicate;
 
     var e = document.getElementById("shrekislife");
     var localidad = e.options[e.selectedIndex].text;
@@ -454,7 +458,7 @@
     var d = document.getElementById("shrekisstrong");
     var Departamento = d.options[d.selectedIndex].text;
 
-    $.ajax({
+    /*$.ajax({
       url: "http://localhost/urumarkets/public/verificarDatosEmpresa",
       dataType: "json",
       data: {
@@ -471,7 +475,7 @@
     if(verificiones_duplicate != "OK"){
       alert(verificiones_duplicate);
       return false;
-    }
+    }*/
 
     if(!validateEmail(email)){
       alert("Email invalido.");
