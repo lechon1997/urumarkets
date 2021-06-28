@@ -179,7 +179,7 @@
                         @endif
 
                       </div>
-                      <button type="button" value="{{ $prod->id }}" class="btn btn-sm btn-outline-success"> Agregar al carrito <i class="bi-cart-fill me-1"></i></button>
+                      <button data-toggle="modal" data-target="#exampleModal" type="button" value="{{ $prod->id }}" class="carrito btn btn-sm btn-outline-success"> Agregar al carrito <i class="bi-cart-fill me-1"></i></button>
                       <!-- <small class="text-muted">9 mins</small> -->
                     </div>
                   </div>
@@ -188,8 +188,21 @@
               @endif
               @endforeach
             </div>
-          </div>
+          </div>       
         </div>
+
+          <!-- Modal -->
+          <div class="modal fade modal-auto-clear" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <p class="h5">El producto se agregó a su carrito.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
 
         <style type="text/css">
           .tujavie{
@@ -269,10 +282,44 @@
           }
 
         </style>
-      </body>
-      <script type="text/javascript">
-        /*$('#carouselExampleCaptions').on('click', function () {
-          $('.carousel').carousel('pause');
-        })*/
+
+        <script type="text/javascript">
+          /*$('#carouselExampleCaptions').on('click', function () {
+            $('.carousel').carousel('pause');
+          })*/         
+
+          $('.carrito').on('click', function() {
+            let _id = $(this).val();      
+            $.ajax({
+              url: "http://localhost/urumarkets/public/aumentar",
+              dataType: "json",
+              data: {
+                id: _id,
+                cantidad: 1
+              },
+              method: "GET",
+              success: function(res) {
+                let variable = $('#spanCarrito').text();
+                let variableInt = parseInt(variable);
+                variableInt+=1;
+                $('#spanCarrito').html(variableInt);                     
+              }
+            });
+          });
+
+          $('.modal-auto-clear').on('shown.bs.modal', function() {
+            $(this).delay(500).fadeOut(200, function() {
+              $(this).modal('hide');
+            });
+          });
+
+          $('.modal-auto-clear').on('shown.bs.modal', function() {
+            $(this).delay(900).fadeOut(200, function() {
+              $(this).modal('hide');
+            });
+          })
+
       </script>
+      </body>
+    
       </html>

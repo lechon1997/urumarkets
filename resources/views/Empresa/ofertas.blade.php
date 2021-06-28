@@ -11,7 +11,6 @@
 
 	@include('layouts.headerVisitante')
 	<div class="album ">
-
 		<div class="container">
 			<div class="d-flex pt-4 pb-3 flex-row-reverse">
 				<div>
@@ -72,9 +71,7 @@
 		</div>
 	</div>
 
-	<script>
-
-		
+	<script>		
 		$('.carrito').on('click', function() {
 			let _id = $(this).val();      
 			$.ajax({
@@ -92,8 +89,6 @@
 					$('#spanCarrito').html(variableInt);                	   
 				}
 			});
-
-
 		});
 
 		$('.modal-auto-clear').on('shown.bs.modal', function() {
@@ -106,10 +101,9 @@
         $(this).delay(900).fadeOut(200, function() {
             $(this).modal('hide');
         });
-    })
+    	})
     //onclick="location.href='http://192.168.1.11/urumarkets/public/aumentar'"
 		$('#orderby').on('change', function() {
-
 			$("#myConteiner").empty();
 			var opcionUsu = $('#orderby').val();
 			var urlWS = "";
@@ -133,83 +127,76 @@
 				success: function(res) {
 					console.log(res);
 					cant = Object.keys(res).length;
-					if(res == null){
+					if(res != null){
+						for (let i = 0; i < cant; i++) {
+							//CONTENEDOR DE CADA PUBLICACION
+							var divContCard = $('<div>').attr("class", "col")
+								.attr("style", "margin-bottom: 3%;");
+							$("#myConteiner").append(divContCard);
 
-					}else{
+							//CONTENEDOR-CARD
+							var divCard = $('<div>').attr("class", "card shadow-sm caca");
+							divContCard.append(divCard);
 
-					for (let i = 0; i < cant; i++) {
+							var divCtnImg = $('<div>').css("width", "100%")
+								.css("height", "225px")
 
+							divCard.append(divCtnImg);
 
-						//CONTENEDOR DE CADA PUBLICACION
-						var divContCard = $('<div>').attr("class", "col")
-							.attr("style", "margin-bottom: 3%;");
-						$("#myConteiner").append(divContCard);
+							//DESCRIPCION DEL PRODUCTO
+							var titulo = $('<title>');
+							titulo.text(res[i].descripcion);
 
-						//CONTENEDOR-CARD
-						var divCard = $('<div>').attr("class", "card shadow-sm caca");
-						divContCard.append(divCard);
+							//IMAGEN DEL PRODUCTO
+							var urlimg = "storage/productos/" + res[i].foto;
 
-						var divCtnImg = $('<div>').css("width", "100%")
-							.css("height", "225px")
+							var imagen = $('<img>').attr("src", urlimg)
+								.attr("width", "100%")
+								.attr("height", "225px")
+								.css("object-fit", "scale-down")
 
-						divCard.append(divCtnImg);
+							divCtnImg.append(titulo);
+							divCtnImg.append(imagen);
+							urlimg = "";
 
-						//DESCRIPCION DEL PRODUCTO
-						var titulo = $('<title>');
-						titulo.text(res[i].descripcion);
+							var divCardBody = $('<div>').attr("class", "card-body borde");
+							divCard.append(divCardBody);
 
-						//IMAGEN DEL PRODUCTO
-						var urlimg = "storage/productos/" + res[i].foto;
+							var pTit = $('<p>').attr("class", "card-text");
+							pTit.text(res[i].titulo + " - " + res[i].tipoMoneda + res[i].precio);
+							divCardBody.append(pTit);
 
-						var imagen = $('<img>').attr("src", urlimg)
-							.attr("width", "100%")
-							.attr("height", "225px")
-							.css("object-fit", "scale-down")
+							var divShrek = $('<div>').attr("class", "d-flex justify-content-between align-items-center");
+							divCardBody.append(divShrek);
 
-						divCtnImg.append(titulo);
-						divCtnImg.append(imagen);
-						urlimg = "";
+							var divBtnG = $('<div>').attr("class", "btn-group");
+							divShrek.append(divBtnG);
 
-						var divCardBody = $('<div>').attr("class", "card-body borde");
-						divCard.append(divCardBody);
+							// {{-- <button type="button" value="{{ $prod->id }}" class="btn btn-sm btn-outline-secondary">Ver</button> --}}
+							var divBtnVer = $('<button>').attr("type", "button")
+								.attr("value", res[i].id)
+								.attr("class", "btn btn-sm btn-outline-secondary");
+							divBtnVer.text("Ver");
+							divBtnG.append(divBtnVer);
 
-						var pTit = $('<p>').attr("class", "card-text");
-						pTit.text(res[i].titulo + " - " + res[i].tipoMoneda + res[i].precio);
-						divCardBody.append(pTit);
-
-						var divShrek = $('<div>').attr("class", "d-flex justify-content-between align-items-center");
-						divCardBody.append(divShrek);
-
-						var divBtnG = $('<div>').attr("class", "btn-group");
-						divShrek.append(divBtnG);
-
-						// {{-- <button type="button" value="{{ $prod->id }}" class="btn btn-sm btn-outline-secondary">Ver</button> --}}
-						var divBtnVer = $('<button>').attr("type", "button")
-							.attr("value", res[i].id)
-							.attr("class", "btn btn-sm btn-outline-secondary");
-						divBtnVer.text("Ver");
-						divBtnG.append(divBtnVer);
-
-						// {{-- <button type="button" class="btn btn-sm btn-outline-danger">EN OFERTA {{ $prod->porcentajeOferta }}%</button> --}}
-						var divBtnOferta = $('<button>').attr("type", "button")
-							.attr("class", "btn btn-sm btn-danger");
-						var oferta = "EN OFERTA " + res[i].porcentajeOferta + "%";
-						divBtnOferta.text(oferta);
-						divBtnG.append(divBtnOferta);
-						oferta = "";
-					
-						var btnAgregarCarrito = $('<button>').attr("type", "button")
-							.attr("class", "carrito btn btn-sm btn-outline-success")
-							.attr("data-toggle", "modal")
-							.attr("data-target", "#exampleModal")	
-							.attr("value", {{ $prod->id }} );
+							// {{-- <button type="button" class="btn btn-sm btn-outline-danger">EN OFERTA {{ $prod->porcentajeOferta }}%</button> --}}
+							var divBtnOferta = $('<button>').attr("type", "button")
+								.attr("class", "btn btn-sm btn-danger");
+							var oferta = "EN OFERTA " + res[i].porcentajeOferta + "%";
+							divBtnOferta.text(oferta);
+							divBtnG.append(divBtnOferta);
+							oferta = "";
 						
-						btnAgregarCarrito.text("Agregar al carrito")
-						divShrek.append(btnAgregarCarrito);						
-	
-					}
-
-					
+							var btnAgregarCarrito = $('<button>').attr("type", "button")
+								.attr("class", "carrito btn btn-sm btn-outline-success")
+								.attr("data-toggle", "modal")
+								.attr("data-target", "#exampleModal")	
+								.attr("value", res[i].id);
+							
+							btnAgregarCarrito.text("Agregar al carrito")
+							divShrek.append(btnAgregarCarrito);						
+		
+						}					
 					}
 
 					$('.carrito').on('click', function() {
@@ -231,6 +218,7 @@
 						});
 					});			
 			}
+		});
 		});
 	</script>
 
