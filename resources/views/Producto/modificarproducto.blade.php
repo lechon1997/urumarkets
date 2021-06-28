@@ -192,6 +192,15 @@
 			}
 			$("#checkboxTienePrecio").on("click", estaChequeado);
 
+			function estaChequeado2(){
+				if (document.getElementById('checkboxOferta').checked){
+					$("#porcentajeOfertaProducto").removeAttr('disabled');
+				}else{
+					$("#porcentajeOfertaProducto").prop('disabled', true);
+				}
+			}
+			$("#checkboxOferta").on("click", estaChequeado2);
+
 			function validarInputs(){
 				var nombreProducto = $('#nombreProducto').val();
 				var descripcionProducto = $('#descripcionProducto').val();

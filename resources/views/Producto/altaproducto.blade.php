@@ -166,23 +166,24 @@
 
 			function estaChequeado(){
 				if (document.getElementById('checkboxTienePrecio').checked){
-					$("#porcentajeOfertaProducto").removeAttr('disabled');			
-				}else{
-					$("#porcentajeOfertaProducto").prop('disabled', true);
-				}
-			}
-			$("#checkboxTienePrecio").on("click", estaChequeado);
-
-			function estaChequeado2(){
-				if (document.getElementById('checkboxOferta').checked){
 					$("#tipoMoneda").removeAttr('disabled');
-					$("#precioProducto").removeAttr('disabled');
+					$("#precioProducto").removeAttr('disabled');			
 				}else{
 					$("#tipoMoneda").prop('disabled', true);
 					$("#precioProducto").prop('disabled', true);
 					$("#precioProducto").prop('value', "");	
 				}
 			}
+			$("#checkboxTienePrecio").on("click", estaChequeado);
+
+			function estaChequeado2(){
+				if (document.getElementById('checkboxOferta').checked){
+					$("#porcentajeOfertaProducto").removeAttr('disabled');
+				}else{
+					$("#porcentajeOfertaProducto").prop('disabled', true);
+				}
+			}
+			$("#checkboxOferta").on("click", estaChequeado2);
 
 			function validarInputs(){
 				var nombreProducto = $('#nombreProducto').val();

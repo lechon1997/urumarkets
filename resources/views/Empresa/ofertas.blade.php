@@ -193,13 +193,13 @@
 						divBtnOferta.text(oferta);
 						divBtnG.append(divBtnOferta);
 						oferta = "";
-
+					
 						var btnAgregarCarrito = $('<button>').attr("type", "button")
 							.attr("class", "carrito btn btn-sm btn-outline-success")
 							.attr("data-toggle", "modal")
 							.attr("data-target", "#exampleModal")	
 							.attr("value", {{ $prod->id }} );
-
+						
 						btnAgregarCarrito.text("Agregar al carrito")
 						divShrek.append(btnAgregarCarrito);						
 	
@@ -222,25 +222,23 @@
 								$('#spanCarrito').html(variableInt);                	   
 							}
 						});
-
-
-					});
-
-				}
-			});
+					});			
+			}
 		});
 	</script>
+
+	<style type="text/css">
+		.borde {
+			border-top: 1px solid #777;
+			margin-top: 2%;
+		}
+
+		.caca:hover {
+			border: 1px solid #777;
+		}
+	</style>
 </body>
 
-<style type="text/css">
-	.borde {
-		border-top: 1px solid #777;
-		margin-top: 2%;
-	}
 
-	.caca:hover {
-		border: 1px solid #777;
-	}
-</style>
 
 </html>
