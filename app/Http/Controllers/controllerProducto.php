@@ -158,7 +158,12 @@ class controllerProducto extends Controller
         $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
         ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
         ->where('publicacion.oferta', '=' , 1 )
+        ->where('publicacion.deshabilitado', '=' , 0 )
         ->get();
+        $sizeproducto = $producto->count();
+        if($sizeproducto == 0){
+            return null;
+        }
         return json_encode($producto);
     }
 
@@ -166,8 +171,15 @@ class controllerProducto extends Controller
         $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
         ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
         ->where('publicacion.oferta', '=' , 1 )
+        ->where('publicacion.deshabilitado', '=' , 0 )
         ->orderBy('publicacion.precio', 'DESC')
         ->get();
+
+        $sizeproducto = $producto->count();
+        if($sizeproducto == 0){
+            return null;
+        }
+
         return json_encode($producto);
        //return view("Empresa.ofertas")->with('productos',$producto);
     }
@@ -176,8 +188,13 @@ class controllerProducto extends Controller
         $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
         ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
         ->where('publicacion.oferta', '=' , 1 )
+        ->where('publicacion.deshabilitado', '=' , 0 )
         ->orderBy('publicacion.precio', 'ASC')
         ->get();
+        $sizeproducto = $producto->count();
+        if($sizeproducto == 0){
+            return null;
+        }
         return json_encode($producto);
    //return view("Empresa.ofertas")->with('productos',$producto);
     }
