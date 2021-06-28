@@ -74,6 +74,28 @@
 
 	<script>
 
+		
+		$('.carrito').on('click', function() {
+			let _id = $(this).val();      
+			$.ajax({
+				url: "http://localhost/urumarkets/public/aumentar",
+				dataType: "json",
+				data: {
+					id: _id,
+					cantidad: 1
+				},
+				method: "GET",
+				success: function(res) {
+					let variable = $('#spanCarrito').text();
+					let variableInt = parseInt(variable);
+					variableInt+=1;
+					$('#spanCarrito').html(variableInt);                	   
+				}
+			});
+
+
+		});
+
 		$('.modal-auto-clear').on('shown.bs.modal', function() {
 			$(this).delay(500).fadeOut(200, function() {
 				$(this).modal('hide');

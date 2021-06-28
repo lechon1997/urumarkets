@@ -32,8 +32,8 @@
       <button type="submit" class="btn btn-success" id="form-checkout__submit">Pagar</button>
       </div>
       <progress value="0" class="progress-bar">Cargando...</progress>
-      <p><b>Status: </b><span id="payment-status"></span></p>
-      <p><b>Detail: </b><span id="payment-detail"></span></p>
+      <p><b>Estado: </b><span id="payment-status"></span></p>
+      <p><b>Detalle: </b><span id="payment-detail"></span></p>
       
       <input type="hidden" name="total" id="total" value = "{{$total}}" />   
       
@@ -148,8 +148,14 @@
                     return response.json();
                 })
               .then(result => {
-                    document.getElementById("payment-status").innerText = result.status;
-                    document.getElementById("payment-detail").innerText = result.status_detail;
+                    if(result.status === "approved" && result.status_detail === "accredited"){
+                      document.getElementById("payment-status").innerText = "aprobado";
+                      document.getElementById("payment-detail").innerText = "acreditado";
+                    }else{
+                      document.getElementById("payment-status").innerText = "error";
+                      document.getElementById("payment-detail").innerText = "error"
+                    }  
+                                    
                     $('.container__payment').fadeOut(500);
                     setTimeout(() => { $('.container__result').show(500).fadeIn(); }, 500);
                 })

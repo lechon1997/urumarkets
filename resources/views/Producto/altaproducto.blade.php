@@ -111,8 +111,6 @@
 				document.getElementById('labelEstadoPublicacion').innerHTML = 'Estado del producto:';
 				document.getElementById('fotoPublicacion').innerHTML = 'Seleccione una foto para el producto:';
 				document.getElementById('validar').innerHTML = 'Crear producto';
-
-
 				
 				$("input:radio[name=publicacion]").click(function () {    
 					var seleccion = $('input:radio[name=publicacion]:checked').val();
@@ -168,15 +166,23 @@
 
 			function estaChequeado(){
 				if (document.getElementById('checkboxTienePrecio').checked){
+					$("#porcentajeOfertaProducto").removeAttr('disabled');			
+				}else{
+					$("#porcentajeOfertaProducto").prop('disabled', true);
+				}
+			}
+			$("#checkboxTienePrecio").on("click", estaChequeado);
+
+			function estaChequeado2(){
+				if (document.getElementById('checkboxOferta').checked){
 					$("#tipoMoneda").removeAttr('disabled');
-					$("#precioProducto").removeAttr('disabled');			
+					$("#precioProducto").removeAttr('disabled');
 				}else{
 					$("#tipoMoneda").prop('disabled', true);
 					$("#precioProducto").prop('disabled', true);
 					$("#precioProducto").prop('value', "");	
 				}
 			}
-			$("#checkboxTienePrecio").on("click", estaChequeado);
 
 			function validarInputs(){
 				var nombreProducto = $('#nombreProducto').val();
