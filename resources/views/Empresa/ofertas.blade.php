@@ -133,6 +133,10 @@
 				success: function(res) {
 					console.log(res);
 					cant = Object.keys(res).length;
+					if(res == null){
+
+					}else{
+
 					for (let i = 0; i < cant; i++) {
 
 
@@ -203,6 +207,9 @@
 						btnAgregarCarrito.text("Agregar al carrito")
 						divShrek.append(btnAgregarCarrito);						
 	
+					}
+
+					
 					}
 
 					$('.carrito').on('click', function() {
