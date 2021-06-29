@@ -21,15 +21,15 @@
       <div class="carousel-item active">
         <img class="d-block centradito" data-src="holder.js/800x400?auto=yes&amp;bg=777&amp;fg=555&amp;text=First slide" alt="First slide [800x400]" src="http://localhost/urumarkets/imagenes/propaganda1.JPG" data-holder-rendered="true">
         <div class="carousel-caption d-none d-md-block">
-          <h5 class="btn btn-primary" style="color: white;">Electrodomesticos hasata un 40% OFF</h5>
+          <h5 class="btn btn-primary" style="color: white;">Electrodomésticos hasta un 40% OFF</h5>
           <br>
-          <p class="btn btn-dark" style="color: white;">No te pierdas las mejores ofertas en electrodomesticos</p>
+          <p class="btn btn-dark" style="color: white;">No te pierdas las mejores ofertas en electrodomésticos</p>
         </div>
       </div>
       <div class="carousel-item ">
         <img class="d-block centradito" src="http://localhost/urumarkets/imagenes/propagandaelectrodomesticos4.JPG" data-holder-rendered="true">
         <div class="carousel-caption d-none d-md-block" >
-          <h5 class="btn btn-primary btnprop" id="elect">Electrodomesticos</h5>
+          <h5 class="btn btn-primary btnprop" id="elect">Electrodomésticos</h5>
           <br>
           <div style="display: inline-flex;width: auto;margin-left: auto;margin-right: auto;">
             @php
@@ -80,15 +80,15 @@
         <div class="carousel-item">
           <img class="d-block centradito" src="http://localhost/urumarkets/imagenes/propaganda2.JPG" data-holder-rendered="true">
           <div class="carousel-caption d-none d-md-block">
-            <h5 class="btn btn-primary" style="color: white;">Tecnologia hasta 40% OFF</h5>
+            <h5 class="btn btn-primary" style="color: white;">Tecnología hasta 40% OFF</h5>
             <br>
-            <p class="btn btn-dark" style="color: white;">Disfruta de la mejor tecnologia al mejor precio.</p>
+            <p class="btn btn-dark" style="color: white;">Disfruta de la mejor tecnología al mejor precio.</p>
           </div>
         </div>
         <div class="carousel-item ">
           <img class="d-block centradito" src="http://localhost/urumarkets/imagenes/comida7.JPG" data-holder-rendered="true">
           <div class="carousel-caption d-none d-md-block" >
-            <h5 class="btn btn-danger btnprop" id="comrap">Comida Rapida</h5>
+            <h5 class="btn btn-danger btnprop" id="comrap">Comida Rápida</h5>
             <br>
             <div style="display: inline-flex;width: auto;margin-left: auto;margin-right: auto;">
               @php
@@ -139,9 +139,9 @@
           <div class="carousel-item ">
             <img class="d-block centradito" src="http://localhost/urumarkets/imagenes/propaganda3.JPG" data-holder-rendered="true">
             <div class="carousel-caption d-none d-md-block">
-              <h5 class="btn btn-primary" style="color: white;">Liquidacion de Calzados</h5>
+              <h5 class="btn btn-primary" style="color: white;">Liquidación de Calzados</h5>
               <br>
-              <p class="btn btn-dark" style="color: white;">Oferton de fin de semana, hasta un 60% OFF en championes marca ADIDAS, NIKE y PUMA.</p>
+              <p class="btn btn-dark" style="color: white;">Ofertón de fin de semana, hasta un 60% OFF en championes marca ADIDAS, NIKE y PUMA.</p>
             </div>
           </div>      
         </div>

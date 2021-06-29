@@ -42,8 +42,9 @@ class controllerProducto extends Controller
                 array_push($datos,$dato);                        
             }
         }
-        
+        $sizecarrito = count($datos);
         return view("Producto.carrito")->with('datos',$datos)
+        ->with('sizecarrito',$sizecarrito)
         ->with('isadmin', Auth::user()->isadmin);
     }
 
@@ -55,19 +56,32 @@ class controllerProducto extends Controller
         $publicaciones = Publicacion::select('publicacion.*')
                                     ->where('publicacion.usuario_id', '=' ,$publicacion->usuario_id)
                                     ->where('publicacion.id', '!=' ,$publicacion->id)
+                                    ->orderBy('publicacion.titulo', 'ASC')
                                     ->get();
 
         $empresa = Vendedor::find($publicacion->usuario_id);
 
+        $producto = Producto::find($id);
+        $servicio = Servicio::find($id);
+
+        $tipoPub;
+        if($producto != null){
+            $tipoPub= "Producto";
+        }else if($servicio != null){
+            $tipoPub= "Servicio";
+        }
+
         if(empty(Auth::user())){
            return view("Producto.verproducto")->with('datos',$publicacion)
            ->with('empresa', $empresa)
+           ->with('tipoPub', $tipoPub)
            ->with('productos', $publicaciones)
            ->with('isadmin', 2);
         }
 
         return view("Producto.verproducto")->with('datos',$publicacion)
         ->with('empresa', $empresa)
+        ->with('tipoPub', $tipoPub)
         ->with('productos', $publicaciones)
         ->with('isadmin', Auth::user()->isadmin);
     }

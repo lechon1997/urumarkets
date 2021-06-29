@@ -58,7 +58,11 @@
                     <button  data-toggle="modal" data-target="#exampleModal" type="button" id="myModal" value="{{$datos->id }}" class="m-3 w-50 btn btn-success">Agregar al carrito </button>
                     <div class="w-50 pl-2 d-flex align-items-center">
                         <p class="h5 mt-2">Cantidad</p>
+                        @if($tipoPub == "Producto")
                         <input id="cantProd" class="w-25 ml-3 form-control" onkeypress="return event.charCode >= 48" type="number" min="1" value="1">
+                        @else
+                        <input id="cantProd" class="w-25 ml-3 form-control" disabled="true" onkeypress="return event.charCode >= 48" type="number" min="1" value="1">
+                        @endif
                     </div>
                 </div>
             </div>

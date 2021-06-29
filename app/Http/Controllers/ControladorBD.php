@@ -129,7 +129,7 @@ class ControladorBD extends Controller
         $usua->idLocalidad = $idL;
         $usua->save();
 
-        return redirect('/AltaEmpresa');
+        return redirect('/index');
     }
 
     public function autenticarUsuario(Request $request)

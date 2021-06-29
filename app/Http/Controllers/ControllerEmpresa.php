@@ -49,6 +49,7 @@ class ControllerEmpresa extends Controller
     public function VerEmpresa($id){
         $publicaciones = Publicacion::select('publicacion.*')
                                     ->where('publicacion.usuario_id', '=' ,$id)
+                                    ->orderBy('publicacion.titulo', 'ASC')
                                     ->get();
         /*$producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
                                 ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
@@ -70,6 +71,7 @@ class ControllerEmpresa extends Controller
         $idUsu = Auth::id();
         $publicaciones = Publicacion::select('publicacion.*')
                                     ->where('publicacion.usuario_id', '=' , $idUsu)
+                                    ->orderBy('publicacion.titulo', 'ASC')
                                     ->get();
         /*$producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
                                 ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
@@ -214,6 +216,7 @@ class ControllerEmpresa extends Controller
         $publicaciones = Publicacion::select('publicacion.*')
                                     ->where('publicacion.titulo', 'LIKE' , $text)
                                     ->orWhere('publicacion.descripcion', 'LIKE' , $text)
+                                    ->orderBy('publicacion.titulo', 'ASC')
                                     ->get();
         /*$producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
                                 ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
@@ -226,6 +229,7 @@ class ControllerEmpresa extends Controller
                                 ->join('localidad', 'usuario.idLocalidad', '=', 'localidad.id')
                                 ->where('vendedor.nombrefantasia', 'LIKE' , $text)
                                 ->orWhere('vendedor.descripcion', 'LIKE' , $text)
+                                ->orderBy('vendedor.nombrefantasia', 'ASC')
                                 ->get();
 
         $sizeproductos = $publicaciones->count();

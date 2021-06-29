@@ -29,7 +29,7 @@
         <div class="col">
             <label class="width20 margin4 marginb widthauto">Segundo Apellido</label>
 
-            <input type="text" class="form-control" onkeypress="return validarletras(event)" id="apellido2" name="apellido2" placeholder="Segundo Apellido (Opcional)">
+            <input type="text" class="form-control" onkeypress="return validarletras(event)" id="apellido2" name="apellido2" placeholder="Segundo Apellido" required>
         </div>
 
     </div>

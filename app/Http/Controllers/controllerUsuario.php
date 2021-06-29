@@ -20,6 +20,7 @@ class controllerUsuario extends Controller
     public function index()
     {
         $publicaciones = Publicacion::select('publicacion.*')
+        ->orderBy('publicacion.titulo', 'ASC')
         ->get();
         $empresas = Usuario::select('usuario.*','vendedor.*','departamento.nombre AS dnombre','localidad.nombre AS lnombre')
         ->join('vendedor', 'usuario.id', '=', 'vendedor.id')
