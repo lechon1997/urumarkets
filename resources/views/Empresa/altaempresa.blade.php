@@ -369,7 +369,7 @@
     var d = document.getElementById("shrekisstrong");
     var Departamento = d.options[d.selectedIndex].text;
 
-    $.ajax({
+    /*$.ajax({
       url: "http://localhost/urumarkets/public/verificarDatosEmpresa",
       data: {
         email: email,
@@ -382,6 +382,22 @@
           alert(res);
           return false;
         }
+      }
+    });*/
+
+    $.ajax({
+      url: "http://localhost/urumarkets/public/verificarDatosEmpresa",
+      data: {
+        email: email,
+        rut: Rut,
+        cedula: Cedula
+      },
+      type: 'GET',
+    })
+    .done(function(res) {
+      if(res != "OK"){
+        alert(res);
+        return false;
       }
     });
 
