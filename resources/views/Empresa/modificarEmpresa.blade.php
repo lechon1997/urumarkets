@@ -27,22 +27,22 @@
         <div class="tab-pane fade show active" id="nav-Usuario" role="tabpanel" aria-labelledby="nav-Usuario-tab">
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Nombre</label>
-            <input type="text" class="form-control" id="pnombre" name="pnombre" placeholder="Nombre" value="{{ $usuario->primerNombre }}">
+            <input type="text" class="form-control" onkeypress="return validarletras(event)" id="pnombre" name="pnombre" placeholder="Nombre" value="{{ $usuario->primerNombre }}">
           </div>
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Segundo Nombre</label>
-            <input type="text" class="form-control" id="snombre" name="snombre" placeholder="Segundo Nombre" value="{{ $usuario->segundoNombre }}">
+            <input type="text" class="form-control" onkeypress="return validarletras(event)" id="snombre" name="snombre" placeholder="Segundo Nombre" value="{{ $usuario->segundoNombre }}">
           </div>
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Apellido</label>
-            <input type="text" class="form-control" id="papellido" name="papellido" placeholder="Apellido" value="{{ $usuario->primerApellido }}">
+            <input type="text" class="form-control" onkeypress="return validarletras(event)" id="papellido" name="papellido" placeholder="Apellido" value="{{ $usuario->primerApellido }}">
           </div>
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Segundo Apellido</label>
-            <input type="text" class="form-control" id="sapellido" name="sapellido" placeholder="Segundo Apellido" value="{{ $usuario->segundoApellido }}">
+            <input type="text" class="form-control" onkeypress="return validarletras(event)" id="sapellido" name="sapellido" placeholder="Segundo Apellido" value="{{ $usuario->segundoApellido }}">
           </div>
 
           <div class="form-group">
@@ -59,7 +59,7 @@
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Telefono</label>
-            <input type="text" class="form-control" id="telefono" name="telefono" placeholder="telefono" value="{{ $usuario->telefono }}">
+            <input type="number" class="form-control" id="telefono" name="telefono" placeholder="telefono" value="{{ $usuario->telefono }}">
           </div>
 
           <div class="form-group">
@@ -161,7 +161,7 @@
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Telefono de la Empresa</label>
-            <input type="text" class="form-control" id="telefonoEmpresa" name="telefonoEmpresa" placeholder="Telefono Empresa"  value="{{ $vendedor->telefonoEmpresa }}">
+            <input type="number" class="form-control" id="telefonoEmpresa" name="telefonoEmpresa" placeholder="Telefono Empresa"  value="{{ $vendedor->telefonoEmpresa }}">
           </div>
 
           <div class="form-group">
@@ -589,6 +589,15 @@ $( document ).ready(function() {
 $('#cambiarloc').click(function() {
   $('#shrekisstrong').removeClass("dispnone");
 });
+
+
+  function validarletras(e) { // 1
+    tecla = (document.all) ? e.keyCode : e.which; // 2
+    if (tecla==8) return true; // 3
+    patron =/[A-Za-z\s]/; // 4
+    te = String.fromCharCode(tecla); // 5
+    return patron.test(te); // 6
+  }
 
 </script>
 </body>

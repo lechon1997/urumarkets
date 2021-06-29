@@ -26,27 +26,27 @@
         <div class="tab-pane fade show active" id="nav-Usuario" role="tabpanel" aria-labelledby="nav-Usuario-tab">
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Nombre</label>
-            <input type="text" class="form-control" id="pnombre" name="pnombre" placeholder="Nombre">
+            <input type="text"  onkeypress="return validarletras(event)" class="form-control" id="pnombre" name="pnombre" placeholder="Nombre">
           </div>
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Segundo Nombre</label>
-            <input type="text" class="form-control" id="snombre" name="snombre" placeholder="Segundo Nombre">
+            <input type="text" onkeypress="return validarletras(event)" class="form-control" id="snombre" name="snombre" placeholder="Segundo Nombre">
           </div>
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Apellido</label>
-            <input type="text" class="form-control" id="papellido" name="papellido" placeholder="Apellido">
+            <input type="text" onkeypress="return validarletras(event)" class="form-control" id="papellido" name="papellido" placeholder="Apellido">
           </div>
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Segundo Apellido</label>
-            <input type="text" class="form-control" id="sapellido" name="sapellido" placeholder="Segundo Apellido">
+            <input type="text" onkeypress="return validarletras(event)" class="form-control" id="sapellido" name="sapellido" placeholder="Segundo Apellido">
           </div>
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Cedula</label>
-            <input type="text" class="form-control" id="Cedula" name="cedula" placeholder="Cedula">
+            <input type="number" class="form-control" id="Cedula" name="cedula" placeholder="Cedula">
           </div>
 
           <div class="form-group">
@@ -56,7 +56,7 @@
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Telefono</label>
-            <input type="text" class="form-control" id="telefono" name="telefono" placeholder="telefono">
+            <input type="number" class="form-control" id="telefono" name="telefono" placeholder="telefono">
           </div>
 
           <div class="form-group">
@@ -84,7 +84,7 @@
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Rut</label>
-            <input type="text" class="form-control" id="Rut" name="Rut" placeholder="Rut">
+            <input type="number" class="form-control" id="Rut" name="Rut" placeholder="Rut">
           </div>
 
           <div class="form-group">
@@ -126,7 +126,7 @@
 
           <div class="form-group">
             <label style="font-weight: normal;" for="exampleFormControlInput1">Telefono de la Empresa</label>
-            <input type="text" class="form-control" id="telefonoEmpresa" name="telefonoEmpresa" placeholder="Telefono Empresa">
+            <input type="number" class="form-control" id="telefonoEmpresa" name="telefonoEmpresa" placeholder="Telefono Empresa">
           </div>
 
           <div class="form-group">
@@ -201,6 +201,8 @@
 
   </form>
   <br>
+
+  <input type="text" id="verificacion" hidden="true">
 
   <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd3tMhoqH5_greqnS-dUCBwPFDe1h0eJI&callback=iniciarMap"></script>
   <script type="text/javascript">
@@ -344,6 +346,14 @@
     reader.readAsDataURL(event.target.files[0]);
   }
 
+  function validarletras(e) { // 1
+    tecla = (document.all) ? e.keyCode : e.which; // 2
+    if (tecla==8) return true; // 3
+    patron =/[A-Za-z\s]/; // 4
+    te = String.fromCharCode(tecla); // 5
+    return patron.test(te); // 6
+  }
+
   $('#Finalizar').on('click', function() {
 
     var pnombre = $("#pnombre").val();
@@ -369,7 +379,7 @@
     var d = document.getElementById("shrekisstrong");
     var Departamento = d.options[d.selectedIndex].text;
 
-    $.ajax({
+         /*   $.ajax({
       url: "http://localhost/urumarkets/public/verificarDatosEmpresa",
       data: {
         email: email,
@@ -379,13 +389,33 @@
       method: "GET",
       success: function(res) {
         if(res != "OK"){
-          alert(res);
-          return false;
+          document.getElementById("verificacion").value = res;
+          //alert(res);
+          //return false;
         }
       }
-    });
+    });*/
 
-    if(!validateEmail(email)){
+    /*$.ajax({
+      url: "http://localhost/urumarkets/public/verificarDatosEmpresa",
+      data: {
+        email: email,
+        rut: Rut,
+        cedula: Cedula
+      },
+      method: "GET"
+    }).done(function(res) {
+      if(res != "OK"){
+        document.getElementById("verificacion").value = res;
+          //alert(res);
+          //return false;
+        }
+      });
+
+    if($("#verificacion").val() != "OK"){
+      alert($("#verificacion").val());
+      return false;
+    }else*/ if(!validateEmail(email)){
       alert("Email invalido.");
       return false;
     }else if(pass!=confirmpass){
@@ -434,24 +464,25 @@
       alert("No selecciono su localidad.");
       return false;
     }
+
   });
 
-  $('#siguiente1').on('click', function() {
+$('#siguiente1').on('click', function() {
     //$('#home').hide();
     activaTab('nav-Empresa');
   });
 
-  $('#siguiente2').on('click', function() {
-    activaTab('nav-Fotodeperfil');
-  });
+$('#siguiente2').on('click', function() {
+  activaTab('nav-Fotodeperfil');
+});
 
-  $('#siguiente3').on('click', function() {
-    activaTab('nav-Direccion');
-  });
+$('#siguiente3').on('click', function() {
+  activaTab('nav-Direccion');
+});
 
-  function activaTab(tab){
-    $('.nav-tabs a[href="#' + tab + '"]').tab('show');
-  };
+function activaTab(tab){
+  $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+};
 
 //para las localidades-----------------------------------
 function listarLocalidades() {
