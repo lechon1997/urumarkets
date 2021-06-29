@@ -19,7 +19,11 @@
         </div>
         <div class="p-2" style="width:40%;">
             <div class="imagenxd">
-                <img  src="http://localhost/urumarkets/public/storage/productos/{{$datos->foto}}" class="img-fluid">
+                @if($datos->foto == null)
+                    <img src="http://localhost/urumarkets/imagenes/producto-defecto.jpg" class="img-fluid">
+                @else
+                    <img src="http://localhost/urumarkets/public/storage/productos/{{$datos->foto}}" class="img-fluid">
+                @endif                
             </div>
         </div>
         <div class="" style="width:60%;">
@@ -196,7 +200,10 @@
             },
             method: "GET",
             success: function(res) {
-
+                let variable = $('#spanCarrito').text();
+                let variableInt = parseInt(variable);
+                variableInt+=1;
+                $('#spanCarrito').html(variableInt);    
             }
         });
     });

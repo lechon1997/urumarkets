@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://sdk.mercadopago.com/js/v2"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <title>Carrito</title>
 </head>
@@ -94,8 +93,7 @@
                     id: _id
                 },
                 method: "GET",
-                success: function(res) {
-                     
+                success: function(res) {              
                      window.location = res.redirect;
                 }
             }); 

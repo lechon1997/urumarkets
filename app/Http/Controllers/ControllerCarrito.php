@@ -132,8 +132,7 @@ class ControllerCarrito extends Controller{
                                            ->with('isadmin', Auth::user()->isadmin);
      }
 
-    public function finalizarCompra(Request $request){
-        
+    public function finalizarCompra(Request $request){   
         MercadoPago\SDK::setAccessToken("TEST-5577742987867958-060722-7495a84e342d0c7f24c2e30b0e9687a1-771972444");
 
         $payment = new MercadoPago\Payment();
@@ -160,10 +159,16 @@ class ControllerCarrito extends Controller{
             'status_detail' => $payment->status_detail,
             'id' => $payment->id
         );    
-
+ 
         echo json_encode($response);   
         
         if($response['status'] == "approved"){
+            /*  1 - Hacer una consulta a la BD para traer el último numero del
+                   grupo que fue insertado.
+                2 - A ese número sumarle 1 y agregarlo al historial.
+            */ 
+            $ultimoHistorial =  Historial::select('historial.*')->latest('grupo')->first();
+                
             $idUsu = Auth::id();          
             if(Session::exists('cart')){
                 $lista = Session::get('cart');

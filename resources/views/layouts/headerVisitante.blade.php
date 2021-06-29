@@ -163,9 +163,7 @@
           alert("Debe ingresar un texto para buscar.");
           return false;
         }else{
-          console.log($texto);
           $url = "http://localhost/urumarkets/public/buscar/" + $texto;
-          console.log($url);
           window.location.href=$url;     
         }        
     });
@@ -176,7 +174,6 @@
       method: "GET",
       success: function(cantidad) {
         let cantidadCarrito = parseInt(cantidad);
-        console.log(cantidadCarrito);
         $('#spanCarrito').html(cantidadCarrito);     
       }
     });

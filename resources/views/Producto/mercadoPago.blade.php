@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,14 +8,14 @@
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>API MercadoPago humilde </title>
+    <title>MercadoPago</title>
 </head>
 
 <body>
    @include('layouts.headerVisitante')   
    <!-- Step #2 -->
    <div class="container">
-     <form id="form-checkout" class="d-flex" method="POST">
+     <form id="form-checkout" class="d-flex" method="POST" >
       @csrf
       <input type="text" value = "5031755734530604" class="form-control" name="cardNumber" id="form-checkout__cardNumber" />
       <input type="text" value ="11" class="form-control" name="cardExpirationMonth" id="form-checkout__cardExpirationMonth" />
@@ -55,7 +54,7 @@
 
   </style>
 
-<script>    
+<script>
        var total = document.getElementById('total').value;
        const mp = new MercadoPago('TEST-a2ac55fc-ea02-4a16-8106-a2d56b0c7386');
        const cardForm = mp.cardForm({
@@ -122,6 +121,7 @@
                 identificationNumber,
                 identificationType,
               } = cardForm.getCardFormData();
+              
               fetch("process_payment", {
                 method: "POST",
                 headers: {

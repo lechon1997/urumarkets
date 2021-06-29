@@ -148,7 +148,13 @@
 							titulo.text(res[i].descripcion);
 
 							//IMAGEN DEL PRODUCTO
-							var urlimg = "storage/productos/" + res[i].foto;
+							var urlimg;
+							if(res[i].foto == null){
+								urlimg = "http://localhost/urumarkets/imagenes/producto-defecto.jpg";
+							}else{
+								urlimg = "storage/productos/" + res[i].foto;
+							}
+							
 
 							var imagen = $('<img>').attr("src", urlimg)
 								.attr("width", "100%")

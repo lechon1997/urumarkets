@@ -20,6 +20,7 @@ class Historial extends Migration
             $table->bigInteger('vendedor_id')->unsigned();
             $table->integer('cantidad');
             $table->date('fecha');
+            $table->integer('grupo');
 
             //Foreign keys
             $table->foreign('cliente_id')->references('id')->on('cliente');

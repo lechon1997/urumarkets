@@ -47,23 +47,31 @@ class ControllerEmpresa extends Controller
     }
 
     public function VerEmpresa($id){
+        $idUsu = Auth::user();
         $publicaciones = Publicacion::select('publicacion.*')
-                                    ->where('publicacion.usuario_id', '=' ,$id)
-                                    ->get();
-        /*$producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
-                                ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
-                                ->where('publicacion.usuario_id', '=' , $id)
-                                ->get();*/
+                            ->where('publicacion.usuario_id', '=' ,$id)
+                            ->get();
+
         $usuario = Usuario::find($id);
         $vendedor = Vendedor::find($id);
         $localidad = Localidad::find($usuario->idLocalidad);
         $departamento = Departamento::find($usuario->idDepartamento);
+
+        if(empty(Auth::user())){
+            return view("Empresa.VerEmpresa")->with('vendedor',$vendedor)
+                                             ->with('usuario',$usuario)
+                                             ->with('localidad',$localidad)
+                                             ->with('departamento',$departamento)
+                                             ->with('productos',$publicaciones)
+                                             ->with('isadmin', 2);
+        }
+
         return view("Empresa.VerEmpresa")->with('vendedor',$vendedor)
                                          ->with('usuario',$usuario)
                                          ->with('localidad',$localidad)
                                          ->with('departamento',$departamento)
                                          ->with('productos',$publicaciones)
-                                         ->with('isadmin', $usuario->isadmin);
+                                         ->with('isadmin', $idUsu->isadmin);
     }
 
     public function VermiPerfil(){

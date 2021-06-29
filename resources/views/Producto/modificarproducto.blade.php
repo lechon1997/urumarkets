@@ -137,10 +137,10 @@
 					<label for="productosPorPersona">Límite de productos por persona:</label>
 					@if($publicacion->limitePorPersona == "")
 						<input class="form-control" id="productosPorPersona" name="productosPorPersona" 
-						value="{{$publicacion->limitePorPersona}}" onkeypress="return event.charCode >= 48" type="number" min="0">
+						onkeypress="return event.charCode >= 48" type="number" min="0">
 					@else
 						<input class="form-control" id="productosPorPersona" name="productosPorPersona" 
-						onkeypress="return event.charCode >= 48" type="number" min="0">
+						value="{{$publicacion->limitePorPersona}}" onkeypress="return event.charCode >= 48" type="number" min="0">
 					@endif			
 				</div>
 			@else

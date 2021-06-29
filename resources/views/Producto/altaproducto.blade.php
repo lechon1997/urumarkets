@@ -154,7 +154,7 @@
 
 						//Si hace click en producto tengo que cambiar los labels.
 						document.getElementById('labelNombrePublicacion').innerHTML = 'Nombre del producto:';
-						document.getElementById('labelNombrePublicacion').innerHTML = 'Descripción del producto:';
+						document.getElementById('labelDescripcionPublicacion').innerHTML = 'Descripción del producto:';
 						document.getElementById('labelchkbxPrecioPub').innerHTML = '¿El producto tendrá precio?';
 						document.getElementById('labelPrecioPublicacion').innerHTML = 'Precio del producto:';
 						document.getElementById('labelchkbxPublicacionOferta').innerHTML = '¿El producto se encuentra en oferta?';

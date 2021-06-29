@@ -167,47 +167,48 @@ class controllerProducto extends Controller
     }
 
     public function defecto(){
-        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
-        ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
-        ->where('publicacion.oferta', '=' , 1 )
-        ->where('publicacion.deshabilitado', '=' , 0 )
-        ->get();
-        $sizeproducto = $producto->count();
-        if($sizeproducto == 0){
+     $publicaciones = Publicacion::select('publicacion.*')
+                            ->where('publicacion.oferta', '=' , 1 )
+                            ->where('publicacion.deshabilitado', '=' , 0 )                           
+                            ->get();
+
+        $sizepublicaciones = $publicaciones->count();
+        if($sizepublicaciones == 0){
             return null;
         }
-        return json_encode($producto);
+
+        return json_encode($publicaciones);
     }
 
     public function OfertaMayorMenor(){
-        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
-        ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
-        ->where('publicacion.oferta', '=' , 1 )
-        ->where('publicacion.deshabilitado', '=' , 0 )
-        ->orderBy('publicacion.precio', 'DESC')
-        ->get();
+        $publicaciones = Publicacion::select('publicacion.*')
+                            ->where('publicacion.oferta', '=' , 1 )
+                            ->where('publicacion.deshabilitado', '=' , 0 )
+                            ->orderBy('publicacion.precio', 'DESC')
+                            ->get();
 
-        $sizeproducto = $producto->count();
-        if($sizeproducto == 0){
+        $sizepublicaciones = $publicaciones->count();
+        if($sizepublicaciones == 0){
             return null;
         }
 
-        return json_encode($producto);
+        return json_encode($publicaciones);
        //return view("Empresa.ofertas")->with('productos',$producto);
     }
 
     public function OfertaMenorMayor(){
-        $producto = Publicacion::select('publicacion.*','publicacion.id', 'producto.stock')
-        ->join('producto', 'publicacion.id', '=', 'producto.publicacion_id')
-        ->where('publicacion.oferta', '=' , 1 )
-        ->where('publicacion.deshabilitado', '=' , 0 )
-        ->orderBy('publicacion.precio', 'ASC')
-        ->get();
-        $sizeproducto = $producto->count();
-        if($sizeproducto == 0){
+        $publicaciones = Publicacion::select('publicacion.*')
+                            ->where('publicacion.oferta', '=' , 1 )
+                            ->where('publicacion.deshabilitado', '=' , 0 )
+                            ->orderBy('publicacion.precio', 'ASC')
+                            ->get();
+
+        $sizepublicaciones = $publicaciones->count();
+        if($sizepublicaciones == 0){
             return null;
         }
-        return json_encode($producto);
+
+        return json_encode($publicaciones);
    //return view("Empresa.ofertas")->with('productos',$producto);
     }
 

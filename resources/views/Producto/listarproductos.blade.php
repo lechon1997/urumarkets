@@ -58,13 +58,18 @@
 		     			//Precio del producto.
 		     			var label2 = $('<label>').attr("id", "precioProducto"+res[i].id)
 		     									 .attr("class", "conbr");
-		     			label2.text("Precio del producto: " + res[i].precio);
+		     			label2.text("Precio del producto: " + res[i].tipoMoneda + res[i].precio);
 		     			div.append(label2);
 
 		     			//Tipo de moneda.
 		     			var label3 = $('<label>').attr("id", "tipoMoneda"+res[i].id)
 		     									 .attr("class", "conbr");
-		     			label3.text("Tipo de moneda: " + res[i].tipoMoneda);
+		    			if(res[i].porcentajeOferta == null || res[i].porcentajeOferta == 0){
+		    				label3.text("Porcentaje de oferta: " + "No está en oferta");
+		    			}else{
+		    				label3.text("Porcentaje de oferta: " + res[i].porcentajeOferta + "%");
+		    			}
+		     			
 		     			div.append(label3);
 
 		     			//Botoncito para modificar
