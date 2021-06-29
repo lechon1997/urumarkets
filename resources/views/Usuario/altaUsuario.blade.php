@@ -7,12 +7,12 @@
         <div class="col mr-5">
             <label class="width20 margin4 marginb widthauto">Primer Nombre</label>
 
-            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Primer Nombre" required>
+            <input type="text" class="form-control" onkeypress="return validarletras(event)" id="nombre" name="nombre" placeholder="Primer Nombre" required>
         </div>
         <div class="col">
             <label class="width20 margin4 marginb widthauto">Segundo Nombre</label>
 
-            <input type="text" class="form-control" id="nombre2" name="nombre2" placeholder="Segundo Nombre (Opcional)">
+            <input type="text" class="form-control" onkeypress="return validarletras(event)" id="nombre2" name="nombre2" placeholder="Segundo Nombre (Opcional)">
         </div>
     </div>
 
@@ -23,13 +23,13 @@
         <div class="col mr-5">
             <label class="width20 margin4 marginb widthauto">Primer Apellido</label>
 
-            <input type="text" class="form-control" id="apellido" name="pApellido" placeholder="Primer Apellido" required>
+            <input type="text" class="form-control" onkeypress="return validarletras(event)" id="apellido" name="pApellido" placeholder="Primer Apellido" required>
         </div>
 
         <div class="col">
             <label class="width20 margin4 marginb widthauto">Segundo Apellido</label>
 
-            <input type="text" class="form-control" id="apellido2" name="apellido2" placeholder="Segundo Apellido (Opcional)">
+            <input type="text" class="form-control" onkeypress="return validarletras(event)" id="apellido2" name="apellido2" placeholder="Segundo Apellido (Opcional)">
         </div>
 
     </div>
@@ -40,7 +40,7 @@
     <div class="row mb-3">
         <div class="col mr-5">
             <label for="validationDefaultUsername" class="width20 margin4 marginb widthauto">Documento de Identidad</label>
-            <input type="text" class="form-control" id="documento" name="documento" placeholder="Documento de Identidad (Sin puntos y guiones)" required>
+            <input onkeypress="return event.charCode >= 48" type="number" min="1" class="form-control" id="documento" name="documento" placeholder="Documento de Identidad (Sin puntos y guiones)" required>
         </div>
 
         <div class="col">
@@ -69,7 +69,7 @@
     <div class="row mb-3">
         <div class="col mr-5">
             <label for="validationDefaultUsername" class="width20 margin4 marginb widthauto">Telefono</label>
-            <input type="number" class="form-control" id="telefono" name="telefono" placeholder="telefono" required>
+            <input onkeypress="return event.charCode >= 48" type="number" min="1" class="form-control" id="telefono" name="telefono" placeholder="telefono" required>
         </div>
     
     <div class="col">
@@ -124,4 +124,13 @@
     </br>
     </br>
 </form>
+<script type="text/javascript">
+  function validarletras(e) { // 1
+    tecla = (document.all) ? e.keyCode : e.which; // 2
+    if (tecla==8) return true; // 3
+    patron =/[A-Za-z\s]/; // 4
+    te = String.fromCharCode(tecla); // 5
+    return patron.test(te); // 6
+  }
+</script>
 @endsection

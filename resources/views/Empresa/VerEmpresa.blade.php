@@ -208,183 +208,240 @@
 		<div class="container">
 			<div id="myConteiner" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 				@foreach ($productos as $prod)
+				@if($prod->deshabilitado == 0)
 				<div style="margin-bottom: 3%;" class="col">
 					<div class="card shadow-sm caca">
-						<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>{{ $prod->descripcion }}</title><rect width="100%" height="100%" fill="#FAFAFA"></rect><image href="http://localhost/urumarkets/public/storage/productos/{{ $prod->foto }}" height="100%" width="100%"/></svg>
-							<div class="card-body borde">
-								<p class="card-text">{{ $prod->titulo}} - {{ $prod->tipoMoneda}}{{ $prod->precio}}</p>		
-								<div class="d-flex justify-content-between align-items-center">
-									<div class="btn-group">
-										<button type="button" onclick="location.href='http://localhost/urumarkets/public/producto/{{ $prod->id }}'" value="{{ $prod->id }}" class="btn btn-sm btn-outline-secondary">VER</button>
-										@if( $prod->oferta == 1 )
-										<div class="btn btn-sm btn-danger">EN OFERTA {{ $prod->porcentajeOferta }}%</div>
-										@endif
+						<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>{{ $prod->descripcion }}</title><rect width="100%" height="100%" fill="#FAFAFA"></rect>
+							@if ($prod->foto != "")
+							<image href="http://localhost/urumarkets/public/storage/productos/{{ $prod->foto }}" height="100%" width="100%"/></svg>
+								@else
+								<image href="http://localhost/urumarkets/imagenes/producto-defecto.jpg" height="100%" width="100%"/></svg>
+								@endif
+								
+								<div class="card-body borde">
+									<p class="card-text">{{ $prod->titulo}} - {{ $prod->tipoMoneda}}{{ $prod->precio}}</p>    
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="btn-group">
+											<button type="button" onclick="location.href='http://localhost/urumarkets/public/producto/{{ $prod->id }}'" value="{{ $prod->id }}" class="btn btn-sm btn-outline-secondary">VER</button>
+											@if( $prod->oferta == 1 )
+											<div class="btn btn-sm btn-danger">EN OFERTA {{ $prod->porcentajeOferta }}%</div>
+											@endif
 
+										</div>
+										<button data-toggle="modal" data-target="#exampleModal" type="button" value="{{ $prod->id }}" class="carrito btn btn-sm btn-outline-success"> Agregar al carrito <i class="bi-cart-fill me-1"></i></button>
+										<!-- <small class="text-muted">9 mins</small> -->
 									</div>
-									<button type="button" value="{{ $prod->id }}" class="btn btn-sm btn-outline-success"> Agregar al carrito <i class="bi-cart-fill me-1"></i></button>
-									<!-- <small class="text-muted">9 mins</small> -->
 								</div>
 							</div>
 						</div>
+						@endif
+						@endforeach
 					</div>
-					@endforeach
+				</div>       
+			</div>
+
+			<!-- Modal -->
+			<div class="modal fade modal-auto-clear" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<p class="h5">El producto se agregó a su carrito.</p>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		<style type="text/css">
-			.borde{	
-				border-top: 1px solid #777;
-				margin-top: 2%;
-			}	
+			<style type="text/css">
+				.borde{	
+					border-top: 1px solid #777;
+					margin-top: 2%;
+				}	
 
-			.caca:hover {
-				border: 1px solid #777;
-			}
-
-			#map {
-				height: 400px;
-				width: 100%;
-			}	
-
-			#pub{
-				background: white;
-				width: 100%;
-				display: inline-block;
-				padding: .5%;
-				font-size: x-large;
-				font-family: inherit;
-				margin-bottom: 2%;
-			}		
-			#ppub{
-				margin-top: 0;
-				margin-bottom: 0;
-				margin-left: 20%;
-			}
-
-			.emp-profile{
-				padding: 3%;
-				margin-top: 3%;
-				margin-bottom: 3%;
-				border-radius: 0.5rem;
-				background: #fff;
-			}
-			.profile-img{
-				text-align: center;
-			}
-			.profile-img img{
-				width: 70%;
-				height: 100%;
-			}
-			.profile-img .file {
-				position: relative;
-				overflow: hidden;
-				margin-top: -20%;
-				width: 70%;
-				border: none;
-				border-radius: 0;
-				font-size: 15px;
-				background: #212529b8;
-			}
-			.profile-img .file input {
-				position: absolute;
-				opacity: 0;
-				right: 0;
-				top: 0;
-			}
-			.profile-head h5{
-				color: #333;
-			}
-			.profile-head h6{
-				color: #0062cc;
-			}
-			.profile-edit-btn{
-				border: none;
-				border-radius: 1.5rem;
-				width: 70%;
-				padding: 2%;
-				font-weight: 600;
-				color: #6c757d;
-				cursor: pointer;
-			}
-			.proile-rating{
-				font-size: 12px;
-				color: #818182;
-				margin-top: 5%;
-			}
-			.proile-rating span{
-				color: #495057;
-				font-size: 15px;
-				font-weight: 600;
-			}
-			.profile-head .nav-tabs{
-				margin-bottom:5%;
-			}
-			.profile-head .nav-tabs .nav-link{
-				font-weight:600;
-				border: none;
-			}
-			.profile-head .nav-tabs .nav-link.active{
-				border: none;
-				border-bottom:2px solid #0062cc;
-			}
-			.profile-work{
-				padding: 14%;
-				margin-top: -15%;
-			}
-			.profile-work p{
-				font-size: 12px;
-				color: #818182;
-				font-weight: 600;
-				margin-top: 10%;
-			}
-			.profile-work a{
-				text-decoration: none;
-				color: #495057;
-				font-weight: 600;
-				font-size: 14px;
-			}
-			.profile-work ul{
-				list-style: none;
-			}
-			.profile-tab label{
-				font-weight: 600;
-			}
-			.profile-tab p{
-				font-weight: 600;
-				color: #0062cc;
-			}
-		</style>
-	</body>
-	<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd3tMhoqH5_greqnS-dUCBwPFDe1h0eJI&callback=initMap"></script>
-
-	<script>
-		var geocoder;
-		var map;
-		function initMap() {
-			geocoder = new google.maps.Geocoder();
-			const uluru = { lat: -32.3112903, lng: -58.0757701 };
-			map = new google.maps.Map(document.getElementById("map"), {
-				zoom: 16,
-				center: uluru,
-			});
-		}
-
-		function codeAddress() {
-			var dep = document.getElementById('departamento').value;
-			var loc = document.getElementById('localidad').value;
-			var address = document.getElementById('address').value + " " + dep + " " + loc;
-			geocoder.geocode( { 'address': address}, function(results, status) {
-				if (status == 'OK') {
-					map.setCenter(results[0].geometry.location);
-					var marker = new google.maps.Marker({
-						map: map,
-						position: results[0].geometry.location
-					});
-				} else {
-					alert('Geocode was not successful for the following reason: ' + status);
+				.caca:hover {
+					border: 1px solid #777;
 				}
-			});
-		}  	
-	</script>
 
-	</html>
+				#map {
+					height: 400px;
+					width: 100%;
+				}	
+
+				#pub{
+					background: white;
+					width: 100%;
+					display: inline-block;
+					padding: .5%;
+					font-size: x-large;
+					font-family: inherit;
+					margin-bottom: 2%;
+				}		
+				#ppub{
+					margin-top: 0;
+					margin-bottom: 0;
+					margin-left: 20%;
+				}
+
+				.emp-profile{
+					padding: 3%;
+					margin-top: 3%;
+					margin-bottom: 3%;
+					border-radius: 0.5rem;
+					background: #fff;
+				}
+				.profile-img{
+					text-align: center;
+				}
+				.profile-img img{
+					width: 70%;
+					height: 100%;
+				}
+				.profile-img .file {
+					position: relative;
+					overflow: hidden;
+					margin-top: -20%;
+					width: 70%;
+					border: none;
+					border-radius: 0;
+					font-size: 15px;
+					background: #212529b8;
+				}
+				.profile-img .file input {
+					position: absolute;
+					opacity: 0;
+					right: 0;
+					top: 0;
+				}
+				.profile-head h5{
+					color: #333;
+				}
+				.profile-head h6{
+					color: #0062cc;
+				}
+				.profile-edit-btn{
+					border: none;
+					border-radius: 1.5rem;
+					width: 70%;
+					padding: 2%;
+					font-weight: 600;
+					color: #6c757d;
+					cursor: pointer;
+				}
+				.proile-rating{
+					font-size: 12px;
+					color: #818182;
+					margin-top: 5%;
+				}
+				.proile-rating span{
+					color: #495057;
+					font-size: 15px;
+					font-weight: 600;
+				}
+				.profile-head .nav-tabs{
+					margin-bottom:5%;
+				}
+				.profile-head .nav-tabs .nav-link{
+					font-weight:600;
+					border: none;
+				}
+				.profile-head .nav-tabs .nav-link.active{
+					border: none;
+					border-bottom:2px solid #0062cc;
+				}
+				.profile-work{
+					padding: 14%;
+					margin-top: -15%;
+				}
+				.profile-work p{
+					font-size: 12px;
+					color: #818182;
+					font-weight: 600;
+					margin-top: 10%;
+				}
+				.profile-work a{
+					text-decoration: none;
+					color: #495057;
+					font-weight: 600;
+					font-size: 14px;
+				}
+				.profile-work ul{
+					list-style: none;
+				}
+				.profile-tab label{
+					font-weight: 600;
+				}
+				.profile-tab p{
+					font-weight: 600;
+					color: #0062cc;
+				}
+			</style>
+		</body>
+		<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd3tMhoqH5_greqnS-dUCBwPFDe1h0eJI&callback=initMap"></script>
+
+		<script>
+			var geocoder;
+			var map;
+			function initMap() {
+				geocoder = new google.maps.Geocoder();
+				const uluru = { lat: -32.3112903, lng: -58.0757701 };
+				map = new google.maps.Map(document.getElementById("map"), {
+					zoom: 16,
+					center: uluru,
+				});
+			}
+
+			function codeAddress() {
+				var dep = document.getElementById('departamento').value;
+				var loc = document.getElementById('localidad').value;
+				var address = document.getElementById('address').value + " " + dep + " " + loc;
+				geocoder.geocode( { 'address': address}, function(results, status) {
+					if (status == 'OK') {
+						map.setCenter(results[0].geometry.location);
+						var marker = new google.maps.Marker({
+							map: map,
+							position: results[0].geometry.location
+						});
+					} else {
+						alert('Geocode was not successful for the following reason: ' + status);
+					}
+				});
+			}  	
+		</script>
+
+		<script type="text/javascript">
+          /*$('#carouselExampleCaptions').on('click', function () {
+            $('.carousel').carousel('pause');
+        })*/         
+
+        $('.carrito').on('click', function() {
+        	let _id = $(this).val();      
+        	$.ajax({
+        		url: "http://localhost/urumarkets/public/aumentar",
+        		dataType: "json",
+        		data: {
+        			id: _id,
+        			cantidad: 1
+        		},
+        		method: "GET",
+        		success: function(res) {
+        			let variable = $('#spanCarrito').text();
+        			let variableInt = parseInt(variable);
+        			variableInt+=1;
+        			$('#spanCarrito').html(variableInt);                     
+        		}
+        	});
+        });
+
+        $('.modal-auto-clear').on('shown.bs.modal', function() {
+        	$(this).delay(500).fadeOut(200, function() {
+        		$(this).modal('hide');
+        	});
+        });
+
+        $('.modal-auto-clear').on('shown.bs.modal', function() {
+        	$(this).delay(900).fadeOut(200, function() {
+        		$(this).modal('hide');
+        	});
+        })
+
+    </script>
+
+    </html>

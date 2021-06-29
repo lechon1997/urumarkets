@@ -8,12 +8,12 @@
         <div class="col mr-5">
             <label class="width20 margin4 marginb widthauto">Primer Nombre</label>
 
-            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Primer Nombre" value="{{ $usuario->primerNombre }}" required>
+            <input type="text" class="form-control" onkeypress="return validarletras(event)" id="nombre" name="nombre" placeholder="Primer Nombre" value="{{ $usuario->primerNombre }}" required>
         </div>
         <div class="col">
             <label class="width20 margin4 marginb widthauto">Segundo Nombre</label>
 
-            <input type="text" class="form-control" id="nombre2" name="nombre2" placeholder="Segundo Nombre" value="{{ $usuario->segundoNombre }}" required>
+            <input type="text" class="form-control" onkeypress="return validarletras(event)" id="nombre2" name="nombre2" placeholder="Segundo Nombre" value="{{ $usuario->segundoNombre }}" required>
         </div>
     </div>
 
@@ -24,13 +24,13 @@
         <div class="col mr-5">
             <label class="width20 margin4 marginb widthauto">Primer Apellido</label>
 
-            <input type="text" class="form-control" id="apellido" name="pApellido" placeholder="Primer Apellido" value="{{ $usuario->primerApellido }}" required>
+            <input type="text" class="form-control" onkeypress="return validarletras(event)" id="apellido" name="pApellido" placeholder="Primer Apellido" value="{{ $usuario->primerApellido }}" required>
         </div>
 
         <div class="col">
             <label class="width20 margin4 marginb widthauto">Segundo Apellido</label>
 
-            <input type="text" class="form-control" id="apellido2" name="apellido2" placeholder="Segundo Apellido" value="{{ $usuario->segundoApellido }}" required>
+            <input type="text" class="form-control" onkeypress="return validarletras(event)" id="apellido2" name="apellido2" placeholder="Segundo Apellido" value="{{ $usuario->segundoApellido }}" required>
         </div>
 
     </div>
@@ -41,7 +41,7 @@
     <div class="row mb-3">
         <div class="col mr-5">
             <label for="validationDefaultUsername" class="width20 margin4 marginb widthauto">Documento de Identidad</label>
-            <input type="text" class="form-control" name="documento" placeholder="Documento de Identidad" value="{{ $usuario->cedula }}" required>
+            <input onkeypress="return event.charCode >= 48" type="number" min="1" class="form-control" name="documento" placeholder="Documento de Identidad" value="{{ $usuario->cedula }}" required>
         </div>
 
         <div class="col">
@@ -56,7 +56,7 @@
     <div class="row mb-3">
         <div class="col mr-5">
             <label for="validationDefaultUsername" class="width20 margin4 marginb widthauto">Telefono</label>
-            <input type="number" class="form-control" id="telefono" name="telefono" placeholder="telefono" value="{{ $usuario->telefono }}" required>
+            <input onkeypress="return event.charCode >= 48" type="number" min="1" class="form-control" id="telefono" name="telefono" placeholder="telefono" value="{{ $usuario->telefono }}" required>
         </div>
 
 
@@ -104,4 +104,13 @@
 
     <button class="btn btn-primary" id="validate" type="submit">Confirmar</button>
 </form>
+<script type="text/javascript">
+  function validarletras(e) { // 1
+    tecla = (document.all) ? e.keyCode : e.which; // 2
+    if (tecla==8) return true; // 3
+    patron =/[A-Za-z\s]/; // 4
+    te = String.fromCharCode(tecla); // 5
+    return patron.test(te); // 6
+  }
+</script>
 @endsection

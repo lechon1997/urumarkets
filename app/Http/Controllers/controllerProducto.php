@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Publicacion;
+use App\Models\Vendedor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\Servicio;
@@ -51,12 +52,23 @@ class controllerProducto extends Controller
         $descontar =  ($publicacion->precio * $publicacion->porcentajeOferta)/100;
         $publicacion->precioConDesc =round($publicacion->precio - $descontar);
 
+        $publicaciones = Publicacion::select('publicacion.*')
+                                    ->where('publicacion.usuario_id', '=' ,$publicacion->usuario_id)
+                                    ->where('publicacion.id', '!=' ,$publicacion->id)
+                                    ->get();
+
+        $empresa = Vendedor::find($publicacion->usuario_id);
+
         if(empty(Auth::user())){
            return view("Producto.verproducto")->with('datos',$publicacion)
+           ->with('empresa', $empresa)
+           ->with('productos', $publicaciones)
            ->with('isadmin', 2);
         }
 
         return view("Producto.verproducto")->with('datos',$publicacion)
+        ->with('empresa', $empresa)
+        ->with('productos', $publicaciones)
         ->with('isadmin', Auth::user()->isadmin);
     }
 

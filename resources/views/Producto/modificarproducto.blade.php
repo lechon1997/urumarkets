@@ -66,10 +66,10 @@
 					@endif
 
 					@if($publicacion->precio == "")
-						<input class="form-control" id="precioProducto" name="precioProducto" type="number">
+						<input class="form-control" id="precioProducto" name="precioProducto" onkeypress="return event.charCode >= 48" type="number" min="1">
 					@else
 						<input class="form-control" id="precioProducto" name="precioProducto" 
-						value="{{$publicacion->precio}}" type="number">
+						value="{{$publicacion->precio}}" onkeypress="return event.charCode >= 48" type="number" min="1">
 					@endif
 				</div>
 			</div>
@@ -85,7 +85,7 @@
 						@if($publicacion->oferta == 1)
 							<input type="checkbox" class="custom-control-input" checked="" id="checkboxOferta" name="checkboxOferta" checked>
 						@else
-							<input type="checkbox" class="custom-control-input" checked="" id="checkboxOferta" name="checkboxOferta" >  
+							<input type="checkbox" class="custom-control-input" id="checkboxOferta" name="checkboxOferta" >  
 						@endif						
 						<label class="custom-control-label" for="checkboxOferta">Si - No</label>
 					</div>
@@ -94,10 +94,10 @@
 					<label for = "porcentajeOfertaProducto">Porcentaje de la oferta:</label>
 					@if($publicacion->oferta == "")
 						<input class="form-control" id="porcentajeOfertaProducto" name="porcentajeOfertaProducto"
-						type="number">
+						onkeypress="return event.charCode >= 48" type="number" min="1">
 					@else
 						<input class="form-control" id="porcentajeOfertaProducto" name="porcentajeOfertaProducto"
-						value="{{$publicacion->oferta}}" type="number">
+						value="{{$publicacion->oferta}}" onkeypress="return event.charCode >= 48" type="number" min="1">
 					@endif					
 				</div>
 			</div>
@@ -128,30 +128,30 @@
 				<div class="form-group tamanio">
 					<label for="stockProducto">Stock</label>
 					@if($publicacion->stock == "")
-					<input class="form-control" id="stockProducto" name="stockProducto" type="number">
+					<input class="form-control" id="stockProducto" name="stockProducto" onkeypress="return event.charCode >= 48" type="number" min="0">
 					@else
-					<input class="form-control" id="stockProducto" name="stockProducto" value="{{$publicacion->stock}}" type="number">
+					<input class="form-control" id="stockProducto" name="stockProducto" value="{{$publicacion->stock}}" onkeypress="return event.charCode >= 48" type="number" min="0">
 					@endif
 				</div>
 				<div class="form-group tamanio">
 					<label for="productosPorPersona">Límite de productos por persona:</label>
 					@if($publicacion->limitePorPersona == "")
 						<input class="form-control" id="productosPorPersona" name="productosPorPersona" 
-						value="{{$publicacion->limitePorPersona}}" type="number">
+						value="{{$publicacion->limitePorPersona}}" onkeypress="return event.charCode >= 48" type="number" min="0">
 					@else
 						<input class="form-control" id="productosPorPersona" name="productosPorPersona" 
-						type="number">
+						onkeypress="return event.charCode >= 48" type="number" min="0">
 					@endif			
 				</div>
 			@else
 				<div class="form-group tamanio">
 					<label for="stockProducto">Stock</label>
-					<input class="form-control" disabled ="" id="stockProducto" name="stockProducto" value="{{$publicacion->stock}}" type="number">
+					<input class="form-control" disabled ="" id="stockProducto" name="stockProducto" value="{{$publicacion->stock}}" onkeypress="return event.charCode >= 48" type="number" min="0">
 				</div>
 				<div class="form-group tamanio">
 					<label for="productosPorPersona">Límite de productos por persona:</label>
 					<input class="form-control" disabled ="" id="productosPorPersona" name="productosPorPersona" value="{{$publicacion->limitePorPersona}}" 
-					type="number">
+					onkeypress="return event.charCode >= 48" type="number" min="0">
 				</div>
 			@endif
 			
@@ -173,13 +173,30 @@
 						<button id= "validar" type="submit" class="btn btn-primary">Modificar producto</button>
 					@else
 						<button id= "validar" type="submit" class="btn btn-primary">Modificar servicio</button>
-					@endif				
-					
+					@endif
+					<input type="hidden" id="tipopublicacionpa" name="{{$publicacion->tipoPub}}">								
 				</div>
 			</div>		
 		</form>
 
 		<script type="text/javascript">
+
+			$(document).ready(function() {
+				if (document.getElementById('checkboxOferta').checked){
+					$("#porcentajeOfertaProducto").removeAttr('disabled');
+				}else{
+					$("#porcentajeOfertaProducto").prop('disabled', true);
+				}
+
+				if (document.getElementById('checkboxTienePrecio').checked){
+					$("#tipoMoneda").removeAttr('disabled');
+					$("#precioProducto").removeAttr('disabled');
+				}else{
+					$("#tipoMoneda").prop('disabled', true);
+					$("#precioProducto").prop('disabled', true);
+				}
+
+			});
 
 			function estaChequeado(){
 				if (document.getElementById('checkboxTienePrecio').checked){
@@ -187,7 +204,8 @@
 					$("#precioProducto").removeAttr('disabled');			
 				}else{
 					$("#tipoMoneda").prop('disabled', true);
-					$("#precioProducto").prop('disabled', true);	
+					$("#precioProducto").prop('disabled', true);
+					$("#precioProducto").val("");	
 				}
 			}
 			$("#checkboxTienePrecio").on("click", estaChequeado);
@@ -197,6 +215,7 @@
 					$("#porcentajeOfertaProducto").removeAttr('disabled');
 				}else{
 					$("#porcentajeOfertaProducto").prop('disabled', true);
+					$("#porcentajeOfertaProducto").val("");
 				}
 			}
 			$("#checkboxOferta").on("click", estaChequeado2);
@@ -207,31 +226,59 @@
 				var tienePrecio = $('#checkboxTienePrecio').is(':checked');
     			//var tipoMoneda = $("#tipoMoneda").val();
     			var precioProducto = $("#precioProducto").val();
-			    //var enOferta = $('#checkboxOferta').is(':checked');
+			    var enOferta = $('#checkboxOferta').is(':checked');
 			    //var estadoProducto = $('#estadoProducto').val();
 			    var limitePorPersona = $('#limitePorPersona').val();
+			    var producto = $('#tipopublicacionpa').val();
 			    var stock = $("#stockProducto").val();
+			    var porcentajeOferta = $("#porcentajeOfertaProducto").val();			    
 
-			    if(nombreProducto == ""){
-			    	alert("Debe ingresar el nombre del producto");
-			    	return false;
-			    }else if(descripcionProducto == ""){
-			    	alert("Debe ingresar la descripción del producto");
-			    	return false;
-			    }else if(tienePrecio){
-			    	if(precioProducto == ""){
-			    		alert("Debe ingresar el precio del producto");
+			    if(producto){
+			    	if(nombreProducto == ""){
+			    		alert("Debe ingresar el nombre del producto");
 			    		return false;
-			    	}			
-			    }else if(limitePorPersona == ""){
-			    	alert("Debe ingresar el limite por persona del producto");
-			    	return false;
-			    }else if(stock == ""){
-			    	alert("Debe ingresar el stock del producto");
-			    	return false;
-			    }  		
+			    	}else if(descripcionProducto == ""){
+			    		alert("Debe ingresar la descripción del producto");
+			    		return false;
+			    	}else if(tienePrecio){
+			    		if(precioProducto == "" || precioProducto == 0){
+			    			alert("Debe ingresar el precio del producto");
+			    			return false;
+			    		}			
+			    	}else if(enOferta){
+			    		if(porcentajeOferta == ""){
+			    			alert("Debe ingresar el porcentaje de oferta del producto");
+			    			return false;
+			    		}
+			    	}else if(limitePorPersona == ""){
+			    		alert("Debe ingresar el limite por persona del producto");
+			    		return false;
+			    	}else if(stock == ""){
+			    		alert("Debe ingresar el stock del producto");
+			    		return false;
+			    	}
+			    }else{
+			    	if(nombreProducto == ""){
+			    		alert("Debe ingresar el nombre del servicio");
+			    		return false;
+			    	}else if(descripcionProducto == ""){
+			    		alert("Debe ingresar la descripción del servicio");
+			    		return false;
+			    	}else if(tienePrecio){
+			    		if(precioProducto == "" || precioProducto == 0){
+			    			alert("Debe ingresar el precio del servicio");
+			    			return false;
+			    		}	
+			    	}
+			    	 if(enOferta){
+			    		if(porcentajeOferta == ""){
+			    			alert("Debe ingresar el porcentaje de oferta del servicio");
+			    			return false;
+			    		}
+			    	}  		
 			}
-			$("#validar").on("click", validarInputs);
+		}
+		$("#validar").on("click", validarInputs);
 
 		</script>
     </body>

@@ -378,8 +378,8 @@
 
     var d = document.getElementById("shrekisstrong");
     var Departamento = d.options[d.selectedIndex].text;
-
-         /*   $.ajax({
+    
+/*
       url: "http://localhost/urumarkets/public/verificarDatosEmpresa",
       data: {
         email: email,

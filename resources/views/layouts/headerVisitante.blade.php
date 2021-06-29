@@ -103,7 +103,7 @@
         </div>
       </li>
       <li class="nav-item">
-        <form action="cerrarSession" method="POST">
+        <form action="http://localhost/urumarkets/public/cerrarSession" method="POST">
           @csrf
           <a class="nav-link" href="#" onclick="this.closest('form').submit()">
             <i class="fa fa-window-close">
