@@ -379,8 +379,9 @@
     var d = document.getElementById("shrekisstrong");
     var Departamento = d.options[d.selectedIndex].text;
     
-/*
+    $.ajax({
       url: "http://localhost/urumarkets/public/verificarDatosEmpresa",
+      async: false,
       data: {
         email: email,
         rut: Rut,
@@ -388,34 +389,14 @@
       },
       method: "GET",
       success: function(res) {
-        if(res != "OK"){
-          document.getElementById("verificacion").value = res;
-          //alert(res);
-          //return false;
-        }
-      }
-    });*/
-
-    /*$.ajax({
-      url: "http://localhost/urumarkets/public/verificarDatosEmpresa",
-      data: {
-        email: email,
-        rut: Rut,
-        cedula: Cedula
-      },
-      method: "GET"
-    }).done(function(res) {
-      if(res != "OK"){
         document.getElementById("verificacion").value = res;
-          //alert(res);
-          //return false;
-        }
-      });
+      }
+    });
 
     if($("#verificacion").val() != "OK"){
       alert($("#verificacion").val());
       return false;
-    }else*/ if(!validateEmail(email)){
+    }else if(!validateEmail(email)){
       alert("Email invalido.");
       return false;
     }else if(pass!=confirmpass){
