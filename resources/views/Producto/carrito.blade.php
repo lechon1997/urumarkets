@@ -45,8 +45,12 @@
                 @endforeach
             </tbody>
         </table>                
-            <div class="form-group boton">                      
+            <div class="form-group boton"> 
+            @if ($sizecarrito > 0)
                 <button id= "validar" type="submit" class="btn btn-primary">Finalizar compra</button>
+            @else
+                <button id= "validar" disabled="true" type="submit" class="btn btn-primary">Finalizar compra</button>
+            @endif         
             </div>
         </form>
     </div>

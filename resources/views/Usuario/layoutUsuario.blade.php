@@ -6,7 +6,7 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="../css/conUsuario/estilos.css">
-    <title>Hola Mundo!</title>
+    <title>Usuario</title>
 </head>
 
 <body>

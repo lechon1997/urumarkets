@@ -167,6 +167,14 @@
           window.location.href=$url;     
         }        
     });
+  
+  var input = document.getElementById("textobuscador");
+  input.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+          event.preventDefault();
+          document.getElementById("buscador").click();
+      }
+  });
 
   $(document).ready(function() {
     $.ajax({

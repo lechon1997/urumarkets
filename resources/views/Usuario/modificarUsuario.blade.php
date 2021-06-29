@@ -13,7 +13,7 @@
         <div class="col">
             <label class="width20 margin4 marginb widthauto">Segundo Nombre</label>
 
-            <input type="text" class="form-control" onkeypress="return validarletras(event)" id="nombre2" name="nombre2" placeholder="Segundo Nombre" value="{{ $usuario->segundoNombre }}" required>
+            <input type="text" class="form-control" onkeypress="return validarletras(event)" id="nombre2" name="nombre2" placeholder="Segundo Nombre" value="{{ $usuario->segundoNombre }}">
         </div>
     </div>
 
@@ -41,12 +41,14 @@
     <div class="row mb-3">
         <div class="col mr-5">
             <label for="validationDefaultUsername" class="width20 margin4 marginb widthauto">Documento de Identidad</label>
-            <input onkeypress="return event.charCode >= 48" type="number" min="1" class="form-control" name="documento" placeholder="Documento de Identidad" value="{{ $usuario->cedula }}" required>
+            <input onkeypress="return event.charCode >= 48" disabled="true" type="number" min="1" class="form-control" name="documentoVisible" placeholder="Documento de Identidad" value="{{ $usuario->cedula }}" required>
+            <input onkeypress="return event.charCode >= 48" hidden="true" type="number" min="1" class="form-control" name="documento" placeholder="Documento de Identidad" value="{{ $usuario->cedula }}" required>
         </div>
 
         <div class="col">
             <label for="validationDefaultUsername" class="width20 margin4 marginb widthauto">Correo Electrónico</label>
-            <input type="email" id="email" class="form-control" name="correoE" placeholder="Correo Electrónico" value="{{ $usuario->email }}" required>
+            <input type="email" id="emailVisible" class="form-control" disabled="true" name="correoE" placeholder="Correo Electrónico" value="{{ $usuario->email }}" required>
+            <input type="email" id="email" hidden="true" class="form-control" name="correoE" placeholder="Correo Electrónico" value="{{ $usuario->email }}" required>
         </div>
 
     </div>
