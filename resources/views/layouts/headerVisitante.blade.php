@@ -13,13 +13,13 @@
         <a class="nav-link" href="http://localhost/urumarkets/public/index">
           <i class="fa fa-home"></i>
           Inicio
-          <span class="sr-only">(current)</span>
+          <!--<span class="sr-only">(current)</span>-->
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="http://localhost/urumarkets/public/VistaOferta">
           <i class="fa fa-shopping-bag">
-            <span class="badge badge-danger">11</span>
+            <!--<span class="badge badge-danger">11</span>-->
           </i>
           Ofertas
         </a>
@@ -37,7 +37,7 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fa fa-gift">
-            <span class="badge badge-danger">11</span>
+            <!--<span class="badge badge-danger">11</span>-->
           </i>
           Productos
         </a>

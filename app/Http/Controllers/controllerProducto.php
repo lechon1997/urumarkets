@@ -37,8 +37,14 @@ class controllerProducto extends Controller
         
         if(Session::exists('cart')){
             foreach($lista as $producto){
+                if(Producto::find($producto[0]) != null){
+                    $tipo_pub = "producto";
+                }else{
+                    $tipo_pub = "servicio";
+                }
+                
                 $dato = array("id"=>$producto[0],"titulo" => $producto[3],"precio" => $producto[2],
-                    "cantidad" => $producto[1],"total" => $producto[4]);
+                    "cantidad" => $producto[1],"total" => $producto[4],"tipopub" => $tipo_pub);
                 array_push($datos,$dato);                        
             }
         }

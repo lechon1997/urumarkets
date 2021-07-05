@@ -31,9 +31,14 @@
                     <th scope="row">{{$loop->iteration}}</th>
                     <!--{{$dato['id']}} este iría en el value del boton quitar producto,maldito garca uwu, grax bb uwu >.< -->
                     <td>{{$dato['titulo']}}</td>
-                    <td>{{$dato['precio']}}</td>                    
+                    <td>{{$dato['precio']}}</td>    
+                    @if($dato['tipopub']== "producto")                
                     <td style="width: 15%"><div id="divrancio" style="width: 70px"><input id="cantProd{{$dato['id']}}" class="form-control" type="number" min="0" onchange = "cambioCantidad(this)" 
-                    data-value = "{{$dato['id']}}" value="{{$dato['cantidad']}}"></div></td>                     
+                    data-value = "{{$dato['id']}}" value="{{$dato['cantidad']}}"></div></td>
+                    @else
+                    <td style="width: 15%"><div id="divrancio" style="width: 70px"><input id="cantProd{{$dato['id']}}" class="form-control" type="number" min="0" onchange = "cambioCantidad(this)" 
+                    data-value = "{{$dato['id']}}" value="{{$dato['cantidad']}}" disabled="true"></div></td>
+                    @endif                     
                     <td id = "total{{$dato['id']}}" >{{$dato['total']}}</td>
                     <td>                    
                         <button id = "{{$dato['id']}}" type="button" value = "{{$dato['id']}}" 

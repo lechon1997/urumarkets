@@ -92,6 +92,30 @@ class controllerUsuario extends Controller
         return redirect('/loginUsuario');
     }
 
+        public function verificarDatosUsuario(Request $request){
+        $email = $request->email;
+        $cedula = $request->cedula;
+
+        if($email != null && $email != ""){
+            $usuario_email = Usuario::select('usuario.*')
+            ->where('usuario.email', '=' , $email)
+            ->get();
+            if($usuario_email->count() > 0){
+                return "El email ya esta en uso";
+            }
+        }
+
+        if($cedula != null && $cedula != ""){
+            $usuario_cedula = Usuario::select('usuario.*')
+            ->where('usuario.cedula', '=' , $cedula)
+            ->get();
+            if($usuario_cedula->count() > 0){
+                return "La cedula ya esta en uso";
+            }
+        }
+        return "OK";
+    }
+
     /**
      * Show the form for creating a new resource.
      *

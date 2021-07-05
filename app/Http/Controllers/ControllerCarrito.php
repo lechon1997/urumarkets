@@ -5,6 +5,7 @@ use App\Models\Publicacion;
 use App\Models\Historial;
 use App\Models\Vendedor;
 use App\Models\Cliente;
+use App\Models\Producto;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -41,13 +42,16 @@ class ControllerCarrito extends Controller{
         if(Session::exists('cart')){
             foreach($lista as $producto){            
                 if($producto[0] == $id){
-                    $producto[1] += $cant;
-                    $total = $producto[1] * $precio;
-                    $producto[4] = $total;
+                    if(Producto::find($id)){
+                        $producto[1] += $cant;
+                        $total = $producto[1] * $precio;
+                        $producto[4] = $total;
+                    }else{
+                        return "servicio";
+                    }
                     $existe = true;
                 }
             } 
-        
         }
         
         if($existe == false){
@@ -56,7 +60,7 @@ class ControllerCarrito extends Controller{
             Session::push('cart', $product);
         }
 
-        return $cant;       
+        return $cant;
                 
      }
 

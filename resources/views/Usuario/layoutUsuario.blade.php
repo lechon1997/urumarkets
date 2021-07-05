@@ -65,6 +65,26 @@
             let datosValidos = false;
             $result.css('color', '#D81B60');
 
+            var Cedula = $("#documento").val();
+            var email = $("#email").val();
+
+            $.ajax({
+                  url: "http://localhost/urumarkets/public/verificarDatosUsuario",
+                  async: false,
+                  data: {
+                    email: email,
+                    cedula: Cedula
+                },
+                method: "GET",
+                success: function(res) {
+                    document.getElementById("verificacion").value = res;
+                }
+            });
+            
+            if($("#verificacion").val() != "OK"){
+                $result.text($("#verificacion").val());
+                return false;
+            }
 
             if (nombre.val().length == 0)
                 $result.text("El campo Primer Nombre es obligatorio.");
@@ -73,7 +93,7 @@
             else if (correo.val().length == 0)
                 $result.text("El campo Correo Electrónico es obligatorio.");
             else if (documento.val().length == 0)
-                $result.text("El campo Primer Apellido es obligatorio.");
+                $result.text("El campo cedula es obligatorio.");
             else if (pass.val().length == 0)
                 $result.text("El campo Contraseña es obligatorio.");
             else if (pass2.val().length == 0)

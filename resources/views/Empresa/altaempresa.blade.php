@@ -342,6 +342,7 @@
     reader.onload = function(){
       var output = document.getElementById('fotoperfil');
       output.src = reader.result;
+      //document.getElementById("file").value = output.src;
     }
     reader.readAsDataURL(event.target.files[0]);
   }
@@ -372,6 +373,7 @@
     var rubro = $("#rubro").val();
     var direccion = $("#direccion").val();
     var Descripcion = $("#Descripcion").val();
+    var imagen = $("#file").val();
 
     var e = document.getElementById("shrekislife");
     var localidad = e.options[e.selectedIndex].text;
@@ -443,6 +445,9 @@
       return false;
     }else if(Departamento == "localidad" || Departamento == "Seleccione su Localidad"){
       alert("No selecciono su localidad.");
+      return false;
+    }else if(imagen == ""){
+      alert("No selecciono ninguna foto de perfil.");
       return false;
     }
 

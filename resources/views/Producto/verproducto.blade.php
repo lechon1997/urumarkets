@@ -59,7 +59,19 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-center">
-                    <button  data-toggle="modal" data-target="#exampleModal" type="button" id="myModal" value="{{$datos->id }}" class="m-3 w-50 btn btn-success">Agregar al carrito </button>
+                        @if(isset($isadmin))
+                        @if($isadmin == 0)
+                        <button  data-toggle="modal" data-target="#exampleModal" type="button" id="myModal" value="{{$datos->id }}" class="m-3 w-50 btn btn-success">Agregar al carrito </button>
+                          <!-- <small class="text-muted">9 mins</small> -->
+                        @else
+                            <button  data-toggle="modal" data-target="#exampleModal2" type="button" id="myModal" value="{{$datos->id }}" class="m-3 w-50 btn btn-success">Agregar al carrito </button>
+                          <!-- <small class="text-muted">9 mins</small> -->
+                        @endif
+                      @else
+                            <button  data-toggle="modal" data-target="#exampleModal2" type="button" id="myModal" value="{{$datos->id }}" class="m-3 w-50 btn btn-success">Agregar al carrito </button>
+                          <!-- <small class="text-muted">9 mins</small> -->
+                      @endif
+                    
                     <div class="w-50 pl-2 d-flex align-items-center">
                         <p class="h5 mt-2">Cantidad</p>
                         @if($tipoPub == "Producto")
@@ -101,8 +113,18 @@
                             @endif
 
                         </div>
-                        <button data-toggle="modal" data-target="#exampleModal" type="button" value="{{ $prod->id }}" class="carrito btn btn-sm btn-outline-success"> Agregar al carrito <i class="bi-cart-fill me-1"></i></button>
-                        <!-- <small class="text-muted">9 mins</small> -->
+                      @if(isset($isadmin))
+                        @if($isadmin == 0)
+                          <button data-toggle="modal" data-target="#exampleModal" type="button" value="{{ $prod->id }}" class="carrito btn btn-sm btn-outline-success"> Agregar al carrito <i class="bi-cart-fill me-1"></i></button>
+                          <!-- <small class="text-muted">9 mins</small> -->
+                        @else
+                          <button data-toggle="modal" data-target="#exampleModal2" type="button" value="{{ $prod->id }}" class="btn btn-sm btn-outline-success"> Agregar al carrito <i class="bi-cart-fill me-1"></i></button>
+                          <!-- <small class="text-muted">9 mins</small> -->
+                        @endif
+                      @else
+                          <button data-toggle="modal" data-target="#exampleModal2" type="button" value="{{ $prod->id }}" class="btn btn-sm btn-outline-success"> Agregar al carrito <i class="bi-cart-fill me-1"></i></button>
+                          <!-- <small class="text-muted">9 mins</small> -->
+                      @endif
                     </div>
                 </div>
             </div>
@@ -113,16 +135,37 @@
 </div>       
 </div>
 
-<!-- Modal -->
-<div class="modal fade modal-auto-clear" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-body">
-          <p class="h5">El producto se agregó a su carrito.</p>
-      </div>
-  </div>
-</div>
-</div>
+          <!-- Modal -->
+          <div class="modal fade modal-auto-clear" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <p class="h5" style="color: green;">El producto se agregó a su carrito.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+                    <!-- Modal -->
+          <div class="modal fade modal-auto-clear" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <p class="h5" style="color: red;">
+                        @if(isset($isadmin))
+                        @if($isadmin == 1)
+                          Debe iniciar sesion como cliente para poder comprar.
+                          @else
+                          Debe iniciar sesion o registrarse como cliente para poder comprar.
+                        @endif
+                        @else
+                          Debe iniciar sesion o registrarse como cliente para poder comprar.
+                        @endif
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
 <script>
   $('#myAlert').on('closed.bs.alert', function () {
@@ -204,10 +247,12 @@
             },
             method: "GET",
             success: function(res) {
-                let variable = $('#spanCarrito').text();
-                let variableInt = parseInt(variable);
-                variableInt+=1;
-                $('#spanCarrito').html(variableInt);    
+                if(res != "servicio"){
+                  let variable = $('#spanCarrito').text();
+                  let variableInt = parseInt(variable);
+                  variableInt+=1;
+                  $('#spanCarrito').html(variableInt);   
+                }  
             }
         });
     });

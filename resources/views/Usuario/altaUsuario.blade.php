@@ -124,6 +124,7 @@
     </br>
     </br>
 </form>
+  <input type="text" id="verificacion" hidden="true">
 <script type="text/javascript">
   function validarletras(e) { // 1
     tecla = (document.all) ? e.keyCode : e.which; // 2
