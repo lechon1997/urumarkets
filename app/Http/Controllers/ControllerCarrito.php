@@ -154,26 +154,28 @@ class ControllerCarrito extends Controller{
             "type" => $request->payer['identification']['type'],
             "number" => $request->payer['identification']['number']
         );
-        
+
         $payment->payer = $payer;        
-        $payment->save();
+        $payment->save();         
 
         $response = array(
             'status' => $payment->status,
             'status_detail' => $payment->status_detail,
             'id' => $payment->id
         );    
- 
-        echo json_encode($response);   
-        
+
+        var_dump($payment);
+         
         if($response['status'] == "approved"){
             /*  1 - Hacer una consulta a la BD para traer el último numero del
                    grupo que fue insertado.
                 2 - A ese número sumarle 1 y agregarlo al historial.
-            */ 
+            */
+
             $ultimoHistorial =  Historial::select('historial.*')->latest('grupo')->first();
-                
-            $idUsu = Auth::id();          
+            $idGrupoSumado = $ultimoHistorial->grupo + 1;    
+            $idUsu = Auth::id();   
+
             if(Session::exists('cart')){
                 $lista = Session::get('cart');
                 foreach($lista as $producto){
@@ -183,12 +185,14 @@ class ControllerCarrito extends Controller{
                     $historial->vendedor_id = $producto[5];
                     $historial->cantidad = $producto[1];
                     $historial->fecha = new DateTime();
+                    $historial->grupo = $idGrupoSumado;
                     $historial->save();                    
-            }
-            Session::forget('cart');
-        }           
-                
+                }
+                Session::forget('cart');
+            }                         
         }
+
+        
     }
 
     public function mostrarHistorialV(){
@@ -196,7 +200,7 @@ class ControllerCarrito extends Controller{
 
         $vendedor = Auth::user();
 
-        $datosHistorial = Historial::select('publicacion.*', 'historial.cantidad', 'historial.fecha')
+        $datosHistorial = Historial::select('publicacion.*', 'historial.cantidad', 'historial.fecha', 'historial.grupo')
                                     ->join('vendedor', 'vendedor.id', '=', 'historial.vendedor_id')
                                     ->join('publicacion', 'publicacion.id', '=', 'historial.publicacion_id')
                                     ->where('historial.vendedor_id', $vendedor->id)
@@ -212,7 +216,6 @@ class ControllerCarrito extends Controller{
 
     public function mostrarHistorialC(){
         $datos = array();
-
         $cliente = Auth::user();
 
         $datosHistorial = Historial::select('publicacion.*', 'historial.cantidad', 'historial.fecha')

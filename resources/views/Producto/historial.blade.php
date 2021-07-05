@@ -13,37 +13,59 @@
 
 <body>
     @include('layouts.headerVisitante')
-    <form id="form-checkout" method="POST" action="completarCompra">
-    @csrf
-    <div class="container mt-5 pt-5">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Producto</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($datos as $dato)
-                <tr>                  
-                    <th scope="row">{{$loop->iteration}}</th>
-                    <td>{{$dato['titulo']}}</td>
-                    <td>{{$dato['precio']}}</td>                    
-                    <td style="width: 15%"><div id="divrancio" style="width: 70px"><input id="cantProd{{$dato['id']}}" class="form-control" type="number" disabled="" min="0" onchange = "cambioCantidad(this)" 
-                    data-value = "{{$dato['id']}}" value="{{$dato['cantidad']}}"></div></td>                     
-                    <td id = "total{{$dato['id']}}" >{{$dato['precio'] * $dato['cantidad'] - 
-                    $dato['precio'] * $dato['cantidad'] * $dato['porcentajeOferta'] / 100 }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>                
-        </form>
-    </div>
-    
 
+    <div id="accordion">
+    @php
+        $g = $datos[0]->grupo;       
+    @endphp
+  
+    @foreach ($datos as $dato)
+        @if($g == $dato->grupo)
+            <div class="card">
+                <div class="card-header" id="heading{{$dato->grupo}}">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{$dato->grupo}}" aria-expanded="true" aria-controls="collapse{{$dato->grupo}}">
+                          Compra {{$dato->grupo}} - {{$dato->fecha}}
+                        </button>
+                    </h5>
+                </div>
+            <div id="collapse{{$dato->grupo}}" class="collapse" aria-labelledby="heading{{$dato->grupo}}" 
+                data-parent="#accordion">
+                <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Producto</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($datos as $dato)
+                                 @if($g == $dato->grupo)
+                                <tr>
+                                    <td>{{$dato['titulo']}}</td>
+                                    <td>{{$dato['precio']}}</td>                    
+                                    <td style="width: 15%"><div id="divrancio" style="width: 70px"><input id="cantProd{{$dato['id']}}" class="form-control" type="number" disabled="" min="0" onchange = "cambioCantidad(this)" 
+                                    data-value = "{{$dato['id']}}" value="{{$dato['cantidad']}}"></div></td>                     
+                                    <td id = "total{{$dato['id']}}" >{{$dato['precio'] * $dato['cantidad'] - 
+                                    $dato['precio'] * $dato['cantidad'] * $dato['porcentajeOferta'] / 100 }}</td>
+                                </tr>
+                                @endif
+                                @endforeach
+                            </tbody>
+                        </table>                                       
+                </div>
+            </div>
+            </div>
+        @else
+        @php
+            $g = $dato->grupo
+            @endphp
+        @endif
+    @endforeach
+    </div>
     <style type="text/css">
         .borrar:hover{
             background-color: #c9302c;
