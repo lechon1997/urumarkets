@@ -157,11 +157,12 @@ class ControladorBD extends Controller
                 $vendedor->save();
             }
             //aca termina xd
-
             return redirect('/index');
+        }else{
+            $errorsito = "Email o contraseña incorrecta.";
+            return view("/login2")->with('errorsito',$errorsito);
+            //return redirect('/loginUsuario');
         }
-        
-        return redirect('/loginUsuario');
     }
 
     public function listarcompras(){

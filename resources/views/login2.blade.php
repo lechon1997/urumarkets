@@ -79,5 +79,33 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="" class="h5" style="color: red;">
+            @if(isset($errorsito))
+            <input id="errorxd" type="text" disabled="true" class="form-control" style="color: red; font-size: 20px;" value="{{$errorsito}}">
+            @endif
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    let valor = document.getElementById("errorxd").value;
+    //console.log(valor);
+    if(valor != null){
+        $('#exampleModal').modal('show');
+    }
+</script>
 </body>
 </html>

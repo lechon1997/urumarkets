@@ -250,10 +250,12 @@
 							},
 							method: "GET",
 							success: function(res) {
-								let variable = $('#spanCarrito').text();
-								let variableInt = parseInt(variable);
-								variableInt+=1;
-								$('#spanCarrito').html(variableInt);                	   
+								if(res != "servicio"){
+									let variable = $('#spanCarrito').text();
+									let variableInt = parseInt(variable);
+									variableInt+=1;
+									$('#spanCarrito').html(variableInt);   
+								}                 	   
 							}
 						});
 					});			
