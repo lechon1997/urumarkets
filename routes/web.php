@@ -52,6 +52,7 @@ route::post('/process_payment', 'App\Http\Controllers\ControllerCarrito@finaliza
 route::get('/MostrarHistorialVentas','App\Http\Controllers\ControllerCarrito@mostrarHistorialV');
 route::get('/MisCompras','App\Http\Controllers\ControllerCarrito@mostrarHistorialC');
 route::get('/traerCantidadCarrito', 'App\Http\Controllers\ControllerCarrito@traerCantidad');
+route::post('/finalizarcompra2', 'App\Http\Controllers\ControllerCarrito@finalizarcompra2');
 
 
 //RUTAS GENERALES

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="{{asset('js/app.js')}}"></script>
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
-    <script src="https://sdk.mercadopago.com/js/v2"></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <!--<script src="https://sdk.mercadopago.com/js/v2"></script>-->
+    <!--<meta name="csrf-token" content="{{ csrf_token() }}" />-->
     <title>MercadoPago</title>
 </head>
 
@@ -56,7 +56,7 @@
 
 <script>
        var total = document.getElementById('total').value;
-       const mp = new MercadoPago('TEST-a2ac55fc-ea02-4a16-8106-a2d56b0c7386');
+       /*const mp = new MercadoPago('TEST-a2ac55fc-ea02-4a16-8106-a2d56b0c7386');
        const cardForm = mp.cardForm({
           amount: total,
           autoMount: true,
@@ -173,6 +173,25 @@
               };
             },
           },
+        });*/
+$('#form-checkout__submit').on('click', function() {
+    $.ajax({
+      url: "http://localhost/urumarkets/public/finalizarcompra2",
+      data: {
+          total: total
+      },
+      method: "POST",
+      success: function(res) {
+        //if(res[0] === "approved" && res[1] === "accredited"){
+          document.getElementById("payment-status").innerText = "aprobado";
+          document.getElementById("payment-detail").innerText = "acreditado";
+          document.getElementById("form-checkout__submit").disabled = true;
+        //}else{
+         // document.getElementById("payment-status").innerText = "error";
+         // document.getElementById("payment-detail").innerText = "error"
+        //}
+      }
+    });
         });
 
    </script>

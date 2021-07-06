@@ -132,12 +132,13 @@ class ControllerCarrito extends Controller{
             }
                                   
         }            
-        return view("Producto.mercadoPago")->with("total", $total)
-                                           ->with('isadmin', Auth::user()->isadmin);
+        return view("Producto.comprarnazi")->with("total", $total)
+                                           ->with('isadmin', Auth::user()->isadmin)
+                                           ->with('usuario',Auth::user());
      }
 
     public function finalizarCompra(Request $request){   
-        MercadoPago\SDK::setAccessToken("TEST-5577742987867958-060722-7495a84e342d0c7f24c2e30b0e9687a1-771972444");
+        /*MercadoPago\SDK::setAccessToken("TEST-5577742987867958-060722-7495a84e342d0c7f24c2e30b0e9687a1-771972444");
 
         $payment = new MercadoPago\Payment();
 
@@ -190,9 +191,48 @@ class ControllerCarrito extends Controller{
                 }
                 Session::forget('cart');
             }                         
+       // }
+        $response = array(
+            'status' => "approved",
+            'status_detail' => "accredited",
+        );  
+
+
+        return $response;
+    }
+
+    public function finalizarcompra2(Request $request){
+        $idUsu = Auth::id();  
+        if(Historial::select('historial.*')->count() == 0){
+            $idGrupoSumado = 1;    
+        }else{
+            $ultimoHistorial =  Historial::select('historial.*')->latest('grupo')->first();
+            $idGrupoSumado = $ultimoHistorial->grupo + 1;    
+            
         }
 
-        
+            if(Session::exists('cart')){
+                $lista = Session::get('cart');
+                foreach($lista as $producto){
+                    $historial = new Historial();
+                    $historial->publicacion_id = $producto[0];
+                    $historial->cliente_id = $idUsu;
+                    $historial->vendedor_id = $producto[5];
+                    $historial->cantidad = $producto[1];
+                    $historial->fecha = new DateTime();
+                    $historial->grupo = $idGrupoSumado;
+                    $historial->save();                    
+                }
+                Session::forget('cart');
+            }     
+
+        $response = array(
+            'status' => "approved",
+            'status_detail' => "accredited",
+        );  
+
+
+        return $response;
     }
 
     public function mostrarHistorialV(){
@@ -206,10 +246,15 @@ class ControllerCarrito extends Controller{
                                     ->where('historial.vendedor_id', $vendedor->id)
                                     ->orWhere('historial.vendedor_id', '=', 'vendedor.id')
                                     ->get();
-                                                                                        
 
-        return view("Producto.historial")->with('datos', $datosHistorial)
-                                         ->with('isadmin', Auth::user()->isadmin);
+        if($datosHistorial->count() > 0){
+            return view("Producto.historial")->with('datos', $datosHistorial)
+            ->with('existendatos',"sip")
+            ->with('isadmin', Auth::user()->isadmin);
+        }else{
+            return view("Producto.historial")->with('existendatos', "nop")
+            ->with('isadmin', Auth::user()->isadmin);
+        }
 
 
     }
@@ -218,7 +263,7 @@ class ControllerCarrito extends Controller{
         $datos = array();
         $cliente = Auth::user();
 
-        $datosHistorial = Historial::select('publicacion.*', 'historial.cantidad', 'historial.fecha')
+        $datosHistorial = Historial::select('publicacion.*', 'historial.cantidad', 'historial.fecha', 'historial.grupo')
                                     ->join('cliente', 'cliente.id', '=', 'historial.cliente_id')
                                     ->join('publicacion', 'publicacion.id', '=', 'historial.publicacion_id')
                                     ->where('historial.cliente_id', $cliente->id)
@@ -226,9 +271,14 @@ class ControllerCarrito extends Controller{
                                     ->get();
                                                                                         
 
-        return view("Usuario.compras")->with('datos', $datosHistorial)
-                                         ->with('isadmin', Auth::user()->isadmin);
-
+        if($datosHistorial->count() > 0){
+            return view("Usuario.compras")->with('datos', $datosHistorial)
+            ->with('existendatos',"sip")
+            ->with('isadmin', Auth::user()->isadmin);
+        }else{
+            return view("Usuario.compras")->with('existendatos', "nop")
+            ->with('isadmin', Auth::user()->isadmin);
+        }
 
     }
 

@@ -13,19 +13,33 @@
 
 <body>
     @include('layouts.headerVisitante')
-
+    
     <div id="accordion">
     @php
-        $g = $datos[0]->grupo;       
+    if($existendatos == "sip"){
+        $g = $datos[0]->grupo;    
+        $primeravez = "si";   
+    }
     @endphp
-  
+    @if($existendatos == "sip")
     @foreach ($datos as $dato)
-        @if($g == $dato->grupo)
-            <div class="card">
-                <div class="card-header" id="heading{{$dato->grupo}}">
+        @php
+        if($existendatos == "sip"){
+            if($g != $dato->grupo){
+                $primeravez = "si";
+                $g = $dato->grupo;
+            }
+        }
+        @endphp
+        @if($primeravez =="si")
+        @php
+        $primeravez = "no";
+        @endphp
+            <div class="card" style="background-color: #ECE8E8;">
+                <div class="card-header" id="heading{{$dato->grupo}}" >
                     <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{$dato->grupo}}" aria-expanded="true" aria-controls="collapse{{$dato->grupo}}">
-                          Compra {{$dato->grupo}} - {{$dato->fecha}}
+                        <button class="btn"  data-toggle="collapse" data-target="#collapse{{$dato->grupo}}" aria-expanded="true" aria-controls="collapse{{$dato->grupo}}">
+                          Venta del {{$dato->fecha}}
                         </button>
                     </h5>
                 </div>
@@ -59,61 +73,10 @@
                 </div>
             </div>
             </div>
-        @else
-        @php
-            $g = $dato->grupo
-            @endphp
-        @endif
+            @endif
     @endforeach
+    @endif
     </div>
-    <style type="text/css">
-        .borrar:hover{
-            background-color: #c9302c;
-            border-color: #ac2925;
-        }
-
-        .actualizar:hover{
-            background-color: #6ED320; 
-        }
-
-    </style>
-
-    <script>
-
-        function cambioCantidad(input){                  
-            let _id = input.dataset.value;
-            let _cantidad = $(input).val();
-            $.ajax({
-                url: "http://localhost/urumarkets/public/pijazo",
-                dataType: "json",
-                data: {
-                    id: _id,
-                    cantidad: _cantidad
-                },
-                method: "GET",
-                success: function(res) {
-                    var total = res;
-                    $("#total"+_id).text(total);                    
-                }
-            }); 
-        }
-
-        function eliminarProducto(boton){
-            var _id = boton.id;
-            $.ajax({
-                url: "http://localhost/urumarkets/public/borrarTodo",
-                dataType: "json",
-                data: {
-                    id: _id
-                },
-                method: "GET",
-                success: function(res) {
-                     window.location = res.redirect;
-                }
-            }); 
-        }        
-
-    </script>
 
 </body>
 
